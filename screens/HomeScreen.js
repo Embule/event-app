@@ -11,7 +11,8 @@ import {
 } from 'react-native';
 
 import { MonoText } from '../components/StyledText';
-import Eventlist from '../components/Eventlist';
+import Events from '../components/Events';
+import Activities from '../components/Activities'
 
 export default function HomeScreen() {
   return (
@@ -34,7 +35,8 @@ export default function HomeScreen() {
           <Text style={styles.getStartedText}>
             Meininki
           </Text>
-          <Eventlist />
+          <Events />
+          <Activities />
         </View>
       </ScrollView>
       </View>
