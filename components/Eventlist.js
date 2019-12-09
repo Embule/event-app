@@ -38,7 +38,7 @@ export default class LinksScreen extends React.Component {
         />
         <FlatList
           data={this.state.data}
-          renderItem={({ item }) => <Text>{item.name.fi}</Text>}
+          renderItem={({ item }) => <Text>{item.name.fi}</Text>} keyExtractor={({id}, index) => id}
         />
       </ScrollView>
     );

@@ -32,11 +32,7 @@ export default function HomeScreen() {
 
         <View style={styles.getStartedContainer}>
           <Text style={styles.getStartedText}>
-<<<<<<< HEAD
-            WHattssaapp?!
-=======
             Meininki
->>>>>>> 3be4d9b05057b70781e6f76e2f1d511de5e3e088
           </Text>
           <Eventlist />
         </View>
