@@ -8,32 +8,30 @@ import { FlatList } from 'react-native-gesture-handler';
 
 export default class Weather extends React.Component {
 
-/*     constructor(props) {
+    constructor(props) {
         super(props);
         this.state = { data: [] };
-    } */
+    }
 
-/*     componentDidMount() {
+    componentDidMount() {
         this.fetchWeather();
-    } */
+    }
 
-/*     fetchWeather = () => {
+    fetchWeather = () => {
         return fetch(
             `http://api.openweathermap.org/data/2.5/weather?lat=60.1674&lon=24.9426&APPID=${API_KEY}&units=metric`, { headers: { Accept: "application/json" } })
             .then(res => res.json())
-            .then(data => this.setState({ data: data }))
+            .then(data => this.setState({ data: data.main.temp }))
             .catch(error => {
                 console.error(error);
             });
-    } */
+    }
     render() {
         return (
             <View style={styles.container} >
                 <View style={styles.weather}>
                     <MaterialCommunityIcons size={48} name="weather-sunny" color={'#fff'} />
-                    {/* <FlatList
-                        data={this.state.data}
-                        renderItem={({ item }) =>  */}<Text style={styles.tempText}>{/* {item.main.temp} */}Temp˚</Text>{/* } /> */}
+                    <Text style={styles.tempText}>{this.state.data}˚</Text>
                 </View>
             </View>
         );
@@ -44,7 +42,7 @@ export default class Weather extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#00000000',
+        backgroundColor: '#00000000', 
     },
     weather: {
         flex: 1,
