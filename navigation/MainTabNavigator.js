@@ -7,6 +7,7 @@ import HomeScreen from '../screens/HomeScreen';
 //import LinksScreen from '../screens/LinksScreen';
 import ExHomeScreen from '../screens/ExHomeScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import InfoScreen from '../screens/InfoScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -68,10 +69,27 @@ SettingsStack.navigationOptions = {
 
 SettingsStack.path = '';
 
+const InfoStack = createStackNavigator(
+  {
+    Info: InfoScreen,
+  },
+  config
+);
+
+InfoStack.navigationOptions = {
+  tabBarLabel: 'Info',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
+  ),
+};
+
+InfoStack.path = '';
+
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
   LinksStack,
   SettingsStack,
+  InfoStack
 });
 
 tabNavigator.path = '';
