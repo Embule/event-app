@@ -4,12 +4,12 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 //Hanna testausta button, jolla siirrytään HomeScreenistä EventScreeniin:
 // import { createBottomTabNavigator } from 'react-navigation';
 // import { Button, View, Text } from 'react-native';
-// import EventScreen from '../screens/EventScreen';
 //import { createAppContainer } from 'react-navigation';
 // import { createStackNavigator } from 'react-navigation-stack';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
+import EventScreen from '../screens/EventScreen';
 //import LinksScreen from '../screens/LinksScreen';
 import ExHomeScreen from '../screens/ExHomeScreen';
 import SettingsScreen from '../screens/SettingsScreen';
@@ -21,35 +21,14 @@ const config = Platform.select({
   default: {},
 });
 
-//Alkuperäinen:
 const HomeStack = createStackNavigator(
   {
     Home: HomeScreen,
     Events: EventScreen,
-    Info: InfoScreen
+    Info: InfoScreen,
   },
   config
 );
-
-//Hanna: kokeilu  siirtää Eventscreeniin buttonilla
-// const AppNavigator = createStackNavigator(
-//   {
-//     Home: HomeScreen,
-//     Events: EventScreen,
-//   },
-//   {
-//     initialRouteName: 'Home',
-//   }
-// );
-
-//Hanna: kokeilu 1 siirtää Eventscreeniin buttonilla
-// const HomeStack = createStackNavigator(
-//   {
-//     Home: { screen: HomeScreen },
-//     Events: { screen: EventScreen },
-//   },
-//   config
-// );
 
 HomeStack.navigationOptions = {
   tabBarLabel: 'Home',
@@ -67,37 +46,53 @@ HomeStack.navigationOptions = {
 
 HomeStack.path = '';
 
-const LinksStack = createStackNavigator(
+const EventStack = createStackNavigator(
   {
-    Links: ExHomeScreen,
+    Events: EventScreen,
   },
   config
 );
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'ExHomeScreen',
+EventStack.navigationOptions = {
+  tabBarLabel: 'Events',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
   ),
 };
 
-LinksStack.path = '';
+EventStack.path = '';
 
-const SettingsStack = createStackNavigator(
-  {
-    Settings: SettingsScreen,
-  },
-  config
-);
+// const LinksStack = createStackNavigator(
+//   {
+//     Links: ExHomeScreen,
+//   },
+//   config
+// );
 
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
-  ),
-};
+// LinksStack.navigationOptions = {
+//   tabBarLabel: 'ExHomeScreen',
+//   tabBarIcon: ({ focused }) => (
+//     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
+//   ),
+// };
 
-SettingsStack.path = '';
+// LinksStack.path = '';
+
+// const SettingsStack = createStackNavigator(
+//   {
+//     Settings: SettingsScreen,
+//   },
+//   config
+// );
+
+// SettingsStack.navigationOptions = {
+//   tabBarLabel: 'Settings',
+//   tabBarIcon: ({ focused }) => (
+//     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
+//   ),
+// };
+
+// SettingsStack.path = '';
 
 const InfoStack = createStackNavigator(
   {
@@ -117,8 +112,9 @@ InfoStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
-  LinksStack,
-  SettingsStack,
+  EventStack,
+  // LinksStack,
+  // SettingsStack,
   InfoStack
 });
 

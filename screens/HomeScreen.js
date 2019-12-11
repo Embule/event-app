@@ -25,61 +25,65 @@ export default class HomeScreen extends React.Component {
     }
     render() {
         const { isLoading } = this.state;
-        return (
-            <ScrollView style={styles.container}>
+        //const { navigate} = this.state;
+        // handleOnPress = () => {
+        //     this.props.navigation.navigate()
+            return (
+                <ScrollView style={styles.container}>
 
-                {/* Helsingin sää */}
+                    {/* Helsingin sää */}
 
-                <View style={styles.weather}>
-                    {isLoading ? null : (
-                        <View>
-                            <Weather />
-                        </View>
-                    )}
-                </View>
+                    <View style={styles.weather}>
+                        {isLoading ? null : (
+                            <View>
+                                <Weather />
+                            </View>
+                        )}
+                    </View>
 
-                {/* Buttonit eteenpäin */}
-                <View>
-                    <Text style={styles.getStartedText}>
-                        Meininki-app
+                    {/* Buttonit eteenpäin */}
+                    <View>
+                        <Text style={styles.getStartedText}>
+                            Meininki-app
                     </Text>
-                    <Button
-                        title="Press me"
-                        onPress={() => Alert.alert('Button pressed')}
-                    />
-                    <Button
-                        title="Go to the Events"
-                        onPress={() => navigate('EventScreen')}
-                    />
-                    <Events />
-                    <Activities />
-                    {/* <Routes /> */}
-                </View>
-            </ScrollView>
-        );
+                        <Button
+                            title="Press me"
+                            onPress={() => Alert.alert('Button pressed')}
+                        />
+                        <Button
+                            title="Go to the Info"
+                            //onPress={() => navigate('EventScreen')}
+                            onPress={() => {Alert.alert(JSON.stringify(this.props.navigation));this.props.navigation.navigate('Info')}}
+                        />
+                        <Events />
+                        <Activities />
+                        {/* <Routes /> */}
+                    </View>
+                </ScrollView>
+            );
+        }
     }
-}
 
-HomeScreen.navigationOptions = {
-    header: null,
-};
+    HomeScreen.navigationOptions = {
+        header: null,
+    };
 
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#0f802e',
-    },
-    weather: {
-        flex: 1,
-        alignItems: 'flex-end',
-        paddingTop: 50,
-        paddingRight: 25,
-    },
-    button: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        padding: 20,
-        marginTop: 80,
-        marginLeft: 30,
-        marginRight: 30,
-    }
-});
+    const styles = StyleSheet.create({
+        container: {
+            backgroundColor: '#0f802e',
+        },
+        weather: {
+            flex: 1,
+            alignItems: 'flex-end',
+            paddingTop: 50,
+            paddingRight: 25,
+        },
+        button: {
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            padding: 20,
+            marginTop: 80,
+            marginLeft: 30,
+            marginRight: 30,
+        }
+    });
