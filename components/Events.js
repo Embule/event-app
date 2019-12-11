@@ -38,10 +38,6 @@ export default class Events extends React.Component {
       return dateA - dateB
     });
 
-    const event = new Date(data.starting_day)
-    const time = event.toLocaleString('fi-FI')
-    if ( !time ) time === "Aloitusaikaa ei määritelty"
-
     return (
       <ScrollView>
         <Button
@@ -56,9 +52,23 @@ export default class Events extends React.Component {
         /> */}
         <FlatList
           const data={this.state.data}
-          renderItem={({ item }) => <Text>{item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day}</Text>} keyExtractor={({ id }, index) => id}
+          renderItem={({ item }) => <Text style={styles.events}>{item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day}</Text>} /* keyExtractor={({ id }, index) => id} */
         />
       </ScrollView>
     );
   }
 }
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#00000000', 
+    },
+    events: {
+        flex: 1,
+        color: 'white',
+    },
+    tempText: {
+        fontSize: 28,
+        color: '#fff'
+    },
+});

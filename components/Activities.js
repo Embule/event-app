@@ -47,7 +47,7 @@ export default class Activities extends React.Component {
           data={this.state.data}
           renderItem={({ item }) => (
             <Text>
-              {item.name.fi}, {time}
+              {item.name.fi}, {item.where_when_duration.where_and_when}
             </Text>
           )}
           keyExtractor={({ id }, index) => id}
