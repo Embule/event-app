@@ -12,7 +12,7 @@ import {
 
 import { MonoText } from '../components/StyledText';
 import Events from '../components/Events';
-import Activities from '../components/Activities'
+import Activities from '../components/Activities';
 
 export default function ExHomeScreen() {
   return (
