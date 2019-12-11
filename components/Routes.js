@@ -1,8 +1,5 @@
 import React from 'react'
 import { Router, Scene } from 'react-native-router-flux'
-import Home from '../screens/HomeScreen'
-//import Events from './Events'
-//import Activities from './Activities'
 import EventScreen from '../screens/EventScreen'
 import HomeScreen from '../screens/HomeScreen'
 import InfoScreen from '../screens/InfoScreen'
