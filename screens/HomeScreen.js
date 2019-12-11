@@ -1,22 +1,22 @@
 import React from 'react';
 import {
-  AppRegistry,
-  Image,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Button,
-  Text,
-  TouchableOpacity,
-  View,
-  Alert,
+    AppRegistry,
+    Image,
+    Platform,
+    ScrollView,
+    StyleSheet,
+    Button,
+    Text,
+    TouchableOpacity,
+    View,
+    Alert,
 } from 'react-native';
 
-import { MonoText } from '../components/StyledText';
 import Events from '../components/Events';
 import Activities from '../components/Activities'
 import EventScreen from '../screens/EventScreen';
 import { StackNavigator } from 'react-navigation';
+<<<<<<< HEAD
 
 export default function HomeScreen() {
   // const { navigate } = this.props.navigation;
@@ -61,6 +61,8 @@ export default function HomeScreen() {
 }
 
 // import { ScrollView, StyleSheet, Button, View, Text } from 'react-native';
+=======
+>>>>>>> e4a76ace2333def07e90d8c4f9f3ff6a3240bd43
 import Weather from '../components/Weather';
 
 
@@ -84,19 +86,21 @@ export default class HomeScreen extends React.Component {
                 </View>
 
                 {/* Buttonit eteenpäin */}
-                <View style={styles.button}>
+                <View>
+                    <Text style={styles.getStartedText}>
+                        Meininki-app
+                    </Text>
                     <Button
-                        onPress={() => {
-                            //Reitti
-                        }}
-                        title="Tapahtumat"
+                        title="Press me"
+                        onPress={() => Alert.alert('Button pressed')}
                     />
                     <Button
-                        onPress={() => {
-                            //Reitti
-                        }}
-                        title="Aktiviteetit"
+                        title="Go to the Events"
+                        onPress={() => navigate('EventScreen')}
                     />
+                    <Events />
+                    <Activities />
+                    {/* <Routes /> */}
                 </View>
             </ScrollView>
         );
