@@ -60,7 +60,7 @@ export default function HomeScreen() {
   );
 }
 
-import { ScrollView, StyleSheet, Button, View, Text } from 'react-native';
+// import { ScrollView, StyleSheet, Button, View, Text } from 'react-native';
 import Weather from '../components/Weather';
 
 
