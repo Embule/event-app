@@ -14,7 +14,6 @@ import {
 
 import Events from '../components/Events';
 import Activities from '../components/Activities'
-import EventScreen from '../screens/EventScreen';
 import { StackNavigator } from 'react-navigation';
 import Weather from '../components/Weather';
 
@@ -47,7 +46,7 @@ export default class HomeScreen extends React.Component {
                             Meininki-app
                     </Text>
                         <Button
-                            title="Press me"
+                            title="Go to the Activities"
                             onPress={() => Alert.alert('Button pressed')}
                         />
                         <Button

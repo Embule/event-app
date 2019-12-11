@@ -35,8 +35,6 @@ export default class Activities extends React.Component {
       var dateB = new Date(b.where_when_duration.where_and_when);
       return dateA - dateB;
     });
-    let time = new Date(data.where_and_when).toLocaleTimeString("fi-FI");
-    console.log(time);
     return (
       <ScrollView>
         <Button
@@ -49,7 +47,7 @@ export default class Activities extends React.Component {
           data={this.state.data}
           renderItem={({ item }) => (
             <Text>
-              {item.name.fi}, {time}
+              {item.name.fi}, {item.where_when_duration.where_and_when}
             </Text>
           )}
           keyExtractor={({ id }, index) => id}
