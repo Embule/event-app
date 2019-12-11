@@ -10,7 +10,7 @@ export default class Weather extends React.Component {
         super(props);
         this.state = { 
             temp: '',
-            weather: [],
+            weather: 'Clouds',
         };
     }
 
@@ -22,20 +22,25 @@ export default class Weather extends React.Component {
         return fetch(
             `http://api.openweathermap.org/data/2.5/weather?lat=60.1674&lon=24.9426&APPID=${API_KEY}&units=metric`, { headers: { Accept: "application/json" } })
             .then(res => res.json())
-            .then(data => this.setState({ temp: data.main.temp, weather: data.weather.main }))
+            .then(data => this.setState({ temp: data.main.temp, weather: data.weather[0].main }))
             .catch(error => {
                 console.error(error);
             });
     }
     render() {
         const temperature = Math.round(this.state.temp);
+        let weatherCond;
+        const todaysWeather = `${this.state.weather}`;
+        let condition = weatherConditions[todaysWeather] 
+        
+        if (!condition) weatherCond = weatherConditions['Clouds']
+        else weatherCond = condition
+        
         return (
             <View style={styles.container} >
                 <View style={styles.weather}>
-                    {/* Pitäisi hakea oikea sääikoni (this.state.weather) eikä kovakoodattu 'Clouds' */}
-                    <MaterialCommunityIcons size={48} name={weatherConditions['Clouds'].icon} color={'#fff'} /> 
+                    <MaterialCommunityIcons size={48} name={weatherCond.icon} color={'#fff'} /> 
                     <Text style={styles.tempText}>{temperature}˚</Text>
-                    <Text>Testi, tuleeko oikea data? {this.state.weather}</Text>
                 </View>
             </View>
         );
