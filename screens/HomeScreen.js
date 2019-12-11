@@ -51,13 +51,11 @@ export default class HomeScreen extends React.Component {
                             onPress={() => Alert.alert('Button pressed')}
                         />
                         <Button
-                            title="Go to the Info"
-                            //onPress={() => navigate('EventScreen')}
-                            onPress={() => {Alert.alert(JSON.stringify(this.props.navigation));this.props.navigation.navigate('Info')}}
+                            title="Go to the Events"
+                            onPress={() => {this.props.navigation.navigate('Events')}}
                         />
                         <Events />
                         <Activities />
-                        {/* <Routes /> */}
                     </View>
                 </ScrollView>
             );
