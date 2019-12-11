@@ -14,7 +14,6 @@ import {
 
 import Events from '../components/Events';
 import Activities from '../components/Activities'
-import EventScreen from '../screens/EventScreen';
 import { StackNavigator } from 'react-navigation';
 import Weather from '../components/Weather';
 

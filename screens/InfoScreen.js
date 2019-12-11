@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet, Button, View, Alert, TouchableOpacity } from 'react-native';
 import Actions from 'react-native-router-flux';
-import Routes from '../components/Routes'
 
 // const InfoScreen = () => {
 //   const goToEventScreen = () => {
@@ -39,7 +38,6 @@ export default class InfoScreen extends Component {
       </Text>
       <Button title="Vie omaan kalenteriin" onPress={() => Alert.alert('Tästä joskus vie omaan kalenteriin ehkä')}/>
       <Button title="Palaa listaan" onPress={() => {this.props.navigation.navigate('Events')}}/>
-      {/* <Button title="Palaa listaan" onPress={Actions.reset('EventScreen')}/> */}
       </View>
     );
   }
