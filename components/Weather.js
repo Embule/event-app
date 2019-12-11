@@ -15,7 +15,7 @@ export default class Weather extends React.Component {
     }
 
     componentDidMount() {
-        //this.fetchWeather();
+        this.fetchWeather();
     }
 
     fetchWeather = () => {
@@ -29,17 +29,18 @@ export default class Weather extends React.Component {
     }
     render() {
         const temperature = Math.round(this.state.temp);
-        let weather2;
-        const apu = `${this.state.weather}`;
-        let condition = weatherConditions[apu] 
-        if (!condition) weather2 = weatherConditions['Mist']
-        else weather2 = condition
+        let weatherCond;
+        const todaysWeather = `${this.state.weather}`;
+        let condition = weatherConditions[todaysWeather] 
+        
+        if (!condition) weatherCond = weatherConditions['Clouds']
+        else weatherCond = condition
+        
         return (
             <View style={styles.container} >
                 <View style={styles.weather}>
-                    <MaterialCommunityIcons size={48} name={weather2.icon} color={'#fff'} /> 
+                    <MaterialCommunityIcons size={48} name={weatherCond.icon} color={'#fff'} /> 
                     <Text style={styles.tempText}>{temperature}˚</Text>
-                    <Text>Testi: {apu}</Text> 
                 </View>
             </View>
         );
