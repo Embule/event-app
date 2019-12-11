@@ -35,6 +35,7 @@ export default class Weather extends React.Component {
                     {/* Pitäisi hakea oikea sääikoni (this.state.weather) eikä kovakoodattu 'Clouds' */}
                     <MaterialCommunityIcons size={48} name={weatherConditions['Clouds'].icon} color={'#fff'} /> 
                     <Text style={styles.tempText}>{temperature}˚</Text>
+                    <Text>Testi, tuleeko oikea data? {this.state.weather}</Text>
                 </View>
             </View>
         );
