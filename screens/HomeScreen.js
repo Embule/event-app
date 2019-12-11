@@ -1,20 +1,29 @@
 import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
 import {
+  AppRegistry,
   Image,
   Platform,
   ScrollView,
   StyleSheet,
+  Button,
   Text,
   TouchableOpacity,
   View,
+  Alert,
 } from 'react-native';
 
 import { MonoText } from '../components/StyledText';
 import Events from '../components/Events';
 import Activities from '../components/Activities'
+import EventScreen from '../screens/EventScreen';
+import { StackNavigator } from 'react-navigation';
 
 export default function HomeScreen() {
+  // const { navigate } = this.props.navigation;
+  // handleOnPress = () => {
+  //   this.props.navigation.navigate('EventScreen')
+  // }
   return (
     <View style={styles.container}>
       <ScrollView
@@ -33,13 +42,22 @@ export default function HomeScreen() {
 
         <View style={styles.getStartedContainer}>
           <Text style={styles.getStartedText}>
-            Meininki
+            Meininki-app
           </Text>
+          <Button
+            title="Press me"
+            onPress={() => Alert.alert('Button pressed')}
+          />
+          <Button
+            title="Go to the Events"
+            onPress={() => navigate('EventScreen')}
+          />
           <Events />
           <Activities />
+          {/* <Routes /> */}
         </View>
       </ScrollView>
-      </View>
+    </View>
   );
 }
 
