@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet, Button, View, Alert, TouchableOpacity } from 'react-native';
-// import Actions from 'react-native-router-flux';
+import Actions from 'react-native-router-flux';
+import Routes from '../components/Routes'
 
 // const InfoScreen = () => {
 //   const goToEventScreen = () => {
 //     Actions.eventscreen()
+//     this.props.navigation.push('SettingScreen');
 //   }
 //   return (
 //     <TouchableOpacity style = {{ margin: 128 }} onPress = {goToEventScreen}>
@@ -22,6 +24,7 @@ export default class InfoScreen extends Component {
   }
 
   render() {
+
     return (
       <View>
       <Text style={styles.baseText}>
@@ -35,7 +38,8 @@ export default class InfoScreen extends Component {
         <Text>Paikka</Text>
       </Text>
       <Button title="Vie omaan kalenteriin" onPress={() => Alert.alert('Tästä joskus vie omaan kalenteriin ehkä')}/>
-      {/* <Button title="Palaa listaan" onPress={() => Alert.alert('Tästä palaa joskus takaisin listanäkymään ehkä')}/> */}
+      <Button title="Palaa listaan" onPress={() => {this.props.navigation.navigate('Events')}}/>
+      {/* <Button title="Palaa listaan" onPress={Actions.reset('EventScreen')}/> */}
       </View>
     );
   }
