@@ -1,44 +1,41 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, Button, View, Alert, TouchableOpacity } from 'react-native';
+import { Text, StyleSheet, Button, ScrollView, Alert, TouchableOpacity, FlatList } from 'react-native';
 import Actions from 'react-native-router-flux';
 
-// const InfoScreen = () => {
-//   const goToEventScreen = () => {
-//     Actions.eventscreen()
-//     this.props.navigation.push('SettingScreen');
-//   }
-//   return (
-//     <TouchableOpacity style = {{ margin: 128 }} onPress = {goToEventScreen}>
-//          <Text>Palaa hakutuloksiin</Text>
-//       </TouchableOpacity>
-//   )
-// }
+const baseurl = "http://open-api.myhelsinki.fi/v1";
+
 export default class InfoScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      titleText: "Tapahtuma",
-      bodyText: 'Description text'
+      data: {
+        description: {intro: null}
+      }
     };
   }
-
+  componentDidMount() {
+    this.getEvent();
+  }
+  
+  getEvent = () => {
+    const id = this.props.navigation.getParam('id');
+    return fetch(baseurl + `/event/${encodeURIComponent(id)}`, 
+    { headers: { Accept: "application/json" } })
+      .then(res => res.json())
+      .then(data => this.setState({ data: data }))
+      .catch(error => {
+        console.error(error);
+      });
+  };
   render() {
-
+    let text = this.state.data.description.intro
+    if (!text ) text = "Haetaan"
     return (
-      <View>
-      <Text style={styles.baseText}>
-        <Text style={styles.titleText} onPress={this.onPressTitle}>
-          {this.state.titleText}{'\n'}{'\n'}
-        </Text>
-        <Text numberOfLines={5}>
-          {this.state.bodyText}{"\n"}
-        </Text>
-        <Text>Aika</Text>{"\n"}
-        <Text>Paikka</Text>
-      </Text>
+      <ScrollView>
+      <Text>{text}</Text>
       <Button title="Vie omaan kalenteriin" onPress={() => Alert.alert('Tästä joskus vie omaan kalenteriin ehkä')}/>
       <Button title="Palaa listaan" onPress={() => {this.props.navigation.navigate('Events')}}/>
-      </View>
+      </ScrollView>
     );
   }
 }

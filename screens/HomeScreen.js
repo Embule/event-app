@@ -17,16 +17,12 @@ import Activities from '../components/Activities'
 import { StackNavigator } from 'react-navigation';
 import Weather from '../components/Weather';
 
-
 export default class HomeScreen extends React.Component {
     state = {
         isLoading: false,
     }
     render() {
         const { isLoading } = this.state;
-        //const { navigate} = this.state;
-        // handleOnPress = () => {
-        //     this.props.navigation.navigate()
             return (
                 <ScrollView style={styles.container}>
 
@@ -46,14 +42,13 @@ export default class HomeScreen extends React.Component {
                             Meininki-app
                     </Text>
                         <Button
-                            title="Press me"
+                            title="Go to the Activities"
                             onPress={() => Alert.alert('Button pressed')}
                         />
                         <Button
                             title="Go to the Events"
                             onPress={() => {this.props.navigation.navigate('Events')}}
                         />
-                        <Events />
                         <Activities />
                     </View>
                 </ScrollView>
