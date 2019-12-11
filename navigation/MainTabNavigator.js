@@ -14,6 +14,7 @@ import HomeScreen from '../screens/HomeScreen';
 import ExHomeScreen from '../screens/ExHomeScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import InfoScreen from '../screens/InfoScreen';
+import EventScreen from '../screens/EventScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -24,6 +25,8 @@ const config = Platform.select({
 const HomeStack = createStackNavigator(
   {
     Home: HomeScreen,
+    Events: EventScreen,
+    Info: InfoScreen
   },
   config
 );
