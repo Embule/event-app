@@ -8,11 +8,8 @@ export default class EventScreen extends Component {
         return (
             <View>
                 <TouchableOpacity style={{ margin: 128 }} onPress={() => { this.props.navigation.navigate('Info') }}>
-                    <Text>This is Events</Text>
                     <Events />
                 </TouchableOpacity>
-                <Button title="Go to the Info" onPress={() => { this.props.navigation.navigate('Info') }}
-                />
             </View>
         )
     }
