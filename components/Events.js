@@ -20,7 +20,10 @@ export default class Events extends React.Component {
     super(props);
     this.state = { data: [] };
   }
-  //componentDidMount() {
+  componentDidMount() {
+  this.getEvents();
+  };
+
   getEvents = () => {
     return fetch(baseurl + /events/, { headers: { Accept: "application/json" } })
       .then(res => res.json())
@@ -29,8 +32,9 @@ export default class Events extends React.Component {
         console.error(error);
       });
   };
-  //};
+  
   render() {
+    
     const data = this.state.data
     .sort(function compare(a, b) {
       var dateA = new Date(a.event_dates.starting_day);
@@ -40,19 +44,19 @@ export default class Events extends React.Component {
 
     return (
       <ScrollView>
-        <Button
+{/*         <Button
           onPress={() => {
             this.getEvents();
           }}
           title="EVENTS"
-        />
+        /> */}
         {/* <Button
           title="EVENTS"
           onPress={() => navigate('Events', { name: 'Events' })}
         /> */}
         <FlatList
           const data={this.state.data}
-          renderItem={({ item }) => <Text style={styles.events}>{item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day}</Text>} /* keyExtractor={({ id }, index) => id} */
+          renderItem={({ item }) => <Text onPress={() => {Alert.alert('Testi ' + encodeURIComponent(item.id)); this.props.navigation.navigate('Info', {id:item.id})}} style={styles.events}>{item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day}</Text>} /* keyExtractor={({ id }, index) => id} */
         />
       </ScrollView>
     );
@@ -65,7 +69,7 @@ const styles = StyleSheet.create({
     },
     events: {
         flex: 1,
-        color: 'white',
+        color: 'black',
     },
     tempText: {
         fontSize: 28,

@@ -54,7 +54,6 @@ export default class HomeScreen extends React.Component {
                             title="Go to the Events"
                             onPress={() => {this.props.navigation.navigate('Events')}}
                         />
-                        <Events />
                         <Activities />
                     </View>
                 </ScrollView>
