@@ -20,6 +20,11 @@ export default class Events extends React.Component {
     super(props);
     this.state = { data: [] };
   }
+
+  componentDidMount() {
+  this.getEvents();
+  };
+
   getEvents = () => {
     return fetch(baseurl + /events/, { headers: { Accept: "application/json" } })
       .then(res => res.json())
@@ -28,8 +33,10 @@ export default class Events extends React.Component {
         console.error(error);
       });
   };
+  
+
+   
   render() {
-    this.getEvents();
     const data = this.state.data
       .sort(function compare(a, b) {
         var dateA = new Date(a.event_dates.starting_day);
@@ -41,26 +48,23 @@ export default class Events extends React.Component {
       <ScrollView>
         <FlatList
           const data={this.state.data}
-          renderItem={({ item }) => <Text
-            style={styles.events}>{item.name.fi},
-          {item.location.address.street_address},
-          {item.event_dates.starting_day}</Text>}
-        />
-      </ScrollView>
+          renderItem={({ item }) => <Text onPress={() => {Alert.alert('Testi ' + encodeURIComponent(item.id)); this.props.navigation.navigate('Info', {id:item.id})}} style={styles.events}>{item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day}</Text>} /* keyExtractor={({ id }, index) => id} */
+/>      
+</ScrollView>
     );
   }
 }
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#00000000',
-  },
-  events: {
-    flex: 1,
-    color: 'black',
-  },
-  tempText: {
-    fontSize: 28,
-    color: '#fff'
-  },
+    container: {
+        flex: 1,
+        backgroundColor: '#00000000', 
+    },
+    events: {
+        flex: 1,
+        color: 'black',
+    },
+    tempText: {
+        fontSize: 28,
+        color: '#fff'
+    },
 });
