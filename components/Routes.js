@@ -11,7 +11,6 @@ const Routes = () => (
     <Router>
         <Scene key="root">
             <Scene key="home" component={HomeScreen} title="Home" initial={true} />
-            {/* <Scene key="home" component={Home} title="Home" initial={true} /> */}
             <Scene key="events" component={EventScreen} title="Events" />
             <Scene key="info" component={InfoScreen} title="Info" />
             {/* <Scene key="events" component={ActivitiesScreen} title="Activities" /> */}

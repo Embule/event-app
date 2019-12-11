@@ -38,7 +38,7 @@ export default class InfoScreen extends Component {
         <Text>Paikka</Text>
       </Text>
       <Button title="Vie omaan kalenteriin" onPress={() => Alert.alert('Tästä joskus vie omaan kalenteriin ehkä')}/>
-      <Button title="Palaa listaan" onPress={() => {this.props.navigation.navigate('HomeScreen')}}/>
+      <Button title="Palaa listaan" onPress={() => {this.props.navigation.navigate('Events')}}/>
       {/* <Button title="Palaa listaan" onPress={Actions.reset('EventScreen')}/> */}
       </View>
     );

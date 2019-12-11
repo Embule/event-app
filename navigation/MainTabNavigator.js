@@ -14,7 +14,7 @@ import EventScreen from '../screens/EventScreen';
 import ExHomeScreen from '../screens/ExHomeScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import InfoScreen from '../screens/InfoScreen';
-import EventScreen from '../screens/EventScreen';
+
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -49,6 +49,8 @@ HomeStack.path = '';
 const EventStack = createStackNavigator(
   {
     Events: EventScreen,
+    Info: InfoScreen,
+    Home: HomeScreen
   },
   config
 );
@@ -97,6 +99,8 @@ EventStack.path = '';
 const InfoStack = createStackNavigator(
   {
     Info: InfoScreen,
+    Event: EventScreen,
+    Home: HomeScreen
   },
   config
 );

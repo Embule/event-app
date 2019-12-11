@@ -1,18 +1,23 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Events from '../components/Events'
-import { TouchableOpacity, Text } from 'react-native';
+import { TouchableOpacity, Text, View, Button } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
-const EventScreen = () => {
-    const goToHomeScreen = () => {
-        Actions.home()
-    }
+export default class EventScreen extends Component {
+//     const goToHomeScreen = () => {
+//         Actions.home()
+//     }
+
+render() {
     return (
-        <TouchableOpacity style={{ margin: 128 }} onPress={goToHomeScreen}>
+        <View>
+        <TouchableOpacity style={{ margin: 128 }} onPress={()=> {this.props.navigation.navigate('Info')}}>
             <Text>This is Events</Text>
             <Events />
-        </TouchableOpacity>
+        </TouchableOpacity>  
+        <Button title="Go to the Info" onPress={() => {this.props.navigation.navigate('Info')}}
+    />      
+</View>
     )
 }
-
-export default EventScreen
+}
