@@ -31,6 +31,14 @@ export default class Events extends React.Component {
   };
   //};
   render() {
+    const data = this.state.data
+    .sort(function compare(a, b) {
+      var dateA = new Date(a.event_dates.starting_day);
+      var dateB = new Date(b.event_dates.starting_day);
+      return dateA - dateB
+    });
+    let time = new Date(data.starting_day).toLocaleTimeString('fi-FI');
+    console.log(time)
     return (
       <ScrollView>
         <Button
@@ -44,8 +52,8 @@ export default class Events extends React.Component {
           onPress={() => navigate('Events', { name: 'Events' })}
         /> */}
         <FlatList
-          data={this.state.data}
-          renderItem={({ item }) => <Text>{item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day}</Text>} keyExtractor={({ id }, index) => id}
+          const data={this.state.data}
+          renderItem={({ item }) => <Text>{item.name.fi}, {item.location.address.street_address}, {time}</Text>} /* keyExtractor={({ id }, index) => id} */
         />
       </ScrollView>
     );
