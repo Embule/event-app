@@ -2,17 +2,6 @@ import React, { Component } from 'react';
 import { Text, StyleSheet, Button, View, Alert, TouchableOpacity } from 'react-native';
 import Actions from 'react-native-router-flux';
 
-// const InfoScreen = () => {
-//   const goToEventScreen = () => {
-//     Actions.eventscreen()
-//     this.props.navigation.push('SettingScreen');
-//   }
-//   return (
-//     <TouchableOpacity style = {{ margin: 128 }} onPress = {goToEventScreen}>
-//          <Text>Palaa hakutuloksiin</Text>
-//       </TouchableOpacity>
-//   )
-// }
 export default class InfoScreen extends Component {
   constructor(props) {
     super(props);
