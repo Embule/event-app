@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet, Button, View, Alert, TouchableOpacity } from 'react-native';
 import Actions from 'react-native-router-flux';
-import Routes from '../components/Routes'
 
 // const InfoScreen = () => {
 //   const goToEventScreen = () => {
