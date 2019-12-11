@@ -1,6 +1,12 @@
 import React from 'react';
 import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+//Hanna testausta button, jolla siirrytään HomeScreenistä EventScreeniin:
+// import { createBottomTabNavigator } from 'react-navigation';
+// import { Button, View, Text } from 'react-native';
+// import EventScreen from '../screens/EventScreen';
+//import { createAppContainer } from 'react-navigation';
+// import { createStackNavigator } from 'react-navigation-stack';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
@@ -14,12 +20,33 @@ const config = Platform.select({
   default: {},
 });
 
+//Alkuperäinen:
 const HomeStack = createStackNavigator(
   {
     Home: HomeScreen,
   },
   config
 );
+
+//Hanna: kokeilu  siirtää Eventscreeniin buttonilla
+// const AppNavigator = createStackNavigator(
+//   {
+//     Home: HomeScreen,
+//     Events: EventScreen,
+//   },
+//   {
+//     initialRouteName: 'Home',
+//   }
+// );
+
+//Hanna: kokeilu 1 siirtää Eventscreeniin buttonilla
+// const HomeStack = createStackNavigator(
+//   {
+//     Home: { screen: HomeScreen },
+//     Events: { screen: EventScreen },
+//   },
+//   config
+// );
 
 HomeStack.navigationOptions = {
   tabBarLabel: 'Home',

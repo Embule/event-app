@@ -8,6 +8,8 @@ import {
   Text
 } from "react-native";
 import { ExpoLinksView } from "@expo/samples";
+import { NavigationEvents } from "react-navigation";
+
 const baseurl = "http://open-api.myhelsinki.fi/v1";
 
 export default class Events extends React.Component {
@@ -18,6 +20,7 @@ export default class Events extends React.Component {
     super(props);
     this.state = { data: [] };
   }
+  //componentDidMount() {
   getEvents = () => {
     return fetch(baseurl + /events/, { headers: { Accept: "application/json" } })
       .then(res => res.json())
@@ -26,20 +29,24 @@ export default class Events extends React.Component {
         console.error(error);
       });
   };
-
+  //};
   render() {
     return (
       <ScrollView>
-         <Button
+        <Button
           onPress={() => {
             this.getEvents();
           }}
           title="EVENTS"
         />
+        {/* <Button
+          title="EVENTS"
+          onPress={() => navigate('Events', { name: 'Events' })}
+        /> */}
         <FlatList
           data={this.state.data}
-          renderItem={({ item }) => <Text>{item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day}</Text>} keyExtractor={({id}, index) => id}
-        /> 
+          renderItem={({ item }) => <Text>{item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day}</Text>} keyExtractor={({ id }, index) => id}
+        />
       </ScrollView>
     );
   }
