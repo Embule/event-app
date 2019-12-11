@@ -5,13 +5,14 @@ import Home from '../screens/HomeScreen'
 //import Events from './Events'
 //import Activities from './Activities'
 import EventScreen from '../screens/EventScreen'
+import HomeScreen from '../screens/HomeScreen'
 
 const Routes = () => (
     <Router>
         <Scene key="root">
-            {/* <Scene key="home" component={Home} title="Home" initial={true} /> */}
-            {/* <Scene key="about" component={About} title="About" /> */}
-            {/* <Scene key="events" component={Events} title="Events" /> */}
+            <Scene key="home" component={HomeScreen} title="Home" initial={true} />
+            <Scene key="info" component={InfoScreen} title="Info" />
+            <Scene key="settings" component={SettingsScreen} title="Settings" />
             <Scene key="events" component={EventScreen} title="Events" />
             {/* <Scene key="events" component={Activities} title="Activities" /> */}
             {/* <Scene key="events" component={ActivitiesScreen} title="Activities" /> */}

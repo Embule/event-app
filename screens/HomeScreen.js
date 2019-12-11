@@ -16,53 +16,6 @@ import Events from '../components/Events';
 import Activities from '../components/Activities'
 import EventScreen from '../screens/EventScreen';
 import { StackNavigator } from 'react-navigation';
-<<<<<<< HEAD
-
-export default function HomeScreen() {
-  // const { navigate } = this.props.navigation;
-  // handleOnPress = () => {
-  //   this.props.navigation.navigate('EventScreen')
-  // }
-  return (
-    <View style={styles.container}>
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainer}>
-        <View style={styles.welcomeContainer}>
-          <Image
-            source={
-              __DEV__
-                ? require('../assets/images/robot-dev.png')
-                : require('../assets/images/robot-prod.png')
-            }
-            style={styles.welcomeImage}
-          />
-        </View>
-
-        <View style={styles.getStartedContainer}>
-          <Text style={styles.getStartedText}>
-            Meininki-app
-          </Text>
-          <Button
-            title="Press me"
-            onPress={() => Alert.alert('Button pressed')}
-          />
-          <Button
-            title="Go to the Events"
-            onPress={() => navigate('EventScreen')}
-          />
-          <Events />
-          <Activities />
-          {/* <Routes /> */}
-        </View>
-      </ScrollView>
-    </View>
-  );
-}
-
-// import { ScrollView, StyleSheet, Button, View, Text } from 'react-native';
-=======
->>>>>>> e4a76ace2333def07e90d8c4f9f3ff6a3240bd43
 import Weather from '../components/Weather';
 
 
