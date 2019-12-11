@@ -9,4 +9,5 @@ npm-debug.*
 *.orig.*
 web-build/
 web-report/
+utils/WeatherAPI.js 
 package-lock.json
