@@ -4,11 +4,12 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import EventScreen from '../screens/EventScreen';
+import ActivitiesScreen from '../screens/ActivitiesScreen';
 //import LinksScreen from '../screens/LinksScreen';
 import ExHomeScreen from '../screens/ExHomeScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import InfoScreen from '../screens/InfoScreen';
-import ActivitiesScreen from '../screens/ActivitiesScreen';
+import ActivityScreen from '../screens/ActivityScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -21,6 +22,7 @@ const HomeStack = createStackNavigator(
     Events: EventScreen,
     Activities: ActivitiesScreen,
     Info: InfoScreen,
+    Activity: ActivityScreen,
   },
   config
 );
@@ -70,11 +72,46 @@ const ActivitiesStack = createStackNavigator(
 ActivitiesStack.navigationOptions = {
   tabBarLabel: 'Activities',
   tabBarIcon: ({ focused }) => (
-    <tabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
   )
 };
 
 ActivitiesStack.path = '';
+
+const ActivityStack = createStackNavigator(
+  {
+    Activity: ActivityScreen,
+    Home: HomeScreen
+  },
+  config
+);
+
+ActivityStack.navigationOptions = {
+  tabBarLabel: 'Activity',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
+  )
+};
+
+ActivityStack.path = '';
+
+const InfoStack = createStackNavigator(
+  {
+    Info: InfoScreen,
+    Event: EventScreen,
+    Home: HomeScreen
+  },
+  config
+);
+
+InfoStack.navigationOptions = {
+  tabBarLabel: 'Info',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
+  ),
+};
+
+InfoStack.path = '';
 
 // const LinksStack = createStackNavigator(
 //   {
@@ -108,30 +145,14 @@ ActivitiesStack.path = '';
 
 // SettingsStack.path = '';
 
-const InfoStack = createStackNavigator(
-  {
-    Info: InfoScreen,
-    Event: EventScreen,
-    Home: HomeScreen
-  },
-  config
-);
-
-InfoStack.navigationOptions = {
-  tabBarLabel: 'Info',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
-  ),
-};
-
-InfoStack.path = '';
-
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
   EventStack,
+  ActivitiesStack,
   // LinksStack,
   // SettingsStack,
-  InfoStack
+  InfoStack,
+  ActivityStack
 });
 
 tabNavigator.path = '';

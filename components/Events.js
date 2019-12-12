@@ -95,18 +95,20 @@ export default class Events extends React.Component {
         var dateB = new Date(b.event_dates.starting_day);
         return dateA - dateB
       });
-      
+
     return (
       <ScrollView>
         <SearchBar placeholder="Etsi..." lightTheme onChangeText={this.handleSearch} />
         <FlatList
           data={this.state.data}
-          renderItem={({ item }) => <Text onPress={() => { this.props.navigation.navigate('Info', { id: item.id }) }} style={styles.events}>{item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day}</Text>} /* keyExtractor={({ id }, index) => id} */
-        />
+          renderItem={({ item }) => <Text onPress={() => { Alert.alert('Testi ' + encodeURIComponent(item.id)); this.props.navigation.navigate('Info', { id: item.id }) }} style={styles.events}> {item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day}</Text>} /* keyExtractor={({ id }, index) => id} */
+          onEndReached={this.onScrollHandler}
+          onEndThreshold={0} />
       </ScrollView>
     );
   }
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
