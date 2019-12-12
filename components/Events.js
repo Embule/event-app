@@ -80,24 +80,25 @@ export default class Events extends React.Component {
 
   }
 
-render() {
-  const data = this.state.data
-    .sort(function compare(a, b) {
-      var dateA = new Date(a.event_dates.starting_day);
-      var dateB = new Date(b.event_dates.starting_day);
-      return dateA - dateB
-    });
+  render() {
+    const data = this.state.data
+      .sort(function compare(a, b) {
+        var dateA = new Date(a.event_dates.starting_day);
+        var dateB = new Date(b.event_dates.starting_day);
+        return dateA - dateB
+      });
 
-  return (
-    <ScrollView>
-      <FlatList
-        data={this.state.data}
-        renderItem={({ item }) => <Text onPress={() => { this.props.navigation.navigate('Info', {id: item.id}) }} style={styles.events}> {item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day}</Text>} /* keyExtractor={({ id }, index) => id} */
-        onEndReached={this.onScrollHandler}
-        onEndThreshold={0} />
-    </ScrollView>
-  );
-}}
+    return (
+      <ScrollView>
+        <FlatList
+          data={this.state.data}
+          renderItem={({ item }) => <Text onPress={() => { Alert.alert('Testi ' + encodeURIComponent(item.id)); this.props.navigation.navigate('Info', { id: item.id }) }} style={styles.events}> {item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day}</Text>} /* keyExtractor={({ id }, index) => id} */
+          onEndReached={this.onScrollHandler}
+          onEndThreshold={0} />
+      </ScrollView>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
