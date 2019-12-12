@@ -8,7 +8,7 @@ export default class EventScreen extends Component {
 render() {
     return (
         <View>
-        <TouchableOpacity style={{ margin: 128 }} >
+        <TouchableOpacity style={{ margin: 12 }} >
             <Text>This is Events</Text>
             <Events {...this.props}/>
         </TouchableOpacity>      
