@@ -81,6 +81,7 @@ export default class Events extends React.Component {
 
   }
 
+
 render() {
   const data = this.state.data
     .sort(function compare(a, b) {
@@ -91,16 +92,17 @@ render() {
       return dateA - dateB
     });
 
-  return (
-    <ScrollView>
-      <FlatList
-        data={this.state.data}
-        renderItem={({ item }) => <Text onPress={() => { this.props.navigation.navigate('Info', {id: item.id}) }} style={styles.events}> {item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day}</Text>} /* keyExtractor={({ id }, index) => id} */
-        onEndReached={this.onScrollHandler}
-        onEndThreshold={0} />
-    </ScrollView>
-  );
-}}
+    return (
+      <ScrollView>
+        <FlatList
+          data={this.state.data}
+          renderItem={({ item }) => <Text onPress={() => { this.props.navigation.navigate('Info', { id: item.id }) }} style={styles.events}> {item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day}</Text>} /* keyExtractor={({ id }, index) => id} */
+          onEndReached={this.onScrollHandler}
+          onEndThreshold={0} />
+      </ScrollView>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
