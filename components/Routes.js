@@ -5,6 +5,7 @@ import EventScreen from '../screens/EventScreen'
 import ActivitiesScreen from '../screens/ActivitiesScreen'
 import InfoScreen from '../screens/InfoScreen'
 import ActivityScreen from '../screens/ActivityScreen'
+import AboutScreen from '../screens/AboutScreen'
 
 const Routes = () => (
     <Router>
@@ -13,7 +14,8 @@ const Routes = () => (
             <Scene key="events" component={EventScreen} title="Events" />
             <Scene key="activities" component={ActivitiesScreen} title="Activities" />
             <Scene key="info" component={InfoScreen} title="Info" />
-            <Scene key="activity" component={ActivityScreen} title="Activity"></Scene>
+            <Scene key="activity" component={ActivityScreen} title="Activity" />
+            <Scene key="about" component={AboutScreen} title="About" />
         </Scene>
     </Router>
 )

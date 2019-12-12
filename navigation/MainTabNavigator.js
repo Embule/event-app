@@ -5,11 +5,12 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import EventScreen from '../screens/EventScreen';
 import ActivitiesScreen from '../screens/ActivitiesScreen';
-//import LinksScreen from '../screens/LinksScreen';
-import ExHomeScreen from '../screens/ExHomeScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+// import LinksScreen from '../screens/LinksScreen';
+//import ExHomeScreen from '../screens/ExHomeScreen';
+// import SettingsScreen from '../screens/SettingsScreen';
 import InfoScreen from '../screens/InfoScreen';
 import ActivityScreen from '../screens/ActivityScreen';
+import AboutScreen from '../screens/AboutScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -64,6 +65,7 @@ EventStack.path = '';
 const ActivitiesStack = createStackNavigator(
   {
     Activities: ActivitiesScreen,
+    Activity: ActivityScreen,
     Home: HomeScreen
   },
   config
@@ -81,6 +83,7 @@ ActivitiesStack.path = '';
 const ActivityStack = createStackNavigator(
   {
     Activity: ActivityScreen,
+    Activities: ActivitiesScreen,
     Home: HomeScreen
   },
   config
@@ -107,11 +110,27 @@ const InfoStack = createStackNavigator(
 InfoStack.navigationOptions = {
   tabBarLabel: 'Info',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-link'} />
   ),
 };
 
 InfoStack.path = '';
+
+const AboutStack = createStackNavigator(
+  {
+    About: AboutScreen,
+  },
+  config
+);
+
+AboutStack.navigationOptions = {
+  tabBarLabel: 'About',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
+  ),
+};
+
+AboutStack.path = '';
 
 // const LinksStack = createStackNavigator(
 //   {
@@ -149,10 +168,9 @@ const tabNavigator = createBottomTabNavigator({
   HomeStack,
   EventStack,
   ActivitiesStack,
+  AboutStack,
   // LinksStack,
   // SettingsStack,
-  InfoStack,
-  ActivityStack
 });
 
 tabNavigator.path = '';
