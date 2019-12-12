@@ -39,7 +39,7 @@ export default class Events extends React.Component {
       .then(data => this.setState({
         isLoading: false,
         page: 0,
-        data: data.data
+        data: data.data.slice(0, 10)
       }, function () {
         this.addRecords(0);
       }))

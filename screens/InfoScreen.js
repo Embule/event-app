@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, Button, ScrollView, Alert, TouchableOpacity, FlatList } from 'react-native';
+import { Link, Text, StyleSheet, Button, ScrollView, Alert, TouchableOpacity, FlatList } from 'react-native';
 // import Actions from 'react-native-router-flux';
 
 const baseurl = "http://open-api.myhelsinki.fi/v1";
@@ -9,7 +9,10 @@ export default class InfoScreen extends Component {
     super(props);
     this.state = {
       data: {
-        description: { intro: null }
+        description: { intro: null },
+        name: '',
+        location: { address: '' },
+        event_dates: {starting_day: '', ending_day: '' }
       }
     };
   }
@@ -30,12 +33,23 @@ export default class InfoScreen extends Component {
   };
   render() {
     let text = this.state.data.description.intro
+    let nimi = this.state.data.name.fi
+    let osoite = this.state.data.location.address.street_address
+    let posti = this.state.data.location.address.postal_code
+    let kaupunki = this.state.data.location.address.locality
+    let alkupaiva = this.state.data.event_dates.starting_day
+    let loppupaiva = this.state.data.event_dates.ending_day
+    // let addressi = this.state.data.location.address.street_address
     if (!text) text = "Haetaan"
     return (
       <ScrollView>
+        <Text>{nimi}</Text>
         <Text>{text}</Text>
+        <Text>{osoite}, {posti}, {kaupunki}</Text>
+        <Text>Tapahtuma alkaa:{alkupaiva}</Text>
+        <Text>Tapahtuma loppuu:{loppupaiva}</Text>
+        {/* <Text>{addressi}</Text> */}
         <Button title="Vie omaan kalenteriin" onPress={() => Alert.alert('Tästä joskus vie omaan kalenteriin ehkä')} />
-        <Button title="Palaa listaan" onPress={() => { this.props.navigation.navigate('Events') }} />
       </ScrollView>
     );
   }
