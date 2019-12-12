@@ -84,8 +84,8 @@ export default class Events extends React.Component {
       <ScrollView>
         <SearchBar placeholder="Etsi..." lightTheme onChangeText={this.handleSearch} />
         <FlatList
-          const data={this.state.data}
-          renderItem={({ item }) => <Text onPress={() => { Alert.alert('Testi ' + encodeURIComponent(item.id)); this.props.navigation.navigate('Info', { id: item.id }) }} style={styles.events}>{item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day}</Text>} /* keyExtractor={({ id }, index) => id} */
+          data={this.state.data}
+          renderItem={({ item }) => <Text onPress={() => { this.props.navigation.navigate('Info', { id: item.id }) }} style={styles.events}>{item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day}</Text>} /* keyExtractor={({ id }, index) => id} */
         />
       </ScrollView>
     );
