@@ -7,6 +7,7 @@ import {
   FlatList,
   Text
 } from "react-native";
+import moment from 'moment';
 import { ExpoLinksView } from "@expo/samples";
 import { NavigationEvents } from "react-navigation";
 
@@ -80,13 +81,16 @@ export default class Events extends React.Component {
 
   }
 
-  render() {
-    const data = this.state.data
-      .sort(function compare(a, b) {
-        var dateA = new Date(a.event_dates.starting_day);
-        var dateB = new Date(b.event_dates.starting_day);
-        return dateA - dateB
-      });
+
+render() {
+  const data = this.state.data
+    .sort(function compare(a, b) {
+      var dateA = new Date(a.event_dates.starting_day);
+      // let momentDateA = moment(dateA).format('DD.MM.YYYY')
+      var dateB = new Date(b.event_dates.starting_day);
+      // let momentDateB = moment(dateB).format('DD.MM.YYYY')
+      return dateA - dateB
+    });
 
     return (
       <ScrollView>
