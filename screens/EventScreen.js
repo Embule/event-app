@@ -8,7 +8,7 @@ export default class EventScreen extends Component {
         return (
             <View>
                 <TouchableOpacity>
-                    <Events {...this.props} />
+                    <Events {...this.props}/>
                 </TouchableOpacity>
             </View>
         )

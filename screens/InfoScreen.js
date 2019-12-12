@@ -30,7 +30,7 @@ export default class InfoScreen extends Component {
   };
   render() {
     let text = this.state.data.description.intro
-    if (!text) text = "Haetaan"
+    if (!text) text = "Haetaan..."
     return (
       <ScrollView>
         <Text>{text}</Text>

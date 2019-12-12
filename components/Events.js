@@ -48,18 +48,6 @@ export default class Events extends React.Component {
       });
   };
 
-  // let time;
-  // const event = this.state.data.event_dates.starting_day;
-  // if (event === null ) time = "Aikaa ei määritelty"
-  // else time = event.toLocalString('fi-FI')
-  // console.log(time)
-
-  // const tiedot = this.state.data;
-  // let time;
-  // if (tiedot.event_dates.starting_day != null ) time = tiedot.event_dates.starting_day.toLocalString('fi-FI')
-  // else time = "Aikaa ei määritelty."
-  // console.log(time);
-
   addRecords = (page) => {
     const newRecords = []
     for (var i = page * 12, il = i + 12; i < il && i <
@@ -87,12 +75,14 @@ render() {
       var dateB = new Date(b.event_dates.starting_day);
       return dateA - dateB
     });
-
+  
+  console.log('Testi');
+  
   return (
     <ScrollView>
       <FlatList
         data={this.state.data}
-        renderItem={({ item }) => <Text onPress={() => { this.props.navigation.navigate('Info', {id: item.id}) }} style={styles.events}> {item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day}</Text>} /* keyExtractor={({ id }, index) => id} */
+        renderItem={({ item }) => <Text onPress={() => { this.props.navigation.navigate('Info', {id: item.id}) }} style={styles.events}> {item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day === null ? 'Aikaa ei ole määritelty' : item.event_dates.starting_day.toLocaleString()}</Text>} keyExtractor={({ id }, index) => id.id}
         onEndReached={this.onScrollHandler}
         onEndThreshold={0} />
     </ScrollView>

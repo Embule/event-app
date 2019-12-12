@@ -2,17 +2,19 @@ import React from 'react';
 import {
     AppRegistry,
     Image,
+    ImageBackground,
     Platform,
     ScrollView,
     StyleSheet,
-    Button,
     Text,
+    Button,
     TouchableOpacity,
     View,
     Alert,
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import Weather from '../components/Weather';
+
 
 export default class HomeScreen extends React.Component {
     state = {
@@ -21,10 +23,9 @@ export default class HomeScreen extends React.Component {
     render() {
         const { isLoading } = this.state;
         return (
-            <ScrollView style={styles.container}>
-
-                {/* Helsingin sää */}
-
+                <ImageBackground 
+                style={{flex: 1}} source={require('./tori.jpg')} >
+                <ScrollView>
                 <View style={styles.weather}>
                     {isLoading ? null : (
                         <View>
@@ -32,12 +33,7 @@ export default class HomeScreen extends React.Component {
                         </View>
                     )}
                 </View>
-
-                {/* Buttonit eteenpäin */}
-                <View>
-                    <Text style={styles.getStartedText}>
-                        Meininki-app
-                    </Text>
+                <View style={styles.Button}>
                     <Button
                         title="Go to the Activities"
                         onPress={() => { this.props.navigation.navigate('Activities') }}
@@ -48,6 +44,7 @@ export default class HomeScreen extends React.Component {
                     />
                 </View>
             </ScrollView>
+        </ImageBackground>
         );
     }
 }
@@ -58,7 +55,6 @@ HomeScreen.navigationOptions = {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#0f802e',
     },
     weather: {
         flex: 1,
@@ -66,12 +62,9 @@ const styles = StyleSheet.create({
         paddingTop: 50,
         paddingRight: 25,
     },
-    button: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        padding: 20,
-        marginTop: 80,
-        marginLeft: 30,
-        marginRight: 30,
+    Button: {
+        flex: 1,
+        margin: 100,
+        color: 'green',
     }
 });
