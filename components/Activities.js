@@ -8,6 +8,7 @@ import {
   Text
 } from "react-native";
 import { ExpoLinksView } from "@expo/samples";
+
 const baseurl = "http://open-api.myhelsinki.fi/v1";
 
 export default class Activities extends React.Component {
@@ -18,6 +19,11 @@ export default class Activities extends React.Component {
     super(props);
     this.state = { data: [] };
   }
+
+  componentDidMount() {
+    this.getActivities();
+  };
+
   getActivities = () => {
     return fetch(baseurl + /activities/, {
       headers: { Accept: "application/json" }
@@ -37,20 +43,17 @@ export default class Activities extends React.Component {
     });
     return (
       <ScrollView>
-        <Button
-          onPress={() => {
-            this.getActivities();
-          }}
-          title="ACTIVITIES"
-        />
         <FlatList
           data={this.state.data}
-          renderItem={({ item }) => (
-            <Text>
+          renderItem={({ item }) =>
+            <Text onPress={() => {
+              Alert.alert('Testi ' + encodeURIComponent(item.id));
+              this.props.navigation.navigate('Activity', { id: item.id })
+            }}>
               {item.name.fi}, {item.where_when_duration.where_and_when}
             </Text>
-          )}
-          keyExtractor={({ id }, index) => id}
+          }
+          // keyExtractor={({ id }, index) => id}
         />
       </ScrollView>
     );

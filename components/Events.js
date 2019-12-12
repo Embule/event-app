@@ -29,12 +29,16 @@ export default class Events extends React.Component {
       fullData: [] //kaikki data (ei vain ikkunassa näkyvä)
     };
   }
+
   componentDidMount() {
     this.getEvents();
   };
 
+
   getEvents = () => {
-    return fetch(baseurl + /events/, { headers: { Accept: "application/json" } })
+    return fetch(baseurl + /events/, {
+      headers: { Accept: "application/json" }
+    })
       .then(res => res.json())
       .then(data => this.setState({
         isLoading: false,
@@ -47,6 +51,18 @@ export default class Events extends React.Component {
         console.error(error);
       });
   };
+
+  // let time;
+  // const event = this.state.data.event_dates.starting_day;
+  // if (event === null ) time = "Aikaa ei määritelty"
+  // else time = event.toLocalString('fi-FI')
+  // console.log(time)
+
+  // const tiedot = this.state.data;
+  // let time;
+  // if (tiedot.event_dates.starting_day != null ) time = tiedot.event_dates.starting_day.toLocalString('fi-FI')
+  // else time = "Aikaa ei määritelty."
+  // console.log(time);
 
   addRecords = (page) => {
     const newRecords = []
@@ -79,7 +95,7 @@ export default class Events extends React.Component {
         var dateB = new Date(b.event_dates.starting_day);
         return dateA - dateB
       });
-
+      
     return (
       <ScrollView>
         <SearchBar placeholder="Etsi..." lightTheme onChangeText={this.handleSearch} />
@@ -105,4 +121,3 @@ const styles = StyleSheet.create({
     color: '#fff'
   },
 });
-
