@@ -26,7 +26,7 @@ export default class ActivityScreen extends Component {
             });
     };
     render() {
-        let text = this.state.data.description.intro
+        let text = this.state.data.description.body
         if (!text) text = "Haetaan"
         return (
             <ScrollView>
