@@ -47,13 +47,12 @@ export default class Activities extends React.Component {
           data={this.state.data}
           renderItem={({ item }) =>
             <Text onPress={() => {
-              Alert.alert('Testi ' + encodeURIComponent(item.id));
               this.props.navigation.navigate('Activity', { id: item.id })
             }}>
               {item.name.fi}, {item.where_when_duration.where_and_when}
             </Text>
           }
-          // keyExtractor={({ id }, index) => id}
+        // keyExtractor={({ id }, index) => id}
         />
       </ScrollView>
     );
