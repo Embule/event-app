@@ -35,7 +35,7 @@ export default class Events extends React.Component {
       .then(data => this.setState({
         isLoading: false,
         page: 0,
-        data: data.data
+        data: data.data.slice(0,10)
       }, function () {
         this.addRecords(0);
       }))
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   },
   events: {
     flex: 1,
-    color: 'white',
+    color: 'black',
   },
   tempText: {
     fontSize: 28,
