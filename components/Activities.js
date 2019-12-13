@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'rgba(26, 35, 126, 0.8)',
     marginTop: 10,
-    marginHorizontal: 5,
+    marginHorizontal: 50,
     marginBottom: 10,
     padding: 5,
     borderRadius: 10,
@@ -179,12 +179,3 @@ Text: {
   color: 'white',
 }
 });
-
-
-/* return (
-  <TouchableOpacity onPress={() => {
-    this.props.navigation.navigate('Activity', { id: item.id })
-  }}>
-    <FlatListItem item={item}></FlatListItem>
-  </TouchableOpacity>
-) */
