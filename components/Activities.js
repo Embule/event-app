@@ -8,6 +8,7 @@ import {
   Image
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+//import Images from './HelsinkiImages';
 
 const baseurl = "http://open-api.myhelsinki.fi/v1";
 
@@ -16,11 +17,12 @@ class FlatListItem extends React.Component {
   render() {
     //let image = this.props.item.description.images[0].url;
     //console.log(image);
+    // { uri: 'https://facebook.github.io/react-native/img/tiny_logo.png' } -->toimii testikuvana
     return (
       <View style={styles.container}>
         <View style={styles.imagecontainer}>
           <Image style={styles.images}
-            source={{ uri: 'https://facebook.github.io/react-native/img/tiny_logo.png' }}>
+            source={require('../assets/images/helsinki9.jpg')}>
           </Image>
         </View>
         <View>
@@ -41,7 +43,6 @@ export default class Activities extends React.Component {
     super(props);
     this.state = {
       data: [],
-      testimage: ''
     };
   }
 
@@ -69,7 +70,7 @@ export default class Activities extends React.Component {
     });
 
     return (
-      <ScrollView>
+      <View>
         <FlatList
           data={this.state.data}
           renderItem={({ item }) => {
@@ -84,7 +85,7 @@ export default class Activities extends React.Component {
           }
           keyExtractor={({ id }, index) => id}
         />
-      </ScrollView>
+      </View>
     );
   }
 }
@@ -100,8 +101,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   images: {
-    width: 100,
-    height: 100,
+    flex: 1,
+    height: 120,
   },
   header: {
     flex: 1,
