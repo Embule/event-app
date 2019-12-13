@@ -4,6 +4,7 @@ import {
   StyleSheet,
   FlatList,
   Text,
+  TextInput,
   View,
   Image,
   Alert,
@@ -11,6 +12,7 @@ import {
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SearchBar } from 'react-native-elements';
 import _ from 'lodash';
+//import Images from './HelsinkiImages';
 
 const baseurl = "http://open-api.myhelsinki.fi/v1";
 
@@ -26,17 +28,21 @@ class FlatListItem extends React.Component {
   render() {
     //let image = this.props.item.description.images[0].url;
     //console.log(image);
+    // { uri: 'https://facebook.github.io/react-native/img/tiny_logo.png' } -->toimii testikuvana
     return (
       <View style={styles.container}>
         <View style={styles.imagecontainer}>
           <Image style={styles.images}
-            source={{ uri: 'https://facebook.github.io/react-native/img/tiny_logo.png' }}>
+            source={require('../assets/images/helsinki9.jpg')}>
           </Image>
         </View>
         <View>
           <Text style={styles.header}>{this.props.item.name.fi}</Text>
           <Text style={styles.timeplace}>{this.props.item.where_when_duration.where_and_when}</Text>
         </View>
+        <TouchableOpacity style={styles.Button} onPress={() => {
+          this.props.navigation.navigate('Activity', { id: this.props.item.id })
+        }}><Text style={styles.Text}>Lue lisää...</Text></TouchableOpacity>
       </View>
     )
   }
@@ -53,7 +59,6 @@ export default class Activities extends React.Component {
       isLoading: true,
       page: 0,
       data: [],
-      testimage: ''
     };
   }
 
@@ -70,7 +75,7 @@ export default class Activities extends React.Component {
         isLoading: false,
         page: 0,
         data: data.data.slice(0, 12)
-      }, function() {
+      }, function () {
         this.addRecords(0);
       }
       ))
@@ -113,6 +118,7 @@ export default class Activities extends React.Component {
     });
 
     return (
+
       <ScrollView onScroll={({ nativeEvent }) => {
         if (isCloseToBottom(nativeEvent)) {
           this.onScrollHandler();
@@ -124,14 +130,10 @@ export default class Activities extends React.Component {
           data={this.state.data}
           renderItem={({ item }) => {
             return (
-              <TouchableOpacity onPress={() => {
-                this.props.navigation.navigate('Activity', { id: item.id })
-              }}>
-                <FlatListItem item={item}></FlatListItem>
-              </TouchableOpacity>
+              <FlatListItem item={item} {...this.props}></FlatListItem>
             )
-          }
-          }
+        }
+        }
           keyExtractor={({ id }, index) => id}
         />
       </ScrollView>
@@ -150,8 +152,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   images: {
-    width: 100,
-    height: 100,
+    flex: 1,
+    height: 120,
   },
   header: {
     flex: 1,
@@ -162,5 +164,19 @@ const styles = StyleSheet.create({
     fontStyle: "italic",
     paddingLeft: 5,
     paddingRight: 5,
-  }
+  },
+  Button: {
+    alignItems: 'center',
+    backgroundColor: 'rgba(26, 35, 126, 0.8)',
+    marginTop: 10,
+    marginHorizontal: 50,
+    marginBottom: 10,
+    padding: 5,
+    borderRadius: 10,
+},
+Text: {
+  fontSize: 16,
+  fontWeight: 'bold',
+  color: 'white',
+}
 });

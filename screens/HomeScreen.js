@@ -21,9 +21,15 @@ export default class HomeScreen extends React.Component {
     render() {
         const { isLoading } = this.state;
         return (
-            <ImageBackground
-                style={{ flex: 1 }} source={require('./tori.jpg')} >
+                <ImageBackground 
+                style={{flex: 1}} source={require('../assets/images/tori.jpg')} >
                 <ScrollView>
+                    <View style={styles.icons}>
+                    <View style={styles.about}>
+                        <TouchableOpacity onPress={() => { this.props.navigation.navigate('About') }}>
+                            <About />
+                        </TouchableOpacity>
+                    </View>
                     <View style={styles.weather}>
                         {isLoading ? null : (
                             <View>
@@ -31,19 +37,7 @@ export default class HomeScreen extends React.Component {
                             </View>
                         )}
                     </View>
-                    <View style={styles.about}>
-                        <TouchableOpacity>
-                        <About onPress={() => { this.props.navigation.navigate('About') }}/>
-                        </TouchableOpacity>
                     </View>
-
-                    {/* <View style={styles.iconContainer}>
-                        <View>
-                            <Weather />
-                            <About />
-                        </View>
-
-                    </View> */}
 
                     <View style={styles.container}>
                         <TouchableOpacity
@@ -71,26 +65,27 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
     },
+    icons: {
+        flex: 1,
+        flexDirection: "row"
+    },
     weather: {
         flex: 1,
         alignItems: 'flex-end',
-        paddingTop: 50,
+        paddingTop: 42,
         paddingRight: 25,
     },
     about: {
+        flex: 1,
         alignItems: 'flex-start',
         paddingTop: 50,
         paddingLeft: 25,
-    },
-    iconContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
     },
     Button: {
         alignItems: 'center',
         backgroundColor: 'rgba(26, 35, 126, 0.8)',
         marginTop: 400,
+        position: 'relative',
         marginHorizontal: 10,
         paddingVertical: 50,
         paddingHorizontal: 25,
