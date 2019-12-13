@@ -168,9 +168,9 @@ AboutStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
-  EventStack,
-  ActivitiesStack,
-  AboutStack,
+  // EventStack,
+  // ActivitiesStack,
+  // AboutStack,
   // LinksStack,
   // SettingsStack,
 });

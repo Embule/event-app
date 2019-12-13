@@ -26,8 +26,8 @@ export default class HomeScreen extends React.Component {
                 <ScrollView>
                     <View style={styles.icons}>
                     <View style={styles.about}>
-                        <TouchableOpacity>
-                            <About onPress={() => { this.props.navigation.navigate('About') }} />
+                        <TouchableOpacity onPress={() => { this.props.navigation.navigate('About') }}>
+                            <About />
                         </TouchableOpacity>
                     </View>
                     <View style={styles.weather}>
