@@ -87,12 +87,12 @@ export default class Events extends React.Component {
     //     return dateA - dateB
     //   });
 
-    const { height } = Dimensions.get('window');
+    // const { height } = Dimensions.get('window');
 
     return (
-      <View style={{ flex: 1, height: height }}>
-        {/* <SearchBar placeholder="Etsi..." lightTheme onChangeText={this.handleSearch} /> */}
-        <FlatList style={{height: 50, width: '100%', flexGrow: 1, flex: 1, backgroundColor: 'green', border: '2px solid blue'}}
+      <View >
+        <SearchBar placeholder="Etsi..." lightTheme onChangeText={this.handleSearch} />
+        <FlatList 
           data={this.state.data}
           renderItem={({ item }) => <Text onPress={() => { this.props.navigation.navigate('Info', { id: item.id }) }} style={styles.events}> {item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day}</Text>} //keyExtractor={({ id }, index) => id} 
           onEndReached={this.onScrollHandler}
