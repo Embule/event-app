@@ -24,6 +24,7 @@ const HomeStack = createStackNavigator(
     Activities: ActivitiesScreen,
     Info: InfoScreen,
     Activity: ActivityScreen,
+    About: AboutScreen,
   },
   config
 );
@@ -119,6 +120,7 @@ InfoStack.path = '';
 const AboutStack = createStackNavigator(
   {
     About: AboutScreen,
+    Home: HomeScreen
   },
   config
 );

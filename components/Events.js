@@ -5,7 +5,9 @@ import {
   Button,
   Alert,
   FlatList,
-  Text
+  Text,
+  View,
+  Dimensions
 } from "react-native";
 import moment from 'moment';
 import { ExpoLinksView } from "@expo/samples";
@@ -13,9 +15,12 @@ import { NavigationEvents } from "react-navigation";
 import { SearchBar } from 'react-native-elements';
 import _ from 'lodash';
 
-
 const baseurl = "http://open-api.myhelsinki.fi/v1";
-
+const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
+  const paddingToBottom = 40;
+  return layoutMeasurement.height + contentOffset.y >=
+    contentSize.height - paddingToBottom;
+};
 export default class Events extends React.Component {
   static navigationOptions = {
     title: "Links"
@@ -43,7 +48,7 @@ export default class Events extends React.Component {
       .then(data => this.setState({
         isLoading: false,
         page: 0,
-        data: data.data.slice(0, 10)
+        data: data.data.slice(0, 12)
       }, function () {
         this.addRecords(0);
       }))
@@ -65,7 +70,7 @@ export default class Events extends React.Component {
 
   onScrollHandler = () => {
     this.setState({
-      page: this.state.page + 1
+      page: this.state.page + 1, momentumScrollBegun: false
     }, () => {
       this.addRecords(this.state.page);
     });
@@ -75,24 +80,32 @@ export default class Events extends React.Component {
     this.setState({ query: text });
   }
 
-render() {
-  const data = this.state.data
-    .sort(function compare(a, b) {
-      var dateA = new Date(a.event_dates.starting_day);
-      let momentDateA = moment(dateA).format('DD.MM.YYYY')
-      var dateB = new Date(b.event_dates.starting_day);
-      let momentDateB = moment(dateB).format('DD.MM.YYYY')
-      return dateA - dateB
-    });
+  render() {
+    // const data = this.state.data
+    //   .sort(function compare(a, b) {
+    //     var dateA = new Date(a.event_dates.starting_day);
+    //     let momentDateA = moment(dateA).format('DD.MM.YYYY')
+    //     var dateB = new Date(b.event_dates.starting_day);
+    //     let momentDateB = moment(dateB).format('DD.MM.YYYY')
+    //     return dateA - dateB
+    //   });
+    //   const {height} = Dimensions.get('window');
 
     return (
-      <ScrollView>
+      <ScrollView onScroll={({ nativeEvent }) => {
+        if (isCloseToBottom(nativeEvent)) {
+          this.onScrollHandler();
+        }
+      }}
+        scrollEventThrottle={400}>
+
         <SearchBar placeholder="Etsi..." lightTheme onChangeText={this.handleSearch} />
         <FlatList
           data={this.state.data}
-          renderItem={({ item }) => <Text onPress={() => { this.props.navigation.navigate('Info', { id: item.id }) }} style={styles.events}> {item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day}</Text>} /* keyExtractor={({ id }, index) => id} */
-          onEndReached={this.onScrollHandler}
-          onEndThreshold={0} />
+          renderItem={({ item }) =>
+            <Text onPress={() => { this.props.navigation.navigate('Info', { id: item.id }) }} style={styles.events}> {item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day}</Text>
+          } /* keyExtractor={({ id }, index) => id} */
+        />
       </ScrollView>
     );
   }

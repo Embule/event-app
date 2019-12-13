@@ -5,12 +5,22 @@ import {
   FlatList,
   Text,
   View,
-  Image
+  Image,
+  Alert,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { SearchBar } from 'react-native-elements';
+import _ from 'lodash';
 //import Images from './HelsinkiImages';
 
 const baseurl = "http://open-api.myhelsinki.fi/v1";
+
+//muuttuja sille, kun scrollataan sivun loppuun ja halutaan ladata lisää aktiviteetteja
+const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
+  const paddingToBottom = 40;
+  return layoutMeasurement.height + contentOffset.y >=
+    contentSize.height - paddingToBottom;
+};
 
 //Yksittäinen itemi aktiviteettilistassa
 class FlatListItem extends React.Component {
@@ -42,6 +52,8 @@ export default class Activities extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      isLoading: true,
+      page: 0,
       data: [],
     };
   }
@@ -55,11 +67,43 @@ export default class Activities extends React.Component {
       headers: { Accept: "application/json" }
     })
       .then(res => res.json())
-      .then(data => this.setState({ data: data.data }))
+      .then(data => this.setState({
+        isLoading: false,
+        page: 0,
+        data: data.data.slice(0, 12)
+      }, function() {
+        this.addRecords(0);
+      }
+      ))
       .catch(error => {
         console.error(error);
       });
   };
+
+  //lisää 12kpl aktiviteetteja
+  addRecords = (page) => {
+    const newRecords = []
+    for (var i = page * 12, il = i + 12; i < il && i <
+      this.state.data.length; i++) {
+      newRecords.push(this.state.data[i]);
+    }
+    this.setState({
+      data: [...this.state.data, ...newRecords]
+    });
+  }
+
+  //scrollauksen säätelijä, lisää uuden sivun kun ollaan alareunassa
+  onScrollHandler = () => {
+    this.setState({
+      page: this.state.page + 1, momentumScrullBegun: false
+    }, () => {
+      this.addRecords(this.state.page);
+    });
+  }
+
+  handleSearch = (text) => {
+    this.setState({ query: text });
+  }
 
   render() {
     //Listan sorttaus
@@ -70,7 +114,14 @@ export default class Activities extends React.Component {
     });
 
     return (
-      <View>
+
+      <ScrollView onScroll={({ nativeEvent }) => {
+        if (isCloseToBottom(nativeEvent)) {
+          this.onScrollHandler();
+        }
+      }}
+        scrollEventThrottle={400}>
+        <SearchBar placeholder="Etsi..." lightTheme onChangeText={this.handleSearch} />
         <FlatList
           data={this.state.data}
           renderItem={({ item }) => {
@@ -85,7 +136,7 @@ export default class Activities extends React.Component {
           }
           keyExtractor={({ id }, index) => id}
         />
-      </View>
+      </ScrollView>
     );
   }
 }
