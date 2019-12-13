@@ -6,6 +6,7 @@ import {
   Alert,
   FlatList,
   Text,
+  TextInput,
   View,
   Dimensions
 } from "react-native";
@@ -31,11 +32,11 @@ export default class Events extends React.Component {
       isLoading: true,
       page: 0,
       data: [],
-      query: '',
-      fullData: [] //kaikki data (ei vain ikkunassa näkyvä)
+      search: '',
+      fullData: [],  //kaikki data (ei vain ikkunassa näkyvä)
+      error: null,
     };
-  }
-
+  };
   componentDidMount() {
     this.getEvents();
   };
@@ -76,20 +77,20 @@ export default class Events extends React.Component {
     });
   }
 
-  handleSearch = (text) => {
-    this.setState({ query: text });
-  }
+SearchFilterFunction(text) {
+  const newData = this.state.data.filter(function(item) {
+    const itemData = item.name.fi ? item.name.fi.toUpperCase(): ''.toUpperCase();
+    const textData = text.toUpperCase();
+    return itemData.indexOf(textData) > -1;
+  });
+  this.setState({
+    data: newData,
+    text: text
+  });
+}
 
   render() {
-    // const data = this.state.data
-    //   .sort(function compare(a, b) {
-    //     var dateA = new Date(a.event_dates.starting_day);
-    //     let momentDateA = moment(dateA).format('DD.MM.YYYY')
-    //     var dateB = new Date(b.event_dates.starting_day);
-    //     let momentDateB = moment(dateB).format('DD.MM.YYYY')
-    //     return dateA - dateB
-    //   });
-    //   const {height} = Dimensions.get('window');
+  const { search } = this.state.search;
 
     return (
       <ScrollView onScroll={({ nativeEvent }) => {
@@ -98,12 +99,15 @@ export default class Events extends React.Component {
         }
       }}
         scrollEventThrottle={400}>
-
-        <SearchBar placeholder="Etsi..." lightTheme onChangeText={this.handleSearch} />
+        <TextInput
+        style={styles.textInputStyle}
+        onChangeText={text => this.SearchFilterFunction(text)}
+        value={this.state.text}
+        placeholder="Etsi" />
         <FlatList
           data={this.state.data}
           renderItem={({ item }) =>
-            <Text onPress={() => { this.props.navigation.navigate('Info', { id: item.id }) }} style={styles.events}> {item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day}</Text>
+            <Text onPress={() => { this.props.navigation.navigate('Info', { id: item.id }) }} style={styles.events}> {item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day === null ? 'Aikaa ei ole määritelty.' : item.event_dates.starting_day}</Text>
           } /* keyExtractor={({ id }, index) => id} */
         />
       </ScrollView>
@@ -119,6 +123,16 @@ const styles = StyleSheet.create({
   events: {
     flex: 1,
     color: 'black',
+  },
+  textInputStyle: {
+    height: 40,
+    paddingLeft: 10,
+    backgroundColor: 'white',
+    color: 'rgba(63, 81, 181, 0.8)',
+    margin: 30,
+    borderWidth: 1,
+    borderColor: 'rgba(63, 81, 181, 0.8)',
+    borderRadius: 10,
   },
   tempText: {
     fontSize: 28,

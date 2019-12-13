@@ -21,8 +21,8 @@ export default class HomeScreen extends React.Component {
     render() {
         const { isLoading } = this.state;
         return (
-            <ImageBackground
-                style={{ flex: 1 }} source={require('./tori.jpg')} >
+                <ImageBackground 
+                style={{flex: 1}} source={require('../assets/images/tori.jpg')} >
                 <ScrollView>
                     <View style={styles.icons}>
                     <View style={styles.about}>
@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'rgba(26, 35, 126, 0.8)',
         marginTop: 400,
+        position: 'relative',
         marginHorizontal: 10,
         paddingVertical: 50,
         paddingHorizontal: 25,
