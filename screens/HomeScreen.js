@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'rgba(26, 35, 126, 0.8)',
         marginTop: 400,
+        position: 'relative',
         marginHorizontal: 10,
         paddingVertical: 50,
         paddingHorizontal: 25,
