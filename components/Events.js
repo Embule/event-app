@@ -7,6 +7,8 @@ import {
   FlatList,
   Text,
   TextInput,
+  View,
+  Dimensions
 } from "react-native";
 import moment from 'moment';
 import { ExpoLinksView } from "@expo/samples";
@@ -14,9 +16,12 @@ import { NavigationEvents } from "react-navigation";
 import { SearchBar } from 'react-native-elements';
 import _ from 'lodash';
 
-
 const baseurl = "http://open-api.myhelsinki.fi/v1";
-
+const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
+  const paddingToBottom = 40;
+  return layoutMeasurement.height + contentOffset.y >=
+    contentSize.height - paddingToBottom;
+};
 export default class Events extends React.Component {
   static navigationOptions = {
     title: "Links"
@@ -44,7 +49,7 @@ export default class Events extends React.Component {
       .then(data => this.setState({
         isLoading: false,
         page: 0,
-        data: data.data.slice(0, 10)
+        data: data.data.slice(0, 12)
       }, function () {
         this.addRecords(0);
       }))
@@ -66,7 +71,7 @@ export default class Events extends React.Component {
 
   onScrollHandler = () => {
     this.setState({
-      page: this.state.page + 1
+      page: this.state.page + 1, momentumScrollBegun: false
     }, () => {
       this.addRecords(this.state.page);
     });
@@ -84,10 +89,16 @@ SearchFilterFunction(text) {
   });
 }
 
-render() {
-const { search } = this.state.search;
+  render() {
+  const { search } = this.state.search;
+
     return (
-      <ScrollView>
+      <ScrollView onScroll={({ nativeEvent }) => {
+        if (isCloseToBottom(nativeEvent)) {
+          this.onScrollHandler();
+        }
+      }}
+        scrollEventThrottle={400}>
         <TextInput
         style={styles.textInputStyle}
         onChangeText={text => this.SearchFilterFunction(text)}
@@ -95,9 +106,10 @@ const { search } = this.state.search;
         placeholder="Etsi" />
         <FlatList
           data={this.state.data}
-          renderItem={({ item }) => <Text onPress={() => { this.props.navigation.navigate('Info', { id: item.id }) }} style={styles.events}> {item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day === null ? 'Aikaa ei ole määritelty' : item.event_dates.starting_day}</Text>} /* keyExtractor={({ id }, index) => id} */
-          onEndReached={this.onScrollHandler}
-          onEndThreshold={0} />
+          renderItem={({ item }) =>
+            <Text onPress={() => { this.props.navigation.navigate('Info', { id: item.id }) }} style={styles.events}> {item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day === null ? 'Aikaa ei ole määritelty.' : item.event_dates.starting_day}</Text>
+          } /* keyExtractor={({ id }, index) => id} */
+        />
       </ScrollView>
     );
   }

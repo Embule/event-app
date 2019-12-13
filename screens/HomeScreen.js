@@ -13,8 +13,7 @@ import {
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import Weather from '../components/Weather';
-
-
+import About from '../components/About';
 export default class HomeScreen extends React.Component {
     state = {
         isLoading: false,
@@ -25,25 +24,33 @@ export default class HomeScreen extends React.Component {
                 <ImageBackground 
                 style={{flex: 1}} source={require('../assets/images/tori.jpg')} >
                 <ScrollView>
-                <View style={styles.weather}>
-                    {isLoading ? null : (
-                        <View>
-                            <Weather />
-                        </View>
-                    )}
-                </View>
-                <View style={styles.container}>
-                    <TouchableOpacity 
-                    style={styles.Button}
-                    onPress={() => { this.props.navigation.navigate('Activities') }}
-                    ><Text style={styles.Text}>AKTIVITEETIT</Text></TouchableOpacity>
-                    <TouchableOpacity
-                    style={styles.Button}
-                    onPress={() => { this.props.navigation.navigate('Events') }}
-                    ><Text style={styles.Text}>TAPAHTUMAT</Text></TouchableOpacity>
-                </View>
-            </ScrollView>
-        </ImageBackground>
+                    <View style={styles.icons}>
+                    <View style={styles.about}>
+                        <TouchableOpacity>
+                            <About onPress={() => { this.props.navigation.navigate('About') }} />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.weather}>
+                        {isLoading ? null : (
+                            <View>
+                                <Weather />
+                            </View>
+                        )}
+                    </View>
+                    </View>
+
+                    <View style={styles.container}>
+                        <TouchableOpacity
+                            style={styles.Button}
+                            onPress={() => { this.props.navigation.navigate('Activities') }}
+                        ><Text style={styles.Text}>AKTIVITEETIT</Text></TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.Button}
+                            onPress={() => { this.props.navigation.navigate('Events') }}
+                        ><Text style={styles.Text}>TAPAHTUMAT</Text></TouchableOpacity>
+                    </View>
+                </ScrollView>
+            </ImageBackground>
         );
     }
 }
@@ -58,11 +65,21 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
     },
+    icons: {
+        flex: 1,
+        flexDirection: "row"
+    },
     weather: {
         flex: 1,
         alignItems: 'flex-end',
-        paddingTop: 50,
+        paddingTop: 42,
         paddingRight: 25,
+    },
+    about: {
+        flex: 1,
+        alignItems: 'flex-start',
+        paddingTop: 50,
+        paddingLeft: 25,
     },
     Button: {
         alignItems: 'center',
