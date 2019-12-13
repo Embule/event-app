@@ -59,12 +59,16 @@ export default class Events extends React.Component {
       page: 0,
       data: [],
       search: '',
-      fullData: [],  //kaikki data (ei vain ikkunassa näkyvä)
-      error: null,
     };
   };
+
+  makeRemoteRequest = () => {
+    this.setState({ loading: true });
+  }
+
   componentDidMount() {
     this.getEvents();
+    this.makeRemoteRequest();
   };
 
   getEvents = () => {
@@ -103,15 +107,18 @@ export default class Events extends React.Component {
     });
   }
 
-SearchFilterFunction(text) {
+SearchFilterFunction = text => {
+  this.setState({
+    value: text,
+  })
   const newData = this.state.data.filter(function(item) {
-    const itemData = item.name.fi ? item.name.fi.toUpperCase(): ''.toUpperCase();
+    const itemData = `${item.name.fi.toUpperCase()} ${item.location.address.street_address.toUpperCase()}`
     const textData = text.toUpperCase();
+
     return itemData.indexOf(textData) > -1;
   });
   this.setState({
     data: newData,
-    text: text
   });
 }
 
@@ -130,6 +137,7 @@ SearchFilterFunction(text) {
         onChangeText={text => this.SearchFilterFunction(text)}
         value={this.state.text}
         placeholder="Etsi" />
+
         <FlatList
           data={this.state.data}
           renderItem={({ item }) =>
