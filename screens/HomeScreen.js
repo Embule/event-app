@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         paddingVertical: 50,
         paddingHorizontal: 25,
-        borderRadius: 10,
+        borderRadius: 20,
     },
     Text: {
         fontSize: 16,
