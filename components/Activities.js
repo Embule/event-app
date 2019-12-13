@@ -39,6 +39,9 @@ class FlatListItem extends React.Component {
           <Text style={styles.header}>{this.props.item.name.fi}</Text>
           <Text style={styles.timeplace}>{this.props.item.where_when_duration.where_and_when}</Text>
         </View>
+        <TouchableOpacity style={styles.Button} onPress={() => {
+          this.props.navigation.navigate('Activity', { id: this.props.item.id })
+        }}><Text style={styles.Text}>Lue lisää...</Text></TouchableOpacity>
       </View>
     )
   }
@@ -71,7 +74,7 @@ export default class Activities extends React.Component {
         isLoading: false,
         page: 0,
         data: data.data.slice(0, 12)
-      }, function() {
+      }, function () {
         this.addRecords(0);
       }
       ))
@@ -126,14 +129,10 @@ export default class Activities extends React.Component {
           data={this.state.data}
           renderItem={({ item }) => {
             return (
-              <TouchableOpacity onPress={() => {
-                this.props.navigation.navigate('Activity', { id: item.id })
-              }}>
-                <FlatListItem item={item}></FlatListItem>
-              </TouchableOpacity>
+              <FlatListItem item={item} {...this.props}></FlatListItem>
             )
-          }
-          }
+        }
+        }
           keyExtractor={({ id }, index) => id}
         />
       </ScrollView>
@@ -164,5 +163,28 @@ const styles = StyleSheet.create({
     fontStyle: "italic",
     paddingLeft: 5,
     paddingRight: 5,
-  }
+  },
+  Button: {
+    alignItems: 'center',
+    backgroundColor: 'rgba(26, 35, 126, 0.8)',
+    marginTop: 10,
+    marginHorizontal: 5,
+    marginBottom: 10,
+    padding: 5,
+    borderRadius: 10,
+},
+Text: {
+  fontSize: 16,
+  fontWeight: 'bold',
+  color: 'white',
+}
 });
+
+
+/* return (
+  <TouchableOpacity onPress={() => {
+    this.props.navigation.navigate('Activity', { id: item.id })
+  }}>
+    <FlatListItem item={item}></FlatListItem>
+  </TouchableOpacity>
+) */
