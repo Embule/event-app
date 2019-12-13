@@ -6,8 +6,8 @@ import {
   Alert,
   FlatList,
   Text,
-  Dimensions,
-  View
+  View,
+  Dimensions
 } from "react-native";
 import moment from 'moment';
 import { ExpoLinksView } from "@expo/samples";
@@ -15,9 +15,12 @@ import { NavigationEvents } from "react-navigation";
 import { SearchBar } from 'react-native-elements';
 import _ from 'lodash';
 
-
 const baseurl = "http://open-api.myhelsinki.fi/v1";
-
+const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
+  const paddingToBottom = 40;
+  return layoutMeasurement.height + contentOffset.y >=
+    contentSize.height - paddingToBottom;
+};
 export default class Events extends React.Component {
   static navigationOptions = {
     title: "Links"
@@ -45,9 +48,10 @@ export default class Events extends React.Component {
       .then(data => this.setState({
         isLoading: false,
         page: 0,
-        data: data.data.slice(0, 40)
-      },
-      ))
+        data: data.data.slice(0, 12)
+      }, function () {
+        this.addRecords(0);
+      }))
       .catch(error => {
         console.error(error);
       });
@@ -62,12 +66,11 @@ export default class Events extends React.Component {
     this.setState({
       data: [...this.state.data, ...newRecords]
     });
-    Alert.alert('Testi' + this.state.data.length)
   }
 
   onScrollHandler = () => {
     this.setState({
-      page: this.state.page + 1
+      page: this.state.page + 1, momentumScrollBegun: false
     }, () => {
       this.addRecords(this.state.page);
     });
@@ -86,18 +89,24 @@ export default class Events extends React.Component {
     //     let momentDateB = moment(dateB).format('DD.MM.YYYY')
     //     return dateA - dateB
     //   });
-
-    // const { height } = Dimensions.get('window');
+    //   const {height} = Dimensions.get('window');
 
     return (
-      <View >
+      <ScrollView onScroll={({ nativeEvent }) => {
+        if (isCloseToBottom(nativeEvent)) {
+          this.onScrollHandler();
+        }
+      }}
+        scrollEventThrottle={400}>
+
         <SearchBar placeholder="Etsi..." lightTheme onChangeText={this.handleSearch} />
-        <FlatList 
+        <FlatList
           data={this.state.data}
-          renderItem={({ item }) => <Text onPress={() => { this.props.navigation.navigate('Info', { id: item.id }) }} style={styles.events}> {item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day}</Text>} //keyExtractor={({ id }, index) => id} 
-          onEndReached={this.onScrollHandler}
-          onEndThreshold={0} ></FlatList>
-      </View>
+          renderItem={({ item }) =>
+            <Text onPress={() => { this.props.navigation.navigate('Info', { id: item.id }) }} style={styles.events}> {item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day}</Text>
+          } /* keyExtractor={({ id }, index) => id} */
+        />
+      </ScrollView>
     );
   }
 }
