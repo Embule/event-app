@@ -2,18 +2,33 @@ import React from "react";
 import {
   ScrollView,
   StyleSheet,
-  Button,
-  Alert,
   FlatList,
-  Text
+  Text,
+  View,
+  Image
 } from "react-native";
 import { ExpoLinksView } from "@expo/samples";
+import { ListItem } from "react-native-elements";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const baseurl = "http://open-api.myhelsinki.fi/v1";
 
+class FlatListItem extends React.Component {
+  render() {
+/*     let image = this.props.item.description.images[0].url;
+    console.log(image); */
+    return (
+      <View  
+      style={styles.container}>
+        <Text style={styles.header}>{this.props.item.name.fi}</Text>
+        <Text style={styles.timeplace}>{this.props.item.where_when_duration.where_and_when}</Text>
+      </View>
+    )
+  }
+}
 export default class Activities extends React.Component {
   static navigationOptions = {
-    title: "Links"
+    title: "Activities"
   };
   constructor(props) {
     super(props);
@@ -45,17 +60,33 @@ export default class Activities extends React.Component {
       <ScrollView>
         <FlatList
           data={this.state.data}
-          renderItem={({ item }) =>
-            <Text onPress={() => {
-              Alert.alert('Testi ' + encodeURIComponent(item.id));
+          renderItem={({ item }) => {
+            return (
+            <TouchableOpacity onPress={() => {
               this.props.navigation.navigate('Activity', { id: item.id })
             }}>
-              {item.name.fi}, {item.where_when_duration.where_and_when}
-            </Text>
+            <FlatListItem item={item}></FlatListItem>
+            </TouchableOpacity>
+            )}
           }
-          // keyExtractor={({ id }, index) => id}
+        keyExtractor={({ id }, index) => id}
         />
       </ScrollView>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+      marginBottom: 10,
+      backgroundColor: 'lightblue'
+  },
+  header: {
+      flex: 1,
+      padding: 5,
+      fontSize: 20
+  },
+  timeplace: {
+    fontStyle: "italic"
+  }
+});

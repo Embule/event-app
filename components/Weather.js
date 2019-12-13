@@ -9,7 +9,7 @@ export default class Weather extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
-            temp: '',
+            temp: '2',
             weather: 'Clouds',
         };
     }
@@ -31,15 +31,15 @@ export default class Weather extends React.Component {
         const temperature = Math.round(this.state.temp);
         let weatherCond;
         const todaysWeather = `${this.state.weather}`;
-        let condition = weatherConditions[todaysWeather] 
-        
+        let condition = weatherConditions[todaysWeather]
+
         if (!condition) weatherCond = weatherConditions['Clouds']
         else weatherCond = condition
-        
+
         return (
             <View style={styles.container} >
                 <View style={styles.weather}>
-                    <MaterialCommunityIcons size={48} name={weatherCond.icon} color={'#fff'} /> 
+                    <MaterialCommunityIcons size={48} name={weatherCond.icon} color={'#fff'} />
                     <Text style={styles.tempText}>{temperature}˚</Text>
                 </View>
             </View>
@@ -51,7 +51,7 @@ export default class Weather extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#00000000', 
+        backgroundColor: '#00000000',
     },
     weather: {
         flex: 1,
