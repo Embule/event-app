@@ -32,6 +32,8 @@ export default class InfoScreen extends Component {
       });
   };
   render() {
+    if (!text) text = "Haetaan..."
+    
     let text = this.state.data.description.intro
     let nimi = this.state.data.name.fi
     let osoite = this.state.data.location.address.street_address
@@ -42,7 +44,6 @@ export default class InfoScreen extends Component {
     let loppupaiva = this.state.data.event_dates.ending_day
     const endday = moment(loppupaiva).format('DD.MM.YYYY')
    
-    if (!text) text = "Haetaan"
     return (
       <ScrollView>
         <Text>{nimi}</Text>
