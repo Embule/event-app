@@ -42,7 +42,7 @@ class FlatListItem extends React.Component {
           <Text style={styles.timeplace}>{this.props.item.event_dates.starting_day === null ? 'Aikaa ei ole määritelty.' : this.props.item.event_dates.starting_day}</Text>
         </View>
         <TouchableOpacity style={styles.Button} onPress={() => {
-          this.props.navigation.navigate('Activity', { id: this.props.item.id })
+          this.props.navigation.navigate('Info', { id: this.props.item.id })
         }}><Text style={styles.Text}>Lue lisää...</Text></TouchableOpacity>
       </View>
     )
