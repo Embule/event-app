@@ -6,9 +6,7 @@ export default class ActivitiesScreen extends Component {
     render() {
         return (
             <View>
-                <TouchableOpacity>
-                    <Activities {...this.props} />
-                </TouchableOpacity>
+                <Activities {...this.props} />
             </View>
         )
     }
