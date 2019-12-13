@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { weatherConditions } from '../utils/WeatherIcons';
-//import { API_KEY } from '../utils/WeatherAPI';
 import {API_KEY} from 'react-native-dotenv';
 
 

@@ -7,7 +7,7 @@ export default class AboutScreen extends Component {
     render() {
         return (
             <View style={styles.about}>
-                <MaterialCommunityIcons name='information-outline' size={48} color={'#fff'} />
+                <MaterialCommunityIcons name='information-outline' size={35} color={'#fff'} />
                 <Text>Tänne tulee tiedot sekä applikaatiosta että tekijöistä sekä datasta.</Text>
             </View>
             // <View>
