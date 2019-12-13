@@ -7,8 +7,11 @@ import {
   FlatList,
   Text
 } from "react-native";
+import moment from 'moment';
 import { ExpoLinksView } from "@expo/samples";
 import { NavigationEvents } from "react-navigation";
+import { SearchBar } from 'react-native-elements';
+import _ from 'lodash';
 
 
 const baseurl = "http://open-api.myhelsinki.fi/v1";
@@ -22,14 +25,15 @@ export default class Events extends React.Component {
     this.state = {
       isLoading: true,
       page: 0,
-      data: []
+      data: [],
+      query: '',
+      fullData: [] //kaikki data (ei vain ikkunassa näkyvä)
     };
   }
 
   componentDidMount() {
     this.getEvents();
   };
-
 
   getEvents = () => {
     return fetch(baseurl + /events/, {
@@ -39,7 +43,7 @@ export default class Events extends React.Component {
       .then(data => this.setState({
         isLoading: false,
         page: 0,
-        data: data.data
+        data: data.data.slice(0, 10)
       }, function () {
         this.addRecords(0);
       }))
@@ -47,18 +51,6 @@ export default class Events extends React.Component {
         console.error(error);
       });
   };
-
-  // let time;
-  // const event = this.state.data.event_dates.starting_day;
-  // if (event === null ) time = "Aikaa ei määritelty"
-  // else time = event.toLocalString('fi-FI')
-  // console.log(time)
-
-  // const tiedot = this.state.data;
-  // let time;
-  // if (tiedot.event_dates.starting_day != null ) time = tiedot.event_dates.starting_day.toLocalString('fi-FI')
-  // else time = "Aikaa ei määritelty."
-  // console.log(time);
 
   addRecords = (page) => {
     const newRecords = []
@@ -77,19 +69,25 @@ export default class Events extends React.Component {
     }, () => {
       this.addRecords(this.state.page);
     });
-
   }
 
-  render() {
-    const data = this.state.data
-      .sort(function compare(a, b) {
-        var dateA = new Date(a.event_dates.starting_day);
-        var dateB = new Date(b.event_dates.starting_day);
-        return dateA - dateB
-      });
+  handleSearch = (text) => {
+    this.setState({ query: text });
+  }
+
+render() {
+  const data = this.state.data
+    .sort(function compare(a, b) {
+      var dateA = new Date(a.event_dates.starting_day);
+      let momentDateA = moment(dateA).format('DD.MM.YYYY')
+      var dateB = new Date(b.event_dates.starting_day);
+      let momentDateB = moment(dateB).format('DD.MM.YYYY')
+      return dateA - dateB
+    });
 
     return (
       <ScrollView>
+        <SearchBar placeholder="Etsi..." lightTheme onChangeText={this.handleSearch} />
         <FlatList
           data={this.state.data}
           renderItem={({ item }) => <Text onPress={() => { this.props.navigation.navigate('Info', { id: item.id }) }} style={styles.events}> {item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day}</Text>} /* keyExtractor={({ id }, index) => id} */

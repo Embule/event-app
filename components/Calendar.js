@@ -12,12 +12,12 @@
 // import * as AddCalendarEvent from 'react-native-add-calendar-event';
 // //Import library for AddCalendarEvent
 // import moment from 'moment';
-// //Import moment.js to deal with time
+
  
 // const EVENT_TITLE = 'Lunch';
 // const TIME_NOW_IN_UTC = moment.utc();
  
-// const utcDateToString = (momentInUTC: moment): string => {
+// const utcDateToString = (moment) => {
 //   let s = moment.utc(momentInUTC).format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
 //   return s;
 // };
@@ -73,7 +73,7 @@
 //     );
 //   }
  
-//   static addToCalendar = (title: string, startDateUTC: moment) => {
+//   static addToCalendar = (title, startDateUTC) => {
  
 //     const eventConfig = {
 //       title,
@@ -89,20 +89,17 @@
  
 //     AddCalendarEvent.presentEventCreatingDialog(eventConfig)
 //       .then(
-//         (eventInfo: {
-//           calendarItemIdentifier: string,
-//           eventIdentifier: string,
-//         }) => {
+//         (eventInfo: { calendarItemIdentifier, eventIdentifier}) => {
 //           alert('eventInfo -> ' + JSON.stringify(eventInfo));
 //         }
 //       )
-//       .catch((error: string) => {
+//       .catch((error) => {
 //         // handle error such as when user rejected permissions
 //         alert('Error -> ' + error);
 //       });
 //   };
  
-//   static editCalendarEventWithId = (eventId: string) => {
+//   static editCalendarEventWithId = (eventId) => {
 //     const eventConfig = {
 //       eventId,
 //     };
@@ -111,12 +108,12 @@
 //       .then(eventInfo => {
 //         alert('eventInfo -> ' + JSON.stringify(eventInfo));
 //       })
-//       .catch((error: string) => {
+//       .catch((error) => {
 //         alert('Error -> ' + error);
 //       });
 //   };
  
-//   static showCalendarEventWithId = (eventId: string) => {
+//   static showCalendarEventWithId = (eventId) => {
 //     const eventConfig = {
 //       eventId,
 //       allowsEditing: true,
@@ -131,7 +128,7 @@
 //       .then(eventInfo => {
 //         alert('eventInfo -> ' + JSON.stringify(eventInfo));
 //       })
-//       .catch((error: string) => {
+//       .catch((error) => {
 //         alert('Error -> ' + error);
 //       });
 //   };
