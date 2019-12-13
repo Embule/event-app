@@ -23,7 +23,7 @@ export default class HomeScreen extends React.Component {
         const { isLoading } = this.state;
         return (
                 <ImageBackground 
-                style={{flex: 1}} source={require('./tori.jpg')} >
+                style={{flex: 1}} source={require('../assets/images/tori.jpg')} >
                 <ScrollView>
                 <View style={styles.weather}>
                     {isLoading ? null : (
