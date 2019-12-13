@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Link, Text, StyleSheet, Button, ScrollView, Alert, TouchableOpacity, FlatList } from 'react-native';
+import { Link, Text, StyleSheet, Button, ScrollView, Alert, FlatList } from 'react-native';
 import moment from 'moment';
+import HTML from 'react-native-render-html'
 
 const baseurl = "http://open-api.myhelsinki.fi/v1";
 
@@ -35,23 +36,22 @@ export default class InfoScreen extends Component {
     if (!text) text = "Haetaan..."
     
     let text = this.state.data.description.intro
-    let nimi = this.state.data.name.fi
-    let osoite = this.state.data.location.address.street_address
-    let posti = this.state.data.location.address.postal_code
-    let kaupunki = this.state.data.location.address.locality
-    let alkupaiva = this.state.data.event_dates.starting_day
-    const startday = moment(alkupaiva).format('DD.MM.YYYY')
-    let loppupaiva = this.state.data.event_dates.ending_day
-    const endday = moment(loppupaiva).format('DD.MM.YYYY')
+    let name_var = this.state.data.name.fi
+    let address_var = this.state.data.location.address.street_address
+    let postcode_var = this.state.data.location.address.postal_code
+    let city = this.state.data.location.address.locality
+    let startday_var = this.state.data.event_dates.starting_day
+    const startday = moment(startday_var).format('DD.MM.YYYY')
+    let endday_var = this.state.data.event_dates.ending_day
+    const endday = moment(endday_var).format('DD.MM.YYYY')
    
     return (
       <ScrollView>
-        <Text>{nimi}</Text>
+        <Text>{name_var}</Text>
         <Text>{text}</Text>
-        <Text>{osoite}, {posti}, {kaupunki}</Text>
+        <Text>{address_var}, {postcode_var}, {city}</Text>
         <Text>Tapahtuma alkaa: {startday}</Text>
         <Text>Tapahtuma loppuu: {endday}</Text>
-        {/* <Text>{addressi}</Text> */}
         <Button title="Vie omaan kalenteriin" onPress={() => Alert.alert('Tästä joskus vie omaan kalenteriin ehkä')} />
       </ScrollView>
     );
