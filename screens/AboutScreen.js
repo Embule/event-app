@@ -19,7 +19,7 @@ export default class AboutScreen extends Component {
         return (
             <View style={styles.about}>
                 <MaterialCommunityIcons name='information-outline' size={35} color={'#fff'} />
-                <Text>Tänne tulee tiedot sekä applikaatiosta että tekijöistä sekä datasta.</Text>
+                <Text>Tänne tulee tiedot sekä applikaatiosta että tekijöistä sekä datasta. Tämä on Academyn syksyn 2019 JavaScript-kurssin loppuprojekti, jonka ovat toteuttaneet Jennifer Finnilä, Heidi Hennessy, Emily Koskinen ja Hanna-Elina Koivisto</Text>
                 <TouchableOpacity style={styles.row} onPress={() => this.toggleExpand()}>
                     <Text style={[styles.title, styles.font]}>{this.props.title}</Text>
                     <Icon name={this.state.expanded ? 'keyboard-arrow-up' : 'keyboard-arrow-down'} size={30} />
@@ -28,7 +28,7 @@ export default class AboutScreen extends Component {
                 {
                     this.state.expanded &&
                     <View style={styles.child}>
-                        <Text>{this.props.data}</Text>
+                        <Text>Entä jos tänne kirjoittaa{this.props.data}</Text>
                     </View>
                 }
             </View>

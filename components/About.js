@@ -5,21 +5,21 @@ export default class About extends Component {
     static navigationOptions = {
         title: "Links"
     };
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         information: [
-    //             {
-    //                 title: 'Tietoja applikaatiosta',
-    //                 data: 'Tämä applikaatio on Academyn loppuprojekti.'
-    //             },
-    //             {
-    //                 title: 'Tietoja OpenHelsinkiAPI:sta',
-    //                 data: 'Tämä applikaatio hyödyntää...'
-    //             },
-    //         ]
-    //     }
-    // }
+    constructor(props) {
+        super(props);
+        this.state = {
+            information: [
+                {
+                    title: 'Tietoja applikaatiosta',
+                    data: 'Tämä applikaatio on Academyn loppuprojekti.'
+                },
+                {
+                    title: 'Tietoja OpenHelsinkiAPI:sta',
+                    data: 'Tämä applikaatio hyödyntää...'
+                },
+            ]
+        }
+    }
     render() {
         return (
             <View>
