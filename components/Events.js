@@ -8,13 +8,15 @@ import {
   Text,
   TextInput,
   View,
-  Dimensions
+  Dimensions,
+  Image
 } from "react-native";
 import moment from 'moment';
 import { ExpoLinksView } from "@expo/samples";
 import { NavigationEvents } from "react-navigation";
 import { SearchBar } from 'react-native-elements';
 import _ from 'lodash';
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const baseurl = "http://open-api.myhelsinki.fi/v1";
 const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
@@ -22,6 +24,30 @@ const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
   return layoutMeasurement.height + contentOffset.y >=
     contentSize.height - paddingToBottom;
 };
+
+//Yksittäinen itemi eventtilistassa
+class FlatListItem extends React.Component {
+  render() {
+
+    return (
+      <View style={styles.itemcontainer}>
+        <View style={styles.imagecontainer}>
+          <Image style={styles.images}
+            source={require('../assets/images/helsinki6.jpg')}>
+          </Image>
+        </View>
+        <View>
+          <Text style={styles.header}>{this.props.item.name.fi}</Text>
+          <Text style={styles.timeplace}>{this.props.item.location.address.street_address}</Text>
+          <Text style={styles.timeplace}>{this.props.item.event_dates.starting_day === null ? 'Aikaa ei ole määritelty.' : this.props.item.event_dates.starting_day}</Text>
+        </View>
+        <TouchableOpacity style={styles.Button} onPress={() => {
+          this.props.navigation.navigate('Info', { id: this.props.item.id })
+        }}><Text style={styles.Text}>Lue lisää...</Text></TouchableOpacity>
+      </View>
+    )
+  }
+}
 export default class Events extends React.Component {
   static navigationOptions = {
     title: "Links"
@@ -107,7 +133,7 @@ SearchFilterFunction(text) {
         <FlatList
           data={this.state.data}
           renderItem={({ item }) =>
-            <Text onPress={() => { this.props.navigation.navigate('Info', { id: item.id }) }} style={styles.events}> {item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day === null ? 'Aikaa ei ole määritelty.' : item.event_dates.starting_day}</Text>
+            <FlatListItem item={item} {...this.props}></FlatListItem>
           } /* keyExtractor={({ id }, index) => id} */
         />
       </ScrollView>
@@ -138,4 +164,43 @@ const styles = StyleSheet.create({
     fontSize: 28,
     color: '#fff'
   },
+  itemcontainer: {
+    marginBottom: 10,
+    borderBottomColor: 'lightgray',
+    borderBottomWidth: 1,
+  },
+  imagecontainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  images: {
+    flex: 1,
+    height: 120,
+  },
+  header: {
+    flex: 1,
+    padding: 5,
+    fontSize: 18,
+  },
+  timeplace: {
+    fontStyle: "italic",
+    paddingLeft: 5,
+    paddingRight: 5,
+  },
+  Button: {
+    alignItems: 'center',
+    backgroundColor: 'rgba(26, 35, 126, 0.8)',
+    marginTop: 10,
+    marginHorizontal: 50,
+    marginBottom: 10,
+    padding: 5,
+    borderRadius: 10,
+},
+Text: {
+  fontSize: 16,
+  fontWeight: 'bold',
+  color: 'white',
+}
 });
+
+{/* <Text onPress={() => { this.props.navigation.navigate('Info', { id: item.id }) }} style={styles.events}> {item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day === null ? 'Aikaa ei ole määritelty.' : item.event_dates.starting_day}</Text> */}
