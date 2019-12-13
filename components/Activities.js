@@ -7,8 +7,6 @@ import {
   View,
   Image
 } from "react-native";
-import { ExpoLinksView } from "@expo/samples";
-import { ListItem } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 const baseurl = "http://open-api.myhelsinki.fi/v1";
