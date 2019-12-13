@@ -31,7 +31,6 @@ export default class Events extends React.Component {
     this.getEvents();
   };
 
-
   getEvents = () => {
     return fetch(baseurl + /events/, {
       headers: { Accept: "application/json" }
@@ -48,18 +47,6 @@ export default class Events extends React.Component {
         console.error(error);
       });
   };
-
-  // let time;
-  // const event = this.state.data.event_dates.starting_day;
-  // if (event === null ) time = "Aikaa ei määritelty"
-  // else time = event.toLocalString('fi-FI')
-  // console.log(time)
-
-  // const tiedot = this.state.data;
-  // let time;
-  // if (tiedot.event_dates.starting_day != null ) time = tiedot.event_dates.starting_day.toLocalString('fi-FI')
-  // else time = "Aikaa ei määritelty."
-  // console.log(time);
 
   addRecords = (page) => {
     const newRecords = []
@@ -78,9 +65,7 @@ export default class Events extends React.Component {
     }, () => {
       this.addRecords(this.state.page);
     });
-
   }
-
 
 render() {
   const data = this.state.data
