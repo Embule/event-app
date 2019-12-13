@@ -7,7 +7,6 @@ import {
     ScrollView,
     StyleSheet,
     Text,
-    Button,
     TouchableOpacity,
     View,
     Alert,
@@ -33,15 +32,15 @@ export default class HomeScreen extends React.Component {
                         </View>
                     )}
                 </View>
-                <View style={styles.Button}>
-                    <Button
-                        title="Go to the Activities"
-                        onPress={() => { this.props.navigation.navigate('Activities') }}
-                    />
-                    <Button
-                        title="Go to the Events"
-                        onPress={() => { this.props.navigation.navigate('Events') }}
-                    />
+                <View style={styles.container}>
+                    <TouchableOpacity 
+                    style={styles.Button}
+                    onPress={() => { this.props.navigation.navigate('Activities') }}
+                    ><Text style={styles.Text}>AKTIVITEETIT</Text></TouchableOpacity>
+                    <TouchableOpacity
+                    style={styles.Button}
+                    onPress={() => { this.props.navigation.navigate('Events') }}
+                    ><Text style={styles.Text}>TAPAHTUMAT</Text></TouchableOpacity>
                 </View>
             </ScrollView>
         </ImageBackground>
@@ -55,6 +54,9 @@ HomeScreen.navigationOptions = {
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
     },
     weather: {
         flex: 1,
@@ -63,8 +65,17 @@ const styles = StyleSheet.create({
         paddingRight: 25,
     },
     Button: {
-        flex: 1,
-        margin: 100,
-        color: 'green',
+        alignItems: 'center',
+        backgroundColor: 'rgba(26, 35, 126, 0.8)',
+        marginTop: 400,
+        marginHorizontal: 10,
+        paddingVertical: 50,
+        paddingHorizontal: 25,
+        borderRadius: 10,
+    },
+    Text: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: 'white',
     }
 });
