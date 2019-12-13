@@ -7,8 +7,11 @@ import {
   FlatList,
   Text
 } from "react-native";
+import moment from 'moment';
 import { ExpoLinksView } from "@expo/samples";
 import { NavigationEvents } from "react-navigation";
+import { SearchBar } from 'react-native-elements';
+import _ from 'lodash';
 
 
 const baseurl = "http://open-api.myhelsinki.fi/v1";
@@ -22,14 +25,15 @@ export default class Events extends React.Component {
     this.state = {
       isLoading: true,
       page: 0,
-      data: []
+      data: [],
+      query: '',
+      fullData: [] //kaikki data (ei vain ikkunassa näkyvä)
     };
   }
 
   componentDidMount() {
     this.getEvents();
   };
-
 
   getEvents = () => {
     return fetch(baseurl + /events/, {
@@ -39,7 +43,7 @@ export default class Events extends React.Component {
       .then(data => this.setState({
         isLoading: false,
         page: 0,
-        data: data.data
+        data: data.data.slice(0, 10)
       }, function () {
         this.addRecords(0);
       }))
@@ -68,26 +72,32 @@ export default class Events extends React.Component {
 
   }
 
+  handleSearch = (text) => {
+    this.setState({ query: text });
+  }
+
 render() {
   const data = this.state.data
     .sort(function compare(a, b) {
       var dateA = new Date(a.event_dates.starting_day);
+      // let momentDateA = moment(dateA).format('DD.MM.YYYY')
       var dateB = new Date(b.event_dates.starting_day);
+      // let momentDateB = moment(dateB).format('DD.MM.YYYY')
       return dateA - dateB
     });
-  
-  console.log('Testi');
-  
-  return (
-    <ScrollView>
-      <FlatList
-        data={this.state.data}
-        renderItem={({ item }) => <Text onPress={() => { this.props.navigation.navigate('Info', {id: item.id}) }} style={styles.events}> {item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day === null ? 'Aikaa ei ole määritelty' : item.event_dates.starting_day.toLocaleString()}</Text>} keyExtractor={({ id }, index) => id.id}
-        onEndReached={this.onScrollHandler}
-        onEndThreshold={0} />
-    </ScrollView>
-  );
-}}
+
+    return (
+      <ScrollView>
+        <SearchBar placeholder="Etsi..." lightTheme onChangeText={this.handleSearch} />
+        <FlatList
+          data={this.state.data}
+          renderItem={({ item }) => <Text onPress={() => { this.props.navigation.navigate('Info', { id: item.id }) }} style={styles.events}> {item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day}</Text>} /* keyExtractor={({ id }, index) => id} */
+          onEndReached={this.onScrollHandler}
+          onEndThreshold={0} />
+      </ScrollView>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {

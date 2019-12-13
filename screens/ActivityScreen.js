@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, Stylesheet, Button, ScrollView, Alert } from 'react-native';
 
+const baseurl = "http://open-api.myhelsinki.fi/v1";
 export default class ActivityScreen extends Component {
     constructor(props) {
         super(props);
@@ -25,7 +26,7 @@ export default class ActivityScreen extends Component {
             });
     };
     render() {
-        let text = this.state.data.description.intro
+        let text = this.state.data.description.body
         if (!text) text = "Haetaan"
         return (
             <ScrollView>
