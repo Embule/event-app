@@ -10,6 +10,8 @@ import {
 import moment from 'moment';
 import { ExpoLinksView } from "@expo/samples";
 import { NavigationEvents } from "react-navigation";
+import { SearchBar } from 'react-native-elements';
+import _ from 'lodash';
 
 
 const baseurl = "http://open-api.myhelsinki.fi/v1";
@@ -23,7 +25,9 @@ export default class Events extends React.Component {
     this.state = {
       isLoading: true,
       page: 0,
-      data: []
+      data: [],
+      query: '',
+      fullData: [] //kaikki data (ei vain ikkunassa näkyvä)
     };
   }
 
@@ -67,6 +71,10 @@ export default class Events extends React.Component {
     });
   }
 
+  handleSearch = (text) => {
+    this.setState({ query: text });
+  }
+
 render() {
   const data = this.state.data
     .sort(function compare(a, b) {
@@ -79,6 +87,7 @@ render() {
 
     return (
       <ScrollView>
+        <SearchBar placeholder="Etsi..." lightTheme onChangeText={this.handleSearch} />
         <FlatList
           data={this.state.data}
           renderItem={({ item }) => <Text onPress={() => { this.props.navigation.navigate('Info', { id: item.id }) }} style={styles.events}> {item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day}</Text>} /* keyExtractor={({ id }, index) => id} */
