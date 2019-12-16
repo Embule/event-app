@@ -53,7 +53,7 @@ export default class InfoScreen extends Component {
         <Text style={styles.description}>{text}</Text>
         <Text style={styles.address}>{address_var}, {postcode_var}, {city}</Text>
         <Text style={styles.date}>Tapahtuma alkaa: {startday}</Text>
-        <Text style={styles.date}>Tapahtuma loppuu: {endday}</Text>
+        <Text style={styles.date}>Tapahtuma loppuu: {endday === 'Invalid date' ? 'Lue lisää tapahtuman omilta sivulta.' : endday}</Text>
         <TouchableOpacity style={styles.Button} title="Vie omaan kalenteriin" onPress={() => Alert.alert('Tästä joskus vie omaan kalenteriin ehkä')}>
           <Text style={styles.buttontext}>Palaa listaan</Text></TouchableOpacity>
       </ScrollView>
@@ -94,14 +94,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginHorizontal: 50,
     marginBottom: 10,
-    padding: 3,
-    borderRadius: 10,
+    padding: 5,
+    borderRadius: 20,
     fontWeight: 'bold'
   },
   buttontext: {
     flex: 1,
     padding: 5,
-    fontSize: 18,
+    fontSize: 16,
     color: 'white',
   },
   Text: {
