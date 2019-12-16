@@ -10,7 +10,7 @@ import {
   Alert,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { SearchBar } from 'react-native-elements';
+// import { SearchBar } from 'react-native-elements';
 import _ from 'lodash';
 //import Images from './HelsinkiImages';
 
@@ -59,6 +59,8 @@ export default class Activities extends React.Component {
       isLoading: true,
       page: 0,
       data: [],
+      search: '',
+      allData: []
     };
   }
 
@@ -74,7 +76,8 @@ export default class Activities extends React.Component {
       .then(data => this.setState({
         isLoading: false,
         page: 0,
-        data: data.data.slice(0, 12)
+        data: data.data.slice(0, 12),
+        allData: data.data
       }, function () {
         this.addRecords(0);
       }
@@ -105,27 +108,43 @@ export default class Activities extends React.Component {
     });
   }
 
-  handleSearch = (text) => {
-    this.setState({ query: text });
+  SearchFilterFunction = text => {
+    const newData = this.state.allData.filter(function(item) {
+      const whenWhere = item.where_when_duration.where_and_when ? item.where_when_duration.where_and_when : ''
+      const name = item.name.fi ? item.name.fi : ''
+      const itemData = `${name.toUpperCase()} ${whenWhere.toUpperCase()}`
+      const textData = text.toUpperCase();
+      return itemData.indexOf(textData) > -1;
+    });
+    this.setState({
+      data: newData,
+      text: text
+    });
   }
 
   render() {
+  const { search } = this.state.search;
     //Listan sorttaus
     const data = this.state.data.sort(function compare(a, b) {
-      var dateA = new Date(a.where_when_duration.where_and_when);
-      var dateB = new Date(b.where_when_duration.where_and_when);
-      return dateA - dateB;
+       var dateA = new Date(a.where_when_duration.where_and_when);
+       var dateB = new Date(b.where_when_duration.where_and_when);
+       return dateA - dateB;
     });
 
     return (
-
       <ScrollView onScroll={({ nativeEvent }) => {
         if (isCloseToBottom(nativeEvent)) {
           this.onScrollHandler();
         }
       }}
         scrollEventThrottle={400}>
-        <SearchBar placeholder="Etsi..." lightTheme onChangeText={this.handleSearch} />
+      
+        <TextInput
+        style={styles.textInputStyle}
+        onChangeText={this.SearchFilterFunction}
+        value={this.state.text}
+        placeholder="Etsi" />
+
         <FlatList
           data={this.state.data}
           renderItem={({ item }) => {
@@ -134,7 +153,7 @@ export default class Activities extends React.Component {
             )
         }
         }
-          keyExtractor={({ id }, index) => id}
+          // keyExtractor={({ id }, index) => id}
         />
       </ScrollView>
     );
@@ -150,6 +169,16 @@ const styles = StyleSheet.create({
   imagecontainer: {
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  textInputStyle: {
+    height: 40,
+    paddingLeft: 10,
+    backgroundColor: 'white',
+    color: 'rgba(63, 81, 181, 0.8)',
+    margin: 30,
+    borderWidth: 1,
+    borderColor: 'rgba(63, 81, 181, 0.8)',
+    borderRadius: 10,
   },
   images: {
     flex: 1,

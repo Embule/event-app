@@ -14,7 +14,7 @@ import {
 import moment from 'moment';
 import { ExpoLinksView } from "@expo/samples";
 import { NavigationEvents } from "react-navigation";
-import { SearchBar } from 'react-native-elements';
+// import { SearchBar } from 'react-native-elements';
 import _ from 'lodash';
 import { TouchableOpacity } from "react-native-gesture-handler";
 
