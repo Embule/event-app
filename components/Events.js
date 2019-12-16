@@ -53,6 +53,7 @@ class FlatListItem extends React.Component {
   }
   render() {
     let image= this.state.images[Math.floor(Math.random() * this.state.images.length)];
+    const time = moment(this.props.item.event_dates.starting_day).format('DD.MM.YYYY HH:mm')
 
     return (
       <View style={styles.itemcontainer}>
@@ -64,7 +65,7 @@ class FlatListItem extends React.Component {
         <View>
           <Text style={styles.header}>{this.props.item.name.fi}</Text>
           <Text style={styles.timeplace}>{this.props.item.location.address.street_address}</Text>
-          <Text style={styles.timeplace}>{this.props.item.event_dates.starting_day === null ? 'Aikaa ei ole määritelty.' : this.props.item.event_dates.starting_day}</Text>
+          <Text>{time}</Text>
         </View>
         <TouchableOpacity style={styles.Button} onPress={() => {
           this.props.navigation.navigate('Info', { id: this.props.item.id })
@@ -134,6 +135,7 @@ export default class Events extends React.Component {
     });
   }
 
+// Hakutoiminto: vertailee tekstisyötettä dataan ja palauttaa tuloksen / data saa arvon newData
 SearchFilterFunction = text => {
   const newData = this.state.allData.filter(function(item) {
     const location = item.location.address.street_address ? item.location.address.street_address : ''
@@ -190,10 +192,12 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     backgroundColor: 'white',
     color: 'rgba(63, 81, 181, 0.8)',
-    margin: 30,
+    marginBottom: 20,
+    marginHorizontal: 50,
+    marginTop: 10,
     borderWidth: 1,
     borderColor: 'rgba(63, 81, 181, 0.8)',
-    borderRadius: 10,
+    borderRadius: 20,
   },
   tempText: {
     fontSize: 28,
@@ -228,7 +232,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 50,
     marginBottom: 10,
     padding: 5,
-    borderRadius: 10,
+    borderRadius: 20,
 },
 Text: {
   fontSize: 16,
