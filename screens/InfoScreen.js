@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Link, Text, StyleSheet, Button, ScrollView, Alert, FlatList } from 'react-native';
+import { Link, Image, View, Text, StyleSheet, Button, ScrollView, Alert, FlatList } from 'react-native';
 import moment from 'moment';
 import HTML from 'react-native-render-html'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { whileStatement } from '@babel/types';
 
 const baseurl = "http://open-api.myhelsinki.fi/v1";
+// const locimg = require('../assets/images/location.jpg');
 
 export default class InfoScreen extends Component {
   constructor(props) {
@@ -51,7 +52,12 @@ export default class InfoScreen extends Component {
       <ScrollView style={styles.container}>
         <Text style={styles.name}>{name_var}</Text>
         <Text style={styles.description}>{text}</Text>
-        <Text style={styles.address}>{address_var}, {postcode_var}, {city}</Text>
+
+        <View style={styles.locationView}>
+        <Image style={styles.locationImage} source= {require('../assets/images/location.png')}/>
+        <Text style={styles.address}>{address_var}, {city}</Text>
+        </View>
+
         <Text style={styles.date}>Tapahtuma alkaa: {startday}</Text>
         <Text style={styles.date}>Tapahtuma loppuu: {endday === 'Invalid date' ? 'Lue lisää tapahtuman omilta sivulta.' : endday}</Text>
         <TouchableOpacity style={styles.Button} title="Vie omaan kalenteriin" onPress={() => Alert.alert('Tästä joskus vie omaan kalenteriin ehkä')}>
@@ -80,7 +86,11 @@ const styles = StyleSheet.create({
   address: {
     margin: 10,
     fontWeight: 'bold',
-    flex: 1
+    flex: 6,
+  },
+  locationImage: {
+    flex: 1,
+    resizeMode: 'contain'
   },
   date: {
     margin: 5,
@@ -108,5 +118,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: 'white',
+  },
+  locationView: {
+  flex: 1,
+  flexDirection: 'row'
   }
 });
