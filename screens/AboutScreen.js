@@ -1,71 +1,58 @@
 import React, { Component } from 'react';
-import About from '../components/About';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import Icon from "react-native-vector-icons/MaterialIcons";
+import { View, Text, StyleSheet, Linking } from 'react-native';
 export default class AboutScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            information: [
-                {
-                    data: props.data,
-                    expanded: false,
-                },
-            ]
-        }
-    }
-    render() {
-        return (
-            <View style={styles.about}>
-                <MaterialCommunityIcons name='information-outline' size={35} color={'#fff'} />
-                <Text>Tänne tulee tiedot sekä applikaatiosta että tekijöistä sekä datasta. Tämä on Academyn syksyn 2019 JavaScript-kurssin loppuprojekti, jonka ovat toteuttaneet Jennifer Finnilä, Heidi Hennessy, Emily Koskinen ja Hanna-Elina Koivisto</Text>
-                <TouchableOpacity style={styles.row} onPress={() => this.toggleExpand()}>
-                    <Text style={[styles.title, styles.font]}>{this.props.title}</Text>
-                    <Icon name={this.state.expanded ? 'keyboard-arrow-up' : 'keyboard-arrow-down'} size={30} />
-                </TouchableOpacity>
-                <View style={styles.parentHr} />
-                {
-                    this.state.expanded &&
-                    <View style={styles.child}>
-                        <Text>Entä jos tänne kirjoittaa{this.props.data}</Text>
-                    </View>
-                }
-            </View>
-        )
+            titleText: "Tietoja sovelluksesta",
+            bodyText: 'Sovellus on kehitetty osana Academyn syksyn 2019 JavaScriptiin keskittyvää intensiivikoulutusta. Sovelluksen ovat kehittäneet Jennifer Finnilä, Heidi Hennessy, Hanna-Elina Koivisto ja Emily Koskinen. Sovellus on tekijöidensä kurssin loppuprojekti.',
+            apiText: 'Sovellus hyödyntää dataa, joka saadaan Helsinki Marketingin ylläpitämästä MyHelsinki Open API rajapinnasta. Kaikki API:n kautta kulkeva data on avointa lisenssillä Creative Commons BY 4.0 kuvatiedostoja lukuun ottamatta. MyHelsinki Open API: (linkki) http://open-api.myhelsinki.fi/ Ylläpitäjän verkkosivusto (linkki) https://www.myhelsinki.fi/ ',
+            photoText: 'Sovelluksen taustakuva: "Helsinki Christmas Market" Valokuvaaja: Jussi Hellsten Valokuvan lähde: http://materialbank.myhelsinki.fi/media/915'
+        };
     }
 
-    toggleExpand = () => {
-        this.setState({ expanded: !this.state.expanded })
+    render() {
+        return (
+            <View style={styles.container}>
+                <Text style={styles.title}>
+                    Tietoja sovelluksesta
+                </Text>
+                <Text style={styles.body}>
+                    Sovellus on kehitetty osana Academyn syksyn 2019 JavaScriptiin keskittyvää intensiivikoulutusta. Sovelluksen ovat kehittäneet Jennifer Finnilä, Heidi Hennessy, Hanna-Elina Koivisto ja Emily Koskinen. Sovellus on tekijöidensä koulutuksen loppuprojekti.
+                </Text>
+                <Text style={styles.body}>
+                    Sovellus hyödyntää dataa, joka saadaan Helsinki Marketingin ylläpitämästä MyHelsinki Open API rajapinnasta. Kaikki API:n kautta kulkeva data on avointa lisenssillä Creative Commons BY 4.0 kuvatiedostoja lukuun ottamatta.
+                </Text>
+                <Text style={styles.body}>MyHelsinki Open API: linkki http://open-api.myhelsinki.fi/ {"\n"}
+                    Ylläpitäjän verkkosivusto: linkki https://www.myhelsinki.fi/</Text>
+                <Text style={styles.body}>
+                    Sovelluksen taustakuva: "Helsinki Christmas Market" {"\n"}
+                    Valokuvaaja: Jussi Hellsten {"\n"}
+                    Valokuvan lähde: http://materialbank.myhelsinki.fi/media/915
+                </Text>
+                <Text style={styles.body}>Tapahtumat- ja aktiviteetit-osioissa näkyvien valokuvien tiedot:</Text>
+            </View>
+        )
     }
 }
 
 const styles = StyleSheet.create({
-    about: {
+    container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
+        backgroundColor: 'rgba(26, 35, 126, 0.8)',
     },
     title: {
-        fontSize: 14,
+        fontSize: 20,
         fontWeight: 'bold',
-        color: 'black',
-    },
-    row: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        height: 56,
-        paddingLeft: 25,
-        paddingRight: 18,
         alignItems: 'center',
-        backgroundColor: 'blue',
+        justifyContent: 'center',
+        color: 'white',
+        paddingLeft: 15,
     },
-    parentHr: {
-        height: 1,
-        color: 'green',
-        width: '100%'
-    },
-    child: {
-        padding: 16,
+    body: {
+        fontSize: 16,
+        color: 'white',
+        paddingTop: 15,
+        paddingLeft: 15,
     }
-})
+});
