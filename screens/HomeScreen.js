@@ -1,15 +1,11 @@
 import React from 'react';
 import {
-    AppRegistry,
-    Image,
     ImageBackground,
-    Platform,
     ScrollView,
     StyleSheet,
     Text,
     TouchableOpacity,
     View,
-    Alert,
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import Weather from '../components/Weather';
