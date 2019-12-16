@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Text, StyleSheet, Button, ScrollView, Alert, FlatList, Linking } from 'react-native';
+import { Link, Image, View, Text, StyleSheet, Button, ScrollView, Alert, FlatList, Linking } from 'react-native';
 import moment from 'moment';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { whileStatement } from '@babel/types';
@@ -56,9 +56,13 @@ export default class InfoScreen extends Component {
       <ScrollView style={styles.container}>
         <Text style={styles.name}>{name_var}</Text>
         <Text style={styles.description}>{text}</Text>
+
+        <View style={styles.locationView}>
+        <Image style={styles.locationImage} source= {require('../assets/images/location.png')}/>
         <Text style={styles.address}>{address_var}, {city}</Text>
+        </View>
         <Text style={styles.date}>Tapahtuma alkaa: {startday}</Text>
-        <Text style={styles.date}>Tapahtuma loppuu: {endday}</Text>
+        <Text style={styles.date}>Tapahtuma loppuu: {endday === 'Invalid date' ? 'Lue lisää tapahtuman omilta sivulta.' : endday}</Text>
         <Text style={styles.date}>{url}</Text>
         <TouchableOpacity style={styles.Button} title="Tapahtumalinkki" onPress={() => Alert.alert('Tapahtuman sivulle')}>
           <Text style={{ color: 'blue' }}
@@ -90,7 +94,11 @@ const styles = StyleSheet.create({
   address: {
     margin: 10,
     fontWeight: 'bold',
-    flex: 1
+    flex: 6,
+  },
+  locationImage: {
+    flex: 1,
+    resizeMode: 'contain'
   },
   date: {
     margin: 5,
@@ -104,19 +112,23 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginHorizontal: 50,
     marginBottom: 10,
-    padding: 3,
-    borderRadius: 10,
+    padding: 5,
+    borderRadius: 20,
     fontWeight: 'bold'
   },
   buttontext: {
     flex: 1,
     padding: 5,
-    fontSize: 18,
+    fontSize: 16,
     color: 'white',
   },
   Text: {
     fontSize: 16,
     fontWeight: 'bold',
     color: 'white',
+  },
+  locationView: {
+  flex: 1,
+  flexDirection: 'row'
   }
 });

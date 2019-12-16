@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
 },
 Text: {
   fontSize: 16,
-  fontWeight: 'bold',
+  padding: 5,
   color: 'white',
 }
 });
