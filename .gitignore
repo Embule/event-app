@@ -11,3 +11,4 @@ web-build/
 web-report/
 *.env
 package-lock.json
+utils/WeatherAPI.js

@@ -89,7 +89,7 @@ export default class Events extends React.Component {
       search: '',
       allData: []
     };
-    this.addRecordsThrottled = throttle(this.addRecords, 3000);
+    // this.addRecordsThrottled = throttle(this.addRecords, 3000);
   };
 
   makeRemoteRequest = () => {
@@ -99,12 +99,7 @@ export default class Events extends React.Component {
   componentDidMount() {
     this.getEvents();
     this.makeRemoteRequest();
-    // this.addRecords()
   };
-
-  componentWillUnmount() {
-    this.getMoreDataThrottled.cancel();
-  }
 
   getEvents = () => {
     return fetch(baseurl + /events/, {
@@ -126,7 +121,6 @@ export default class Events extends React.Component {
 
  //lisää 12 tapahtumaa lisää uudelle sivulle
   addRecords = () => {
-    console.log("start addRecords");
     const newRecords = []
     for (var i = 0; i < 12; i++) {
       newRecords.push(this.state.data[i]);
@@ -165,7 +159,6 @@ SearchFilterFunction = text => {
 
   render() {
   const { search } = this.state.search;
-  console.log(this.state.data.length);
 
     return (
       <ScrollView onScroll={({ nativeEvent }) => {
@@ -183,10 +176,9 @@ SearchFilterFunction = text => {
 
         <FlatList
           data={this.state.data}
-          // newRecords={this.state.newRecords}
           renderItem={({ item }) =>
             <FlatListItem item={item} {...this.props}></FlatListItem>
-          } /* keyExtractor={({ id }, index) => id} */
+          } keyExtractor={({ id }, index) => 'key'+index}
         />
       </ScrollView>
     );
@@ -251,7 +243,7 @@ const styles = StyleSheet.create({
 },
 Text: {
   fontSize: 16,
-  fontWeight: 'bold',
+  padding: 5,
   color: 'white',
 }
 });

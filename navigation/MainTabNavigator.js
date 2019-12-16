@@ -5,9 +5,6 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import EventScreen from '../screens/EventScreen';
 import ActivitiesScreen from '../screens/ActivitiesScreen';
-// import LinksScreen from '../screens/LinksScreen';
-//import ExHomeScreen from '../screens/ExHomeScreen';
-// import SettingsScreen from '../screens/SettingsScreen';
 import InfoScreen from '../screens/InfoScreen';
 import ActivityScreen from '../screens/ActivityScreen';
 import AboutScreen from '../screens/AboutScreen';
@@ -134,45 +131,8 @@ AboutStack.navigationOptions = {
 
 AboutStack.path = '';
 
-// const LinksStack = createStackNavigator(
-//   {
-//     Links: ExHomeScreen,
-//   },
-//   config
-// );
-
-// LinksStack.navigationOptions = {
-//   tabBarLabel: 'ExHomeScreen',
-//   tabBarIcon: ({ focused }) => (
-//     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
-//   ),
-// };
-
-// LinksStack.path = '';
-
-// const SettingsStack = createStackNavigator(
-//   {
-//     Settings: SettingsScreen,
-//   },
-//   config
-// );
-
-// SettingsStack.navigationOptions = {
-//   tabBarLabel: 'Settings',
-//   tabBarIcon: ({ focused }) => (
-//     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
-//   ),
-// };
-
-// SettingsStack.path = '';
-
 const tabNavigator = createBottomTabNavigator({
-  HomeStack,
-  // EventStack,
-  // ActivitiesStack,
-  // AboutStack,
-  // LinksStack,
-  // SettingsStack,
+  Home: {screen: HomeStack, navigationOptions: {tabBarVisible: false}}
 });
 
 tabNavigator.path = '';

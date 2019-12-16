@@ -1,15 +1,11 @@
 import React from 'react';
 import {
-    AppRegistry,
-    Image,
     ImageBackground,
-    Platform,
     ScrollView,
     StyleSheet,
     Text,
     TouchableOpacity,
     View,
-    Alert,
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import Weather from '../components/Weather';
@@ -31,6 +27,11 @@ export default class HomeScreen extends React.Component {
                             <About />
                         </TouchableOpacity>
                     </View>
+
+                    <View style={styles.logo}>
+                        <Image style={{width: 100, height: 100}} source={require('../assets/images/Meininki.png')} />
+                    </View>
+
                     <View style={styles.weather}>
                         {isLoading ? null : (
                             <View>
@@ -75,6 +76,12 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
         paddingTop: 42,
         paddingRight: 25,
+    },
+    logo: {
+        flex: 1,
+        alignItems: 'center',
+        paddingTop: 10,
+        resizeMode: 'contain',
     },
     about: {
         flex: 1,
