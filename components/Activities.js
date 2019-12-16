@@ -150,7 +150,7 @@ export default class Activities extends React.Component {
       var dateB = new Date(b.where_when_duration.where_and_when);
       return dateA - dateB;
     });
-
+    
     return (
       <ScrollView onScroll={({ nativeEvent }) => {
         if (isCloseToBottom(nativeEvent)) {
@@ -173,7 +173,7 @@ export default class Activities extends React.Component {
             )
         }
         }
-          // keyExtractor={({ id }, index) => id}
+          keyExtractor={({ id }, index) => 'key'+index}
         />
       </ScrollView>
     );
@@ -194,7 +194,9 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     backgroundColor: 'white',
     color: 'rgba(63, 81, 181, 0.8)',
-    margin: 30,
+    marginBottom: 20,
+    marginHorizontal: 50,
+    marginTop: 10,
     borderWidth: 1,
     borderColor: 'rgba(63, 81, 181, 0.8)',
     borderRadius: 20,
