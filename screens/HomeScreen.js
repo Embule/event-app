@@ -14,6 +14,7 @@ import {
 import { StackNavigator } from 'react-navigation';
 import Weather from '../components/Weather';
 import About from '../components/About';
+// import AboutScreen from '../screens/AboutScreen';
 export default class HomeScreen extends React.Component {
     state = {
         isLoading: false,

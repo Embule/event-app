@@ -46,14 +46,14 @@ export default class ActivityScreen extends Component {
             <ScrollView style={styles.container}>
                 <Text style={styles.name}>{name_var}</Text>
                 <HTML html={text}></HTML>
-                <Text style={styles.address}> Osoi{address_var}, {postcode_var}, {city}</Text>
+                <Text style={styles.address}>{address_var}, {city}</Text>
                 <Text style={styles.date}>Tapahtuma paikka ja aika: {where_and_when}</Text>
-                <Text style={styles.date}>Tapahtuman kesto: {duration}</Text>
+                <Text style={styles.date}>Tapahtuman kesto: {duration === null ? 'Lue lisää tapahtuman sivulta.': duration}</Text>
                 <TouchableOpacity style={styles.Button} title="Vie omaan kalenteriin" onPress={() => Alert.alert('Tästä joskus vie omaan kalenteriin ehkä')}>
                     <Text style={styles.buttontext}>Palaa listaan</Text></TouchableOpacity>
             </ScrollView>
         );
-    }
+    } 
 }
 
 const styles = StyleSheet.create({

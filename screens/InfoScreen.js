@@ -43,10 +43,10 @@ export default class InfoScreen extends Component {
     let postcode_var = this.state.data.location.address.postal_code
     let city = this.state.data.location.address.locality
     let startday_var = this.state.data.event_dates.starting_day
-    const startday = moment(startday_var).format('DD.MM.YYYY')
+    const startday = moment(startday_var).format('DD.MM.YYYY HH:mm')
     let endday_var = this.state.data.event_dates.ending_day
-    const endday = moment(endday_var).format('DD.MM.YYYY')
-
+    const endday = moment(endday_var).format('DD.MM.YYYY HH:mm')
+   
     return (
       <ScrollView style={styles.container}>
         <Text style={styles.name}>{name_var}</Text>

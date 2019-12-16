@@ -7,12 +7,9 @@ import {
   TextInput,
   View,
   Image,
-  Alert,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { SearchBar } from 'react-native-elements';
 import _ from 'lodash';
-//import Images from './HelsinkiImages';
 
 const baseurl = "http://open-api.myhelsinki.fi/v1";
 
@@ -25,15 +22,38 @@ const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
 
 //Yksittäinen itemi aktiviteettilistassa
 class FlatListItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+     images: [
+      require('../assets/images/helsinki0.jpg'),
+      require('../assets/images/helsinki1.jpg'),
+      require('../assets/images/helsinki2.jpg'),
+      require('../assets/images/helsinki3.jpg'),
+      require('../assets/images/helsinki4.jpg'),
+      require('../assets/images/helsinki5.jpg'),
+      require('../assets/images/helsinki6.jpg'),
+      require('../assets/images/helsinki7.jpg'),
+      require('../assets/images/helsinki8.jpg'),
+      require('../assets/images/helsinki9.jpg'),
+      require('../assets/images/helsinki10.jpg'),
+      require('../assets/images/helsinki11.jpg'),
+      require('../assets/images/helsinki12.jpg'),
+      require('../assets/images/helsinki13.jpg'),
+      require('../assets/images/helsinki14.jpg'),
+      require('../assets/images/helsinki15.jpg'),
+      require('../assets/images/helsinki16.jpg'),
+     ]
+    };
+  }
   render() {
-    //let image = this.props.item.description.images[0].url;
-    //console.log(image);
-    // { uri: 'https://facebook.github.io/react-native/img/tiny_logo.png' } -->toimii testikuvana
+    let image= this.state.images[Math.floor(Math.random() * this.state.images.length)];
+
     return (
       <View style={styles.container}>
         <View style={styles.imagecontainer}>
           <Image style={styles.images}
-            source={require('../assets/images/helsinki9.jpg')}>
+            source={image}>
           </Image>
         </View>
         <View>
@@ -59,6 +79,8 @@ export default class Activities extends React.Component {
       isLoading: true,
       page: 0,
       data: [],
+      search: '',
+      allData: []
     };
   }
 
@@ -74,7 +96,8 @@ export default class Activities extends React.Component {
       .then(data => this.setState({
         isLoading: false,
         page: 0,
-        data: data.data.slice(0, 12)
+        data: data.data.slice(0, 12),
+        allData: data.data
       }, function () {
         this.addRecords(0);
       }
@@ -105,11 +128,22 @@ export default class Activities extends React.Component {
     });
   }
 
-  handleSearch = (text) => {
-    this.setState({ query: text });
+  SearchFilterFunction = text => {
+    const newData = this.state.allData.filter(function(item) {
+      const whenWhere = item.where_when_duration.where_and_when ? item.where_when_duration.where_and_when : ''
+      const name = item.name.fi ? item.name.fi : ''
+      const itemData = `${name.toUpperCase()} ${whenWhere.toUpperCase()}`
+      const textData = text.toUpperCase();
+      return itemData.indexOf(textData) > -1;
+    });
+    this.setState({
+      data: newData,
+      text: text
+    });
   }
 
   render() {
+  const { search } = this.state.search;
     //Listan sorttaus
       const data = this.state.data.sort(function compare(a, b) {
       var dateA = new Date(a.where_when_duration.where_and_when);
@@ -118,14 +152,19 @@ export default class Activities extends React.Component {
     });
 
     return (
-
       <ScrollView onScroll={({ nativeEvent }) => {
         if (isCloseToBottom(nativeEvent)) {
           this.onScrollHandler();
         }
       }}
         scrollEventThrottle={400}>
-        <SearchBar placeholder="Etsi..." lightTheme onChangeText={this.handleSearch} />
+      
+        <TextInput
+        style={styles.textInputStyle}
+        onChangeText={this.SearchFilterFunction}
+        value={this.state.text}
+        placeholder="Etsi" />
+
         <FlatList
           data={this.state.data}
           renderItem={({ item }) => {
@@ -134,7 +173,7 @@ export default class Activities extends React.Component {
             )
         }
         }
-          keyExtractor={({ id }, index) => id}
+          // keyExtractor={({ id }, index) => id}
         />
       </ScrollView>
     );
@@ -143,7 +182,6 @@ export default class Activities extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 10,
     borderBottomColor: 'lightgray',
     borderBottomWidth: 1,
   },
@@ -151,9 +189,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  textInputStyle: {
+    height: 40,
+    paddingLeft: 10,
+    backgroundColor: 'white',
+    color: 'rgba(63, 81, 181, 0.8)',
+    margin: 30,
+    borderWidth: 1,
+    borderColor: 'rgba(63, 81, 181, 0.8)',
+    borderRadius: 20,
+  },
   images: {
     flex: 1,
-    height: 120,
+    height: 140,
   },
   header: {
     flex: 1,
@@ -172,7 +220,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 50,
     marginBottom: 10,
     padding: 5,
-    borderRadius: 10,
+    borderRadius: 20,
 },
 Text: {
   fontSize: 16,
