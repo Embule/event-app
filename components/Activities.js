@@ -39,7 +39,12 @@ class FlatListItem extends React.Component {
       require('../assets/images/helsinki7.jpg'),
       require('../assets/images/helsinki8.jpg'),
       require('../assets/images/helsinki9.jpg'),
-      require('../assets/images/helsinki10.jpg')
+      require('../assets/images/helsinki10.jpg'),
+      require('../assets/images/helsinki11.jpg'),
+      require('../assets/images/helsinki12.jpg'),
+      require('../assets/images/helsinki13.jpg'),
+      require('../assets/images/helsinki14.jpg'),
+      require('../assets/images/helsinki15.jpg'),
      ]
     };
   }
@@ -180,7 +185,6 @@ export default class Activities extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 10,
     borderBottomColor: 'lightgray',
     borderBottomWidth: 1,
   },
@@ -200,7 +204,7 @@ const styles = StyleSheet.create({
   },
   images: {
     flex: 1,
-    height: 120,
+    height: 140,
   },
   header: {
     flex: 1,
