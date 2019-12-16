@@ -59,6 +59,7 @@ export default class Events extends React.Component {
       page: 0,
       data: [],
       search: '',
+      allData: []
     };
   };
 
@@ -79,7 +80,8 @@ export default class Events extends React.Component {
       .then(data => this.setState({
         isLoading: false,
         page: 0,
-        data: data.data.slice(0, 12)
+        data: data.data.slice(0, 12),
+        allData: data.data
       }, function () {
         this.addRecords(0);
       }))
@@ -108,17 +110,16 @@ export default class Events extends React.Component {
   }
 
 SearchFilterFunction = text => {
-  this.setState({
-    value: text,
-  })
-  const newData = this.state.data.filter(function(item) {
-    const itemData = `${item.name.fi.toUpperCase()} ${item.location.address.street_address.toUpperCase()}`
+  const newData = this.state.allData.filter(function(item) {
+    const location = item.location.address.street_address ? item.location.address.street_address : ''
+    const name = item.name.fi ? item.name.fi.toUpperCase() : ''
+    const itemData = `${name} ${location.toUpperCase()}`
     const textData = text.toUpperCase();
-
     return itemData.indexOf(textData) > -1;
   });
   this.setState({
     data: newData,
+    text: text
   });
 }
 
@@ -132,9 +133,10 @@ SearchFilterFunction = text => {
         }
       }}
         scrollEventThrottle={400}>
+
         <TextInput
         style={styles.textInputStyle}
-        onChangeText={text => this.SearchFilterFunction(text)}
+        onChangeText={this.SearchFilterFunction}
         value={this.state.text}
         placeholder="Etsi" />
 
