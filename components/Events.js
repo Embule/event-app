@@ -186,7 +186,7 @@ SearchFilterFunction = text => {
           // newRecords={this.state.newRecords}
           renderItem={({ item }) =>
             <FlatListItem item={item} {...this.props}></FlatListItem>
-          } /* keyExtractor={({ id }, index) => id} */
+          } keyExtractor={({ id }, index) => 'key'+index}
         />
       </ScrollView>
     );
