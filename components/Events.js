@@ -102,9 +102,9 @@ export default class Events extends React.Component {
     // this.addRecords()
   };
 
-  componentWillUnmount() {
+/*   componentWillUnmount() {
     this.getMoreDataThrottled.cancel();
-  }
+  } */
 
   getEvents = () => {
     return fetch(baseurl + /events/, {
