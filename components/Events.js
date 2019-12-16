@@ -101,10 +101,6 @@ export default class Events extends React.Component {
     this.makeRemoteRequest();
   };
 
-  // componentWillUnmount() {
-  //   this.getMoreDataThrottled.cancel();
-  // }
-
   getEvents = () => {
     return fetch(baseurl + /events/, {
       headers: { Accept: "application/json" }
@@ -182,7 +178,7 @@ SearchFilterFunction = text => {
           data={this.state.data}
           renderItem={({ item }) =>
             <FlatListItem item={item} {...this.props}></FlatListItem>
-          } /* keyExtractor={({ id }, index) => id} */
+          } keyExtractor={({ id }, index) => 'key'+index}
         />
       </ScrollView>
     );
