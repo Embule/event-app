@@ -7,12 +7,9 @@ import {
   TextInput,
   View,
   Image,
-  Alert,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-// import { SearchBar } from 'react-native-elements';
 import _ from 'lodash';
-//import Images from './HelsinkiImages';
 
 const baseurl = "http://open-api.myhelsinki.fi/v1";
 
@@ -39,12 +36,17 @@ class FlatListItem extends React.Component {
       require('../assets/images/helsinki7.jpg'),
       require('../assets/images/helsinki8.jpg'),
       require('../assets/images/helsinki9.jpg'),
-      require('../assets/images/helsinki10.jpg')
+      require('../assets/images/helsinki10.jpg'),
+      require('../assets/images/helsinki11.jpg'),
+      require('../assets/images/helsinki12.jpg'),
+      require('../assets/images/helsinki13.jpg'),
+      require('../assets/images/helsinki14.jpg'),
+      require('../assets/images/helsinki15.jpg'),
+      require('../assets/images/helsinki16.jpg'),
      ]
     };
   }
   render() {
-    // require('../assets/images/helsinki1.jpg') -->toimii testikuvana
     let image= this.state.images[Math.floor(Math.random() * this.state.images.length)];
 
     return (
@@ -180,7 +182,6 @@ export default class Activities extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 10,
     borderBottomColor: 'lightgray',
     borderBottomWidth: 1,
   },
@@ -200,7 +201,7 @@ const styles = StyleSheet.create({
   },
   images: {
     flex: 1,
-    height: 120,
+    height: 140,
   },
   header: {
     flex: 1,
