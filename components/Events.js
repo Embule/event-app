@@ -27,13 +27,32 @@ const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
 
 //Yksittäinen itemi eventtilistassa
 class FlatListItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+     images: [
+      require('../assets/images/helsinki0.jpg'),
+      require('../assets/images/helsinki1.jpg'),
+      require('../assets/images/helsinki2.jpg'),
+      require('../assets/images/helsinki3.jpg'),
+      require('../assets/images/helsinki4.jpg'),
+      require('../assets/images/helsinki5.jpg'),
+      require('../assets/images/helsinki6.jpg'),
+      require('../assets/images/helsinki7.jpg'),
+      require('../assets/images/helsinki8.jpg'),
+      require('../assets/images/helsinki9.jpg'),
+      require('../assets/images/helsinki10.jpg')
+     ]
+    };
+  }
   render() {
+    let image= this.state.images[Math.floor(Math.random() * this.state.images.length)];
 
     return (
       <View style={styles.itemcontainer}>
         <View style={styles.imagecontainer}>
           <Image style={styles.images}
-            source={require('../assets/images/helsinki6.jpg')}>
+            source={image}>
           </Image>
         </View>
         <View>
