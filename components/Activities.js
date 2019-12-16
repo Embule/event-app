@@ -7,12 +7,9 @@ import {
   TextInput,
   View,
   Image,
-  Alert,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-// import { SearchBar } from 'react-native-elements';
 import _ from 'lodash';
-//import Images from './HelsinkiImages';
 
 const baseurl = "http://open-api.myhelsinki.fi/v1";
 
@@ -50,7 +47,6 @@ class FlatListItem extends React.Component {
     };
   }
   render() {
-    // require('../assets/images/helsinki1.jpg') -->toimii testikuvana
     let image= this.state.images[Math.floor(Math.random() * this.state.images.length)];
 
     return (
