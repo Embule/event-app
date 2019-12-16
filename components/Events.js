@@ -47,6 +47,7 @@ class FlatListItem extends React.Component {
       require('../assets/images/helsinki13.jpg'),
       require('../assets/images/helsinki14.jpg'),
       require('../assets/images/helsinki15.jpg'),
+      require('../assets/images/helsinki16.jpg'),
      ]
     };
   }
