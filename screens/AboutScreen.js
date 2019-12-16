@@ -54,7 +54,7 @@ export default class AboutScreen extends Component {
         this.setState({ expanded: !this.state.expanded })
     }
 }
-
+// https://medium.com/@KPS250/creating-an-accordion-in-react-native-f313748b7b46
 const styles = StyleSheet.create({
     container: {
         flex: 1,
