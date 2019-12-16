@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
     margin: 30,
     borderWidth: 1,
     borderColor: 'rgba(63, 81, 181, 0.8)',
-    borderRadius: 10,
+    borderRadius: 20,
   },
   images: {
     flex: 1,
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 50,
     marginBottom: 10,
     padding: 5,
-    borderRadius: 10,
+    borderRadius: 20,
 },
 Text: {
   fontSize: 16,

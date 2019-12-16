@@ -129,6 +129,7 @@ export default class Events extends React.Component {
     });
   }
 
+// Hakutoiminto: vertailee tekstisyötettä dataan ja palauttaa tuloksen / data saa arvon newData
 SearchFilterFunction = text => {
   const newData = this.state.allData.filter(function(item) {
     const location = item.location.address.street_address ? item.location.address.street_address : ''
@@ -185,10 +186,12 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     backgroundColor: 'white',
     color: 'rgba(63, 81, 181, 0.8)',
-    margin: 30,
+    marginBottom: 20,
+    marginHorizontal: 50,
+    marginTop: 10,
     borderWidth: 1,
     borderColor: 'rgba(63, 81, 181, 0.8)',
-    borderRadius: 10,
+    borderRadius: 20,
   },
   tempText: {
     fontSize: 28,
@@ -224,7 +227,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 50,
     marginBottom: 10,
     padding: 5,
-    borderRadius: 10,
+    borderRadius: 20,
 },
 Text: {
   fontSize: 16,
