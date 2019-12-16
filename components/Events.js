@@ -16,9 +16,11 @@ import { ExpoLinksView } from "@expo/samples";
 import { NavigationEvents } from "react-navigation";
 import { SearchBar } from 'react-native-elements';
 import _ from 'lodash';
+import throttle from 'lodash.throttle'
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 const baseurl = "http://open-api.myhelsinki.fi/v1";
+
 const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
   const paddingToBottom = 40;
   return layoutMeasurement.height + contentOffset.y >=
@@ -60,6 +62,7 @@ export default class Events extends React.Component {
       data: [],
       search: '',
     };
+    this.addRecordsThrottled = throttle(this.addRecords, 3000);
   };
 
   makeRemoteRequest = () => {
@@ -69,7 +72,12 @@ export default class Events extends React.Component {
   componentDidMount() {
     this.getEvents();
     this.makeRemoteRequest();
+    // this.addRecords()
   };
+
+  componentWillUnmount() {
+    this.getMoreDataThrottled.cancel();
+  }
 
   getEvents = () => {
     return fetch(baseurl + /events/, {
@@ -88,17 +96,22 @@ export default class Events extends React.Component {
       });
   };
 
-  addRecords = (page) => {
+ //lisää 12 tapahtumaa lisää uudelle sivulle
+  addRecords = () => {
+    console.log("start addRecords");
     const newRecords = []
-    for (var i = page * 12, il = i + 12; i < il && i <
-      this.state.data.length; i++) {
+    for (var i = 0; i < 12; i++) {
       newRecords.push(this.state.data[i]);
+      this.page +=1;
     }
-    this.setState({
-      data: [...this.state.data, ...newRecords]
-    });
+    this.setState(prevState => ({
+     data: prevState.data.concat(newRecords)
+    })
+      // data: [...this.state.data, ...newRecords]
+    );
   }
 
+//lisää uuden sivun kun ollaan sivun alareunassa
   onScrollHandler = () => {
     this.setState({
       page: this.state.page + 1, momentumScrollBegun: false
@@ -124,6 +137,7 @@ SearchFilterFunction = text => {
 
   render() {
   const { search } = this.state.search;
+  console.log(this.state.data.length);
 
     return (
       <ScrollView onScroll={({ nativeEvent }) => {
@@ -140,6 +154,7 @@ SearchFilterFunction = text => {
 
         <FlatList
           data={this.state.data}
+          // newRecords={this.state.newRecords}
           renderItem={({ item }) =>
             <FlatListItem item={item} {...this.props}></FlatListItem>
           } /* keyExtractor={({ id }, index) => id} */
