@@ -47,6 +47,7 @@ class FlatListItem extends React.Component {
   }
   render() {
     let image= this.state.images[Math.floor(Math.random() * this.state.images.length)];
+    const time = moment(this.props.item.event_dates.starting_day).format('DD.MM.YYYY HH:mm')
 
     return (
       <View style={styles.itemcontainer}>
@@ -58,7 +59,7 @@ class FlatListItem extends React.Component {
         <View>
           <Text style={styles.header}>{this.props.item.name.fi}</Text>
           <Text style={styles.timeplace}>{this.props.item.location.address.street_address}</Text>
-          <Text style={styles.timeplace}>{this.props.item.event_dates.starting_day === null ? 'Aikaa ei ole määritelty.' : this.props.item.event_dates.starting_day}</Text>
+          <Text>{time}</Text>
         </View>
         <TouchableOpacity style={styles.Button} onPress={() => {
           this.props.navigation.navigate('Info', { id: this.props.item.id })

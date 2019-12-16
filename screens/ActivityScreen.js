@@ -45,11 +45,13 @@ export default class ActivityScreen extends Component {
             <ScrollView>
                 <Text>{name_var}</Text>
                 <HTML html={text}></HTML>
-                <Text>{address_var}, {postcode_var}, {city}</Text>
+                <Text>{address_var}, {city}</Text>
                 <Text>Tapahtuma paikka ja aika: {where_and_when}</Text>
-                <Text>Tapahtuman kesto: {duration}</Text>
+                <Text>Tapahtuman kesto: {duration === null ? 'Lue lisää tapahtuman sivulta.' : duration}</Text>
                 <Button title="Vie omaan kalenteriin" onPress={() => Alert.alert('Vie omaan kalenteriin')} />
             </ScrollView>
         );
     }
+
+    
 }
