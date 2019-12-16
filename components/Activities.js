@@ -150,7 +150,7 @@ export default class Activities extends React.Component {
       var dateB = new Date(b.where_when_duration.where_and_when);
       return dateA - dateB;
     });
-
+    
     return (
       <ScrollView onScroll={({ nativeEvent }) => {
         if (isCloseToBottom(nativeEvent)) {
@@ -173,7 +173,7 @@ export default class Activities extends React.Component {
             )
         }
         }
-          // keyExtractor={({ id }, index) => id}
+          keyExtractor={({ id }, index) => 'key'+index}
         />
       </ScrollView>
     );
