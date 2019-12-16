@@ -145,10 +145,10 @@ export default class Activities extends React.Component {
   render() {
   const { search } = this.state.search;
     //Listan sorttaus
-    const data = this.state.data.sort(function compare(a, b) {
-       var dateA = new Date(a.where_when_duration.where_and_when);
-       var dateB = new Date(b.where_when_duration.where_and_when);
-       return dateA - dateB;
+      const data = this.state.data.sort(function compare(a, b) {
+      var dateA = new Date(a.where_when_duration.where_and_when);
+      var dateB = new Date(b.where_when_duration.where_and_when);
+      return dateA - dateB;
     });
 
     return (
