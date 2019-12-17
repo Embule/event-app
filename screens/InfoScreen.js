@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
   },
   locationImage: {
     flex: 1,
+    height: 25,
     resizeMode: 'contain'
   },
   date: {
