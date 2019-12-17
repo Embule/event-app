@@ -18,7 +18,8 @@ import { NavigationEvents } from "react-navigation";
 import _ from 'lodash';
 import throttle from 'lodash.throttle'
 import { TouchableOpacity } from "react-native-gesture-handler";
-import DatePicker from './DatePicker';
+// import DatePicker from './DatePicker';
+import DatePicker from 'react-native-datepicker';
 
 const baseurl = "http://open-api.myhelsinki.fi/v1";
 
@@ -56,7 +57,7 @@ class FlatListItem extends React.Component {
   }
   render() {
     let image= this.state.images[Math.floor(Math.random() * this.state.images.length)];
-    const time = moment(this.props.item.event_dates.starting_day).format('DD.MM.YYYY HH:mm')
+    const time = moment(this.props.item.event_dates.starting_day).format('DD.MM.YYYY')
 
     return (
       <View style={styles.itemcontainer}>
@@ -87,8 +88,7 @@ export default class Events extends React.Component {
       isLoading: true,
       page: 0,
       data: [],
-      search: '',
-      allData: []
+      allData: [],
     };
     // this.addRecordsThrottled = throttle(this.addRecords, 3000);
   };
@@ -158,9 +158,19 @@ SearchFilterFunction = text => {
   });
 }
 
-  render() {
-  const { search } = this.state.search;
+SearchDateFunction = text => {
+  const newData = this.state.allData.filter(function(item) {
+    const date = item.event_dates.starting_day ? item.event_dates.starting_day : ''
+    const itemDate = moment(date).format('DD.MM.YYYY')
+    return itemDate.indexOf(text) > -1;
+  });
+  this.setState({
+    data: newData,
+    text: text
+  })
+}
 
+  render() {
     return (
       <ScrollView onScroll={({ nativeEvent }) => {
         if (isCloseToBottom(nativeEvent)) {
@@ -168,7 +178,6 @@ SearchFilterFunction = text => {
         }
       }}
         scrollEventThrottle={400}>
-        <DatePicker {...this.props}/>
 
         <View style={styles.searchContainer}>
         <TextInput
@@ -177,6 +186,14 @@ SearchFilterFunction = text => {
           value={this.state.text}
           placeholder="Hae tapahtumaa..." />
         </View>
+
+        <DatePicker
+          date={this.state.date}
+          mode="date"
+          format="DD.MM.YYYY"
+          placeholder="Valitse päivä"
+          onDateChange={this.SearchDateFunction}
+        />
 
         <FlatList
           data={this.state.data}
