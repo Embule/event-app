@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Linking, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Linking, TouchableOpacity, ScrollView, Image } from 'react-native';
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 export default class AboutScreen extends Component {
@@ -13,6 +13,9 @@ export default class AboutScreen extends Component {
     render() {
         return (
             <ScrollView style={styles.container}>
+                <View style={styles.containerImg}>
+                    <Image style={styles.image} source={require('../assets/images/Meininki.png')}></Image>
+                </View>
                 <Text style={styles.title}>
                     Tietoja sovelluksesta
                 </Text>
@@ -158,5 +161,15 @@ const styles = StyleSheet.create({
         color: 'white',
         width: '100%',
         fontSize: 16,
+    },
+    image: {
+        width: '100%',
+        height: 140,
+        backgroundColor: '#00000000',
+    },
+    containerImg: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: 10,
     }
 });
