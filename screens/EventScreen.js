@@ -9,7 +9,7 @@ export default class EventScreen extends Component {
     render() {
         return (
             <View>
-                <SearchbyDate />
+                {/* <SearchbyDate /> */}
                 <Events {...this.props} />
             </View>
         )
