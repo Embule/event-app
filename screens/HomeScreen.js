@@ -7,7 +7,6 @@ import {
     Image,
     TouchableOpacity,
     View,
-    Image
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import Weather from '../components/Weather';
