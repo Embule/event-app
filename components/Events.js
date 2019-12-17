@@ -21,12 +21,6 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 
 const baseurl = "http://open-api.myhelsinki.fi/v1";
 
-const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
-  const paddingToBottom = 40;
-  return layoutMeasurement.height + contentOffset.y >=
-    contentSize.height - paddingToBottom;
-};
-
 //Yksittäinen itemi eventtilistassa
 class FlatListItem extends React.Component {
   constructor(props) {
@@ -83,13 +77,10 @@ export default class Events extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: true,
-      page: 0,
       data: [],
       search: '',
       allData: []
     };
-    // this.addRecordsThrottled = throttle(this.addRecords, 3000);
   };
 
   makeRemoteRequest = () => {
@@ -107,40 +98,13 @@ export default class Events extends React.Component {
     })
       .then(res => res.json())
       .then(data => this.setState({
-        isLoading: false,
-        page: 0,
-        data: data.data.slice(0, 12),
+        data: data.data,
         allData: data.data
-      }, function () {
-        this.addRecords(0);
-      }))
+      },))
       .catch(error => {
         console.error(error);
       });
   };
-
- //lisää 12 tapahtumaa lisää uudelle sivulle
-  addRecords = () => {
-    const newRecords = []
-    for (var i = 0; i < 12; i++) {
-      newRecords.push(this.state.data[i]);
-      this.page +=1;
-    }
-    this.setState(prevState => ({
-     data: prevState.data.concat(newRecords)
-    })
-      // data: [...this.state.data, ...newRecords]
-    );
-  }
-
-//lisää uuden sivun kun ollaan sivun alareunassa
-  onScrollHandler = () => {
-    this.setState({
-      page: this.state.page + 1, momentumScrollBegun: false
-    }, () => {
-      this.addRecords(this.state.page);
-    });
-  }
 
 // Hakutoiminto: vertailee tekstisyötettä dataan ja palauttaa tuloksen / data saa arvon newData
 SearchFilterFunction = text => {
@@ -161,12 +125,7 @@ SearchFilterFunction = text => {
   const { search } = this.state.search;
 
     return (
-      <ScrollView onScroll={({ nativeEvent }) => {
-        if (isCloseToBottom(nativeEvent)) {
-          this.onScrollHandler();
-        }
-      }}
-        scrollEventThrottle={400}>
+      <ScrollView>
 
         <TextInput
         style={styles.textInputStyle}
@@ -247,5 +206,3 @@ Text: {
   color: 'white',
 }
 });
-
-{/* <Text onPress={() => { this.props.navigation.navigate('Info', { id: item.id }) }} style={styles.events}> {item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day === null ? 'Aikaa ei ole määritelty.' : item.event_dates.starting_day}</Text> */}
