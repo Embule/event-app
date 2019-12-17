@@ -41,7 +41,7 @@ export default class ActivityScreen extends Component {
         let where_and_when = this.state.data.where_when_duration.where_and_when
         let duration = this.state.data.where_when_duration.duration
         let url = this.state.data.info_url
-
+        if (!url) url = ""
 
         return (
             <ScrollView style={styles.container}>
@@ -64,9 +64,9 @@ export default class ActivityScreen extends Component {
                 <Text style={styles.duration}>Tapahtuman kesto: {duration === null ? 'Lue lisää tapahtuman omilta sivulta.': duration}</Text>
 
                 <Text style={styles.date}>{url}</Text>
-                <TouchableOpacity style={styles.Button} title="Tapahtumalinkki" onPress={() => Alert.alert('Tapahtuman sivulle')}>
-                    <Text style={{ color: 'blue' }}
-                        onPress={(url) => Linking.openURL({ url })}>Tapahtuman sivulle</Text>
+                <TouchableOpacity style={styles.Button} title="Tapahtumalinkki">
+                    <Text style={{ color: 'white', fontSize:16, padding: 5 }}
+                        onPress={() => Linking.openURL( url )}>Aktiviteetin sivulle</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.Button} title="Vie omaan kalenteriin" onPress={() => Alert.alert('Tästä joskus vie omaan kalenteriin ehkä')}>
                     <Text style={styles.buttontext}>Palaa listaan</Text></TouchableOpacity>
@@ -79,11 +79,7 @@ const styles = StyleSheet.create({
     containerHTML: {
         margin: 10,
     },
-    container: {
-        marginBottom: 10,
-        borderBottomColor: 'lightgray',
-        borderBottomWidth: 1,
-    },
+    container: {},
     name: {
         fontWeight: 'bold',
         margin: 10,

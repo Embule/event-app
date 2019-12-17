@@ -72,9 +72,9 @@ export default class InfoScreen extends Component {
 
         <Text style={styles.enddate}>Päättymisajankohta: {endday === 'Invalid date' ? 'Lue lisää tapahtuman omilta sivulta.' : endday}</Text>
         <Text style={styles.date}>{url}</Text>
-        <TouchableOpacity style={styles.Button} title="Tapahtumalinkki" onPress={() => Alert.alert('Tapahtuman sivulle')}>
-          <Text style={{ color: 'blue' }}
-            onPress={() => Linking.openURL({ url })}>Tapahtuman sivulle</Text>
+        <TouchableOpacity style={styles.Button} title="Tapahtumalinkki">
+          <Text style={{ color: 'white', fontSize:16, padding: 5 }}
+            onPress={() => Linking.openURL( url )}>Tapahtuman sivulle</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.Button} title="Vie omaan kalenteriin" onPress={() => Alert.alert('Tästä joskus vie omaan kalenteriin ehkä')}>
           <Text style={styles.buttontext}>Palaa listaan</Text></TouchableOpacity>

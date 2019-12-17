@@ -94,39 +94,16 @@ export default class Activities extends React.Component {
     })
       .then(res => res.json())
       .then(data => this.setState({
-        isLoading: false,
-        page: 0,
-        data: data.data.slice(0, 12),
+        // isLoading: false,
+        // page: 0,
+        data: data.data,
         allData: data.data
-      }, function () {
-        this.addRecords(0);
-      }
+      },
       ))
       .catch(error => {
         console.error(error);
       });
   };
-
-  //lisää 12kpl aktiviteetteja
-  addRecords = (page) => {
-    const newRecords = []
-    for (var i = page * 12, il = i + 12; i < il && i <
-      this.state.data.length; i++) {
-      newRecords.push(this.state.data[i]);
-    }
-    this.setState({
-      data: [...this.state.data, ...newRecords]
-    });
-  }
-
-  //scrollauksen säätelijä, lisää uuden sivun kun ollaan alareunassa
-  onScrollHandler = () => {
-    this.setState({
-      page: this.state.page + 1, momentumScrullBegun: false
-    }, () => {
-      this.addRecords(this.state.page);
-    });
-  }
 
   SearchFilterFunction = text => {
     const newData = this.state.allData.filter(function(item) {
@@ -152,12 +129,7 @@ export default class Activities extends React.Component {
     });
     
     return (
-      <ScrollView onScroll={({ nativeEvent }) => {
-        if (isCloseToBottom(nativeEvent)) {
-          this.onScrollHandler();
-        }
-      }}
-        scrollEventThrottle={400}>
+      <ScrollView>
       
         <TextInput
         style={styles.textInputStyle}
