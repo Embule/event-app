@@ -9,17 +9,16 @@ import {
   TextInput,
   View,
   Dimensions,
-  Image
+  Image,
 } from "react-native";
 import moment from 'moment';
 import { ExpoLinksView } from "@expo/samples";
 import { NavigationEvents } from "react-navigation";
-// import { SearchBar } from 'react-native-elements';
 import _ from 'lodash';
 import throttle from 'lodash.throttle'
 import { TouchableOpacity } from "react-native-gesture-handler";
-// import DatePicker from './DatePicker';
 import DatePicker from 'react-native-datepicker';
+import ActivityIndicatorExample from './ActivityIndicatorExample';
 
 const baseurl = "http://open-api.myhelsinki.fi/v1";
 
@@ -146,9 +145,8 @@ export default class Events extends React.Component {
 // Hakutoiminto: vertailee tekstisyötettä dataan ja palauttaa tuloksen / data saa arvon newData
 SearchFilterFunction = text => {
   const newData = this.state.allData.filter(function(item) {
-    const location = item.location.address.street_address ? item.location.address.street_address : ''
     const name = item.name.fi ? item.name.fi.toUpperCase() : ''
-    const itemData = `${name} ${location.toUpperCase()}`
+    const itemData = `${name}`
     const textData = text.toUpperCase();
     return itemData.indexOf(textData) > -1;
   });
@@ -178,14 +176,12 @@ SearchDateFunction = text => {
         }
       }}
         scrollEventThrottle={400}>
-
         <View style={styles.searchContainer}>
         <TextInput
           style={styles.textInputStyle}
           onChangeText={this.SearchFilterFunction}
           value={this.state.text}
           placeholder="Hae tapahtumaa..." />
-          
         <DatePicker
           date={this.state.date}
           mode="date"
@@ -202,6 +198,7 @@ SearchDateFunction = text => {
           onDateChange={this.SearchDateFunction}
         />
         </View>
+        <ActivityIndicatorExample />
         <FlatList
           data={this.state.data}
           renderItem={({ item }) =>
