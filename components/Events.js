@@ -18,6 +18,7 @@ import { NavigationEvents } from "react-navigation";
 import _ from 'lodash';
 import throttle from 'lodash.throttle'
 import { TouchableOpacity } from "react-native-gesture-handler";
+import DatePicker from './DatePicker';
 
 const baseurl = "http://open-api.myhelsinki.fi/v1";
 
@@ -67,7 +68,7 @@ class FlatListItem extends React.Component {
         <View>
           <Text style={styles.header}>{this.props.item.name.fi}</Text>
           <Text style={styles.timeplace}>{this.props.item.location.address.street_address}</Text>
-          <Text>{time}</Text>
+          <Text style={{padding: 5}}>{time}</Text>
         </View>
         <TouchableOpacity style={styles.Button} onPress={() => {
           this.props.navigation.navigate('Info', { id: this.props.item.id })
@@ -167,12 +168,15 @@ SearchFilterFunction = text => {
         }
       }}
         scrollEventThrottle={400}>
+        <DatePicker {...this.props}/>
 
+        <View style={styles.searchContainer}>
         <TextInput
-        style={styles.textInputStyle}
-        onChangeText={this.SearchFilterFunction}
-        value={this.state.text}
-        placeholder="Etsi" />
+          style={styles.textInputStyle}
+          onChangeText={this.SearchFilterFunction}
+          value={this.state.text}
+          placeholder="Hae tapahtumaa..." />
+        </View>
 
         <FlatList
           data={this.state.data}
@@ -195,16 +199,22 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   textInputStyle: {
-    height: 40,
-    paddingLeft: 10,
+    width: 250,
+    height: 50,
     backgroundColor: 'white',
     color: 'rgba(63, 81, 181, 0.8)',
-    marginBottom: 20,
+    marginVertical: 5,
     marginHorizontal: 50,
-    marginTop: 10,
     borderWidth: 1,
     borderColor: 'rgba(63, 81, 181, 0.8)',
-    borderRadius: 20,
+    borderRadius: 30,
+    textAlign: 'center',
+  },
+  searchContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      margin: 5,
   },
   tempText: {
     fontSize: 28,
@@ -234,17 +244,18 @@ const styles = StyleSheet.create({
   },
   Button: {
     alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: 'rgba(26, 35, 126, 0.8)',
-    marginTop: 10,
+    marginVertical: 10,
+    width: 250,
+    height: 50,
     marginHorizontal: 50,
-    marginBottom: 10,
-    padding: 5,
-    borderRadius: 20,
+    borderRadius: 30,
 },
 Text: {
   fontSize: 16,
-  padding: 5,
   color: 'white',
+  textAlign: 'center',
 }
 });
 
