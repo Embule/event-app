@@ -32,9 +32,6 @@ export default class AboutScreen extends Component {
                     Valokuvaaja: Jussi Hellsten {"\n"}
                     Valokuvan lähde: http://materialbank.myhelsinki.fi/media/915</Text>
                 <Text style={styles.body}>Tapahtumat- ja aktiviteetit-osioissa näkyvien valokuvien tiedot:</Text>
-
-                <Text>Tänne tulee tiedot sekä applikaatiosta että tekijöistä sekä datasta. Tämä on Academyn syksyn 2019 JavaScript-kurssin loppuprojekti, jonka ovat toteuttaneet Jennifer Finnilä, Heidi Hennessy, Emily Koskinen ja Hanna-Elina Koivisto</Text>
-
                 <TouchableOpacity style={styles.row} onPress={() => this.toggleExpand()}>
                     {/* <Text style={[styles.title, styles.font]}>{this.props.title}</Text> */}
                     <Icon name={this.state.expanded ? 'keyboard-arrow-up' : 'keyboard-arrow-down'} size={30} />
@@ -44,7 +41,25 @@ export default class AboutScreen extends Component {
                     this.state.expanded &&
                     <View style={styles.child}>
                         {/* <Text>{this.props.data}ENTÄ JOS KIRJOITAN TÄNNE</Text> */}
-                        <Text>TESTITEKSI</Text>
+                        <Text>
+                            http://materialbank.myhelsinki.fi/media/2883 (Tuomas Uusheimo) {"\n"}
+                            http://materialbank.myhelsinki.fi/media/536 (Jussi Hellsten) {"\n"}
+                            http://materialbank.myhelsinki.fi/media/895 (Jussi Hellsten) {"\n"}
+                            http://materialbank.myhelsinki.fi/media/1342 (Dorit Salutskij) {"\n"}
+                            http://materialbank.myhelsinki.fi/media/2372 (Yiping Feng and Ling Ouyang) {"\n"}
+                            http://materialbank.myhelsinki.fi/media/2374 (Yiping Feng and Ling Ouyang) {"\n"}
+                            http://materialbank.myhelsinki.fi/media/914 (Jussi Hellsten) {"\n"}
+                            http://materialbank.myhelsinki.fi/media/1149 (Eetu Ahanen) {"\n"}
+                            http://materialbank.myhelsinki.fi/media/3602 (Jussi Hellsten) {"\n"}
+                            http://materialbank.myhelsinki.fi/media/1080 (Riku Pihlanto) {"\n"}
+                            http://materialbank.myhelsinki.fi/media/3284 (Jussi Hellsten) {"\n"}
+                            http://materialbank.myhelsinki.fi/media/2663 (Tuomas Uusheimo) {"\n"}
+                            http://materialbank.myhelsinki.fi/media/2645 (Tuomas Uusheimo) {"\n"}
+                            http://materialbank.myhelsinki.fi/media/2222 (Yinping Feng and Ling Ouyang) {"\n"}
+                            http://materialbank.myhelsinki.fi/media/1086 (Robert Lindström) {"\n"}
+                            http://materialbank.myhelsinki.fi/media/3407 (Vesa Laitinen) {"\n"}
+                            http://materialbank.myhelsinki.fi/media/2767 (Samuli Vienola) {"\n"}
+                        </Text>
                     </View>
                 }
             </View>
@@ -75,11 +90,6 @@ const styles = StyleSheet.create({
         paddingLeft: 15,
         paddingRight: 15,
     },
-    title: {
-        fontSize: 14,
-        fontWeight: 'bold',
-        color: 'black',
-    },
     row: {
         flexDirection: 'row',
         // justifyContent: 'space-between',
@@ -87,7 +97,7 @@ const styles = StyleSheet.create({
         paddingLeft: 25,
         paddingRight: 18,
         alignItems: 'center',
-        backgroundColor: 'blue',
+        backgroundColor: 'white',
     },
     parentHr: {
         height: 1,
