@@ -185,16 +185,23 @@ SearchDateFunction = text => {
           onChangeText={this.SearchFilterFunction}
           value={this.state.text}
           placeholder="Hae tapahtumaa..." />
-        </View>
-
+          
         <DatePicker
           date={this.state.date}
           mode="date"
           format="DD.MM.YYYY"
           placeholder="Valitse päivä"
+          customStyles={{
+          dateIcon: {
+            position: 'absolute',
+            left: 0,
+            top: 4,
+            marginLeft: 0,
+          }
+          }}
           onDateChange={this.SearchDateFunction}
         />
-
+        </View>
         <FlatList
           data={this.state.data}
           renderItem={({ item }) =>
@@ -273,7 +280,7 @@ Text: {
   fontSize: 16,
   color: 'white',
   textAlign: 'center',
-}
+},
 });
 
 {/* <Text onPress={() => { this.props.navigation.navigate('Info', { id: item.id }) }} style={styles.events}> {item.name.fi}, {item.location.address.street_address}, {item.event_dates.starting_day === null ? 'Aikaa ei ole määritelty.' : item.event_dates.starting_day}</Text> */}
