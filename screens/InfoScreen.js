@@ -64,8 +64,14 @@ export default class InfoScreen extends Component {
           <Image style={styles.locationImage} source={require('../assets/images/location.png')} />
           <Text style={styles.address}>{address_var}, {city}</Text>
         </View>
-        <Text style={styles.date}>Tapahtuma alkaa: {startday}</Text>
-        <Text style={styles.date}>Tapahtuma loppuu: {endday === 'Invalid date' ? 'Lue lisää tapahtuman omilta sivulta.' : endday}</Text>
+
+        <View style={styles.locationView}>
+        <Image style={styles.locationImage} source= {require('../assets/images/calendar.png')}/>
+        <Text style={styles.date}>{startday === 'Invalid date' ? 'Lue lisää tapahtuman omilta sivuilta' : startday}</Text>
+        </View>
+
+        <Text style={styles.enddate}>Päättymisajankohta: {endday === 'Invalid date' ? 'Lue lisää tapahtuman omilta sivulta.' : endday}</Text>
+        <Text style={styles.date}>{url}</Text>
         <TouchableOpacity style={styles.Button} title="Tapahtumalinkki">
           <Text style={{ color: 'white', fontSize:16, padding: 5 }}
             onPress={() => Linking.openURL( url )}>Tapahtuman sivulle</Text>
@@ -96,14 +102,21 @@ const styles = StyleSheet.create({
   address: {
     margin: 10,
     fontWeight: 'bold',
+    fontSize: 16,
     flex: 6,
   },
   locationImage: {
     flex: 1,
-    height: 25,
+    height: 30,
     resizeMode: 'contain'
   },
   date: {
+    margin: 10,
+    fontWeight: 'bold',
+    fontSize: 16,
+    flex: 6,
+  },
+  enddate: {
     margin: 5,
     fontStyle: "italic",
     paddingLeft: 5,
@@ -132,7 +145,8 @@ const styles = StyleSheet.create({
   },
   locationView: {
     flex: 1,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    margin: 5,
   },
   image: {
     width: '100%',

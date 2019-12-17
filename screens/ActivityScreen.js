@@ -49,10 +49,21 @@ export default class ActivityScreen extends Component {
                     <Image style={styles.image} source={require('../assets/images/Meininki.png')}></Image>
                 </View>
                 <Text style={styles.name}>{name_var}</Text>
-                <View style={styles.containerHTML}><HTML html={text}></HTML></View>
+
+                <View style={styles.locationView}>
+                <Image style={styles.locationImage} source= {require('../assets/images/location.png')} />
                 <Text style={styles.address}>{address_var}, {city}</Text>
-                <Text style={styles.date}>Tapahtuma paikka ja aika: {where_and_when}</Text>
-                <Text style={styles.date}>Tapahtuman kesto: {duration === null ? 'Lue lisää tapahtuman omilta sivulta.' : duration}</Text>
+                </View>
+
+                <View style={styles.locationView}>
+                <Image style={styles.locationImage} source= {require('../assets/images/calendar.png')} />
+                <Text style={styles.date}>{where_and_when}</Text>
+                </View>
+
+                <View style={styles.containerHTML}><HTML html={text}></HTML></View>        
+                <Text style={styles.duration}>Tapahtuman kesto: {duration === null ? 'Lue lisää tapahtuman omilta sivulta.': duration}</Text>
+
+                <Text style={styles.date}>{url}</Text>
                 <TouchableOpacity style={styles.Button} title="Tapahtumalinkki">
                     <Text style={{ color: 'white', fontSize:16, padding: 5 }}
                         onPress={() => Linking.openURL( url )}>Aktiviteetin sivulle</Text>
@@ -82,13 +93,14 @@ const styles = StyleSheet.create({
     address: {
         margin: 10,
         fontWeight: 'bold',
-        flex: 1
+        flex: 6,
+        fontSize: 16,
     },
     date: {
-        margin: 5,
-        fontStyle: "italic",
-        paddingLeft: 5,
-        paddingRight: 5,
+        margin: 10,
+        fontWeight: 'bold',
+        flex: 6,
+        fontSize: 16,
     },
     Button: {
         alignItems: 'center',
@@ -110,6 +122,16 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         color: 'white',
+    },
+    locationView: {
+    flex: 1,
+    flexDirection: 'row',
+    margin: 5,
+    },
+    locationImage: {
+        flex: 1,
+        height: 30,
+        resizeMode: 'contain'
     },
     image: {
         width: '100%',

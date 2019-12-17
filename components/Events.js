@@ -9,15 +9,16 @@ import {
   TextInput,
   View,
   Dimensions,
-  Image
+  Image,
 } from "react-native";
 import moment from 'moment';
 import { ExpoLinksView } from "@expo/samples";
 import { NavigationEvents } from "react-navigation";
-// import { SearchBar } from 'react-native-elements';
 import _ from 'lodash';
 import throttle from 'lodash.throttle'
 import { TouchableOpacity } from "react-native-gesture-handler";
+import DatePicker from 'react-native-datepicker';
+import ActivityIndicatorExample from './ActivityIndicatorExample';
 
 const baseurl = "http://open-api.myhelsinki.fi/v1";
 
@@ -49,7 +50,7 @@ class FlatListItem extends React.Component {
   }
   render() {
     let image= this.state.images[Math.floor(Math.random() * this.state.images.length)];
-    const time = moment(this.props.item.event_dates.starting_day).format('DD.MM.YYYY HH:mm')
+    const time = moment(this.props.item.event_dates.starting_day).format('DD.MM.YYYY')
 
     return (
       <View style={styles.itemcontainer}>
@@ -61,7 +62,7 @@ class FlatListItem extends React.Component {
         <View>
           <Text style={styles.header}>{this.props.item.name.fi}</Text>
           <Text style={styles.timeplace}>{this.props.item.location.address.street_address}</Text>
-          <Text>{time}</Text>
+          <Text style={{padding: 5}}>{time}</Text>
         </View>
         <TouchableOpacity style={styles.Button} onPress={() => {
           this.props.navigation.navigate('Info', { id: this.props.item.id })
@@ -78,8 +79,7 @@ export default class Events extends React.Component {
     super(props);
     this.state = {
       data: [],
-      search: '',
-      allData: []
+      allData: [],
     };
   };
 
@@ -109,9 +109,8 @@ export default class Events extends React.Component {
 // Hakutoiminto: vertailee tekstisyötettä dataan ja palauttaa tuloksen / data saa arvon newData
 SearchFilterFunction = text => {
   const newData = this.state.allData.filter(function(item) {
-    const location = item.location.address.street_address ? item.location.address.street_address : ''
     const name = item.name.fi ? item.name.fi.toUpperCase() : ''
-    const itemData = `${name} ${location.toUpperCase()}`
+    const itemData = `${name}`
     const textData = text.toUpperCase();
     return itemData.indexOf(textData) > -1;
   });
@@ -121,18 +120,44 @@ SearchFilterFunction = text => {
   });
 }
 
-  render() {
-  const { search } = this.state.search;
+SearchDateFunction = text => {
+  const newData = this.state.allData.filter(function(item) {
+    const date = item.event_dates.starting_day ? item.event_dates.starting_day : ''
+    const itemDate = moment(date).format('DD.MM.YYYY')
+    return itemDate.indexOf(text) > -1;
+  });
+  this.setState({
+    data: newData,
+    text: text
+  })
+}
 
+  render() {
     return (
       <ScrollView>
-
+        <View style={styles.searchContainer}>
         <TextInput
-        style={styles.textInputStyle}
-        onChangeText={this.SearchFilterFunction}
-        value={this.state.text}
-        placeholder="Etsi" />
-
+          style={styles.textInputStyle}
+          onChangeText={this.SearchFilterFunction}
+          value={this.state.text}
+          placeholder="Hae tapahtumaa..." />
+        <DatePicker
+          date={this.state.date}
+          mode="date"
+          format="DD.MM.YYYY"
+          placeholder="Valitse päivä"
+          customStyles={{
+          dateIcon: {
+            position: 'absolute',
+            left: 0,
+            top: 4,
+            marginLeft: 0,
+          }
+          }}
+          onDateChange={this.SearchDateFunction}
+        />
+        </View>
+        <ActivityIndicatorExample />
         <FlatList
           data={this.state.data}
           renderItem={({ item }) =>
@@ -154,16 +179,22 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   textInputStyle: {
-    height: 40,
-    paddingLeft: 10,
+    width: 250,
+    height: 50,
     backgroundColor: 'white',
     color: 'rgba(63, 81, 181, 0.8)',
-    marginBottom: 20,
+    marginVertical: 5,
     marginHorizontal: 50,
-    marginTop: 10,
     borderWidth: 1,
     borderColor: 'rgba(63, 81, 181, 0.8)',
-    borderRadius: 20,
+    borderRadius: 30,
+    textAlign: 'center',
+  },
+  searchContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      margin: 5,
   },
   tempText: {
     fontSize: 28,
@@ -193,16 +224,17 @@ const styles = StyleSheet.create({
   },
   Button: {
     alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: 'rgba(26, 35, 126, 0.8)',
-    marginTop: 10,
+    marginVertical: 10,
+    width: 250,
+    height: 50,
     marginHorizontal: 50,
-    marginBottom: 10,
-    padding: 5,
-    borderRadius: 20,
+    borderRadius: 30,
 },
 Text: {
   fontSize: 16,
-  padding: 5,
   color: 'white',
+  textAlign: 'center',
 }
 });
