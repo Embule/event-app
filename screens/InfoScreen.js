@@ -54,12 +54,15 @@ export default class InfoScreen extends Component {
 
     return (
       <ScrollView style={styles.container}>
+        <View style={styles.containerImg}>
+          <Image style={styles.image} source={require('../assets/images/Meininki.png')}></Image>
+        </View>
         <Text style={styles.name}>{name_var}</Text>
         <Text style={styles.description}>{text}</Text>
 
         <View style={styles.locationView}>
-        <Image style={styles.locationImage} source= {require('../assets/images/location.png')}/>
-        <Text style={styles.address}>{address_var}, {city}</Text>
+          <Image style={styles.locationImage} source={require('../assets/images/location.png')} />
+          <Text style={styles.address}>{address_var}, {city}</Text>
         </View>
 
         <View style={styles.locationView}>
@@ -71,7 +74,7 @@ export default class InfoScreen extends Component {
         <Text style={styles.date}>{url}</Text>
         <TouchableOpacity style={styles.Button} title="Tapahtumalinkki" onPress={() => Alert.alert('Tapahtuman sivulle')}>
           <Text style={{ color: 'blue' }}
-            onPress={() => Linking.openURL({url})}>Tapahtuman sivulle</Text>
+            onPress={() => Linking.openURL({ url })}>Tapahtuman sivulle</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.Button} title="Vie omaan kalenteriin" onPress={() => Alert.alert('Tästä joskus vie omaan kalenteriin ehkä')}>
           <Text style={styles.buttontext}>Palaa listaan</Text></TouchableOpacity>
@@ -141,8 +144,17 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   locationView: {
-  flex: 1,
-  flexDirection: 'row',
-  margin: 5,
+    flex: 1,
+    flexDirection: 'row',
+    margin: 5,
+  },
+  image: {
+    width: '100%',
+    height: 140,
+    backgroundColor: 'rgba(26, 35, 126, 0.8)',
+  },
+  containerImg: {
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 });

@@ -8,10 +8,8 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native';
-import { StackNavigator } from 'react-navigation';
 import Weather from '../components/Weather';
 import About from '../components/About';
-// import AboutScreen from '../screens/AboutScreen';
 export default class HomeScreen extends React.Component {
     state = {
         isLoading: false,
@@ -19,27 +17,27 @@ export default class HomeScreen extends React.Component {
     render() {
         const { isLoading } = this.state;
         return (
-                <ImageBackground 
-                style={{flex: 1}} source={require('../assets/images/tori.jpg')} >
+            <ImageBackground
+                style={{ flex: 1 }} source={require('../assets/images/tori.jpg')} >
                 <ScrollView>
                     <View style={styles.icons}>
-                    <View style={styles.about}>
-                        <TouchableOpacity onPress={() => { this.props.navigation.navigate('About') }}>
-                            <About />
-                        </TouchableOpacity>
-                    </View>
+                        <View style={styles.about}>
+                            <TouchableOpacity onPress={() => { this.props.navigation.navigate('About') }}>
+                                <About />
+                            </TouchableOpacity>
+                        </View>
 
-                    <View style={styles.logo}>
-                        <Image style={{width: 100, height: 100}} source={require('../assets/images/Meininki.png')} />
-                    </View>
+                        <View style={styles.logo}>
+                            <Image style={{ width: 100, height: 100 }} source={require('../assets/images/Meininki.png')} />
+                        </View>
 
-                    <View style={styles.weather}>
-                        {isLoading ? null : (
-                            <View>
-                                <Weather />
-                            </View>
-                        )}
-                    </View>
+                        <View style={styles.weather}>
+                            {isLoading ? null : (
+                                <View>
+                                    <Weather />
+                                </View>
+                            )}
+                        </View>
                     </View>
 
                     <View style={styles.container}>

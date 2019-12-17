@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, Text, StyleSheet, Button, ScrollView, Alert, View, Linking } from 'react-native';
+import { Text, StyleSheet, Button, ScrollView, Alert, View, Linking, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import HTML from 'react-native-render-html'
 
@@ -45,6 +45,9 @@ export default class ActivityScreen extends Component {
 
         return (
             <ScrollView style={styles.container}>
+                <View style={styles.containerImg}>
+                    <Image style={styles.image} source={require('../assets/images/Meininki.png')}></Image>
+                </View>
                 <Text style={styles.name}>{name_var}</Text>
 
                 <View style={styles.locationView}>
@@ -59,6 +62,7 @@ export default class ActivityScreen extends Component {
 
                 <View style={styles.containerHTML}><HTML html={text}></HTML></View>        
                 <Text style={styles.duration}>Tapahtuman kesto: {duration === null ? 'Lue lisää tapahtuman omilta sivulta.': duration}</Text>
+
                 <Text style={styles.date}>{url}</Text>
                 <TouchableOpacity style={styles.Button} title="Tapahtumalinkki" onPress={() => Alert.alert('Tapahtuman sivulle')}>
                     <Text style={{ color: 'blue' }}
@@ -133,4 +137,13 @@ const styles = StyleSheet.create({
         height: 30,
         resizeMode: 'contain'
     },
+    image: {
+        width: '100%',
+        height: 140,
+        backgroundColor: 'rgba(26, 35, 126, 0.8)',
+    },
+    containerImg: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    }
 });
