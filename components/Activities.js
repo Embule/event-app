@@ -35,9 +35,14 @@ class FlatListItem extends React.Component {
             source={this.props.image[randomNr]}>
           </Image>
         </View>
-        <View>
-          <Text style={styles.header}>{this.props.item.name.fi}</Text>
-          <Text style={styles.timeplace}>{this.props.item.where_when_duration.where_and_when}</Text>
+
+        <Text style={styles.header}>{this.props.item.name.fi}</Text>
+        <View style={styles.locationView}>
+          <Image style={styles.locationImage} source={require('../assets/images/location.png')} />
+          <Text style={styles.timeplace}>
+            {this.props.item.where_when_duration.where_and_when}
+          </Text>
+
         </View>
         <TouchableOpacity style={styles.Button} onPress={() => {
           this.props.navigation.navigate('Activity', { id: this.props.item.id })
@@ -92,8 +97,6 @@ export default class Activities extends React.Component {
     })
       .then(res => res.json())
       .then(data => this.setState({
-        // isLoading: false,
-        // page: 0,
         data: data.data,
         allData: data.data
       },
@@ -104,7 +107,7 @@ export default class Activities extends React.Component {
   };
 
   SearchFilterFunction = text => {
-    const newData = this.state.allData.filter(function(item) {
+    const newData = this.state.allData.filter(function (item) {
       const whenWhere = item.where_when_duration.where_and_when ? item.where_when_duration.where_and_when : ''
       const name = item.name.fi ? item.name.fi : ''
       const itemData = `${name.toUpperCase()} ${whenWhere.toUpperCase()}`
@@ -118,22 +121,22 @@ export default class Activities extends React.Component {
   }
 
   render() {
-  const { search } = this.state.search;
+    const { search } = this.state.search;
     //Listan sorttaus
-      const data = this.state.data.sort(function compare(a, b) {
+    const data = this.state.data.sort(function compare(a, b) {
       var dateA = new Date(a.where_when_duration.where_and_when);
       var dateB = new Date(b.where_when_duration.where_and_when);
       return dateA - dateB;
     });
-    
+
     return (
       <ScrollView>
-      
+
         <TextInput
-        style={styles.textInputStyle}
-        onChangeText={this.SearchFilterFunction}
-        value={this.state.text}
-        placeholder="Etsi" />
+          style={styles.textInputStyle}
+          onChangeText={this.SearchFilterFunction}
+          value={this.state.text}
+          placeholder="Etsi" />
 
         <FlatList
           data={this.state.data}
@@ -141,9 +144,9 @@ export default class Activities extends React.Component {
             return (
               <FlatListItem item={item} image={this.state.images} {...this.props}></FlatListItem>
             )
-        }
-        }
-          keyExtractor={({ id }, index) => 'key'+index}
+          }
+          }
+          keyExtractor={({ id }, index) => 'key' + index}
         />
       </ScrollView>
     );
@@ -171,6 +174,16 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(63, 81, 181, 0.8)',
     borderRadius: 20,
   },
+  locationView: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  locationImage: {
+    flex: 1,
+    resizeMode: 'contain',
+    height: 30,
+    width: 20,
+  },
   images: {
     flex: 1,
     height: 140,
@@ -181,9 +194,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   timeplace: {
+    flex: 6,
     fontStyle: "italic",
-    paddingLeft: 5,
+    paddingTop: 10,
     paddingRight: 5,
+    paddingBottom: 10,
   },
   Button: {
     alignItems: 'center',
@@ -193,10 +208,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     padding: 5,
     borderRadius: 20,
-},
-Text: {
-  fontSize: 16,
-  padding: 5,
-  color: 'white',
-}
+  },
+  Text: {
+    fontSize: 16,
+    padding: 5,
+    color: 'white',
+  }
 });
