@@ -42,14 +42,10 @@ export default class ActivityScreen extends Component {
         let city = this.state.data.location.address.locality
         let where_and_when = this.state.data.where_when_duration.where_and_when
         let duration = this.state.data.where_when_duration.duration
-<<<<<<< HEAD
         
         let url;
         if (this.state.data.info_url === null) url = "https://www.myhelsinki.fi/"
         else url = this.state.data.info_url
-=======
-        let url = this.state.data.info_url
->>>>>>> ba92830ad3c3e12910c0b0ae5f7a588de5668a4b
 
         return (
             <ScrollView style={styles.container}>
