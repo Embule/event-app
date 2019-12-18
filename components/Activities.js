@@ -44,9 +44,11 @@ class FlatListItem extends React.Component {
           </Text>
 
         </View>
+        <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.Button} onPress={() => {
           this.props.navigation.navigate('Activity', { id: this.props.item.id })
         }}><Text style={styles.Text}>Lue lisää...</Text></TouchableOpacity>
+        </View>
       </View>
     )
   }
@@ -63,8 +65,7 @@ export default class Activities extends React.Component {
       isLoading: true,
       page: 0,
       data: [],
-      search: '',
-      allData: [],
+      allData: [],    
       images: [
         require('../assets/images/helsinki0.jpg'),
         require('../assets/images/helsinki1.jpg'),
@@ -107,10 +108,9 @@ export default class Activities extends React.Component {
   };
 
   SearchFilterFunction = text => {
-    const newData = this.state.allData.filter(function (item) {
-      const whenWhere = item.where_when_duration.where_and_when ? item.where_when_duration.where_and_when : ''
+    const newData = this.state.allData.filter(function(item) {
       const name = item.name.fi ? item.name.fi : ''
-      const itemData = `${name.toUpperCase()} ${whenWhere.toUpperCase()}`
+      const itemData = `${name.toUpperCase()}`
       const textData = text.toUpperCase();
       return itemData.indexOf(textData) > -1;
     });
@@ -121,7 +121,6 @@ export default class Activities extends React.Component {
   }
 
   render() {
-    const { search } = this.state.search;
     //Listan sorttaus
     const data = this.state.data.sort(function compare(a, b) {
       var dateA = new Date(a.where_when_duration.where_and_when);
@@ -131,12 +130,13 @@ export default class Activities extends React.Component {
 
     return (
       <ScrollView>
-
+      
+        <View style={styles.logoContainer}><Image style={styles.logo} source={require('../assets/images/Meininki_blue.png')} /></View>
         <TextInput
-          style={styles.textInputStyle}
-          onChangeText={this.SearchFilterFunction}
-          value={this.state.text}
-          placeholder="Etsi" />
+        style={styles.textInputStyle}
+        onChangeText={this.SearchFilterFunction}
+        value={this.state.text}
+        placeholder="Hae aktiviteettia..." />
 
         <FlatList
           data={this.state.data}
@@ -192,6 +192,8 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 5,
     fontSize: 18,
+    color: '#FFB300',
+    fontWeight: 'bold',
   },
   timeplace: {
     flex: 6,
@@ -202,16 +204,30 @@ const styles = StyleSheet.create({
   },
   Button: {
     alignItems: 'center',
-    backgroundColor: 'rgba(26, 35, 126, 0.8)',
-    marginTop: 10,
-    marginHorizontal: 50,
-    marginBottom: 10,
-    padding: 5,
-    borderRadius: 20,
-  },
+    justifyContent: 'center',
+    backgroundColor: '#1A237E',
+    marginVertical: 10,
+    width: 150,
+    height: 50,
+    borderRadius: 30,
+},
   Text: {
     fontSize: 16,
     padding: 5,
     color: 'white',
-  }
+},
+  logoContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+},
+  logo: {
+    resizeMode: 'contain',
+    height: 50,
+    width: 120,
+  },
+  buttonContainer: {
+    alignItems: 'center',
+    borderRadius: 20,
+  },
 });
