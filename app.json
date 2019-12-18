@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "event-app",
+    "name": "Meininki",
     "slug": "event-app",
     "privacy": "public",
     "sdkVersion": "35.0.0",
@@ -11,9 +11,9 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/Meininki_blue_smaller.png",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/Meininki_splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

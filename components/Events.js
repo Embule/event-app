@@ -27,40 +27,21 @@ const baseurl = "http://open-api.myhelsinki.fi/v1";
 class FlatListItem extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-     images: [
-      require('../assets/images/helsinki0.jpg'),
-      require('../assets/images/helsinki1.jpg'),
-      require('../assets/images/helsinki2.jpg'),
-      require('../assets/images/helsinki3.jpg'),
-      require('../assets/images/helsinki4.jpg'),
-      require('../assets/images/helsinki5.jpg'),
-      require('../assets/images/helsinki6.jpg'),
-      require('../assets/images/helsinki7.jpg'),
-      require('../assets/images/helsinki8.jpg'),
-      require('../assets/images/helsinki9.jpg'),
-      require('../assets/images/helsinki10.jpg'),
-      require('../assets/images/helsinki11.jpg'),
-      require('../assets/images/helsinki12.jpg'),
-      require('../assets/images/helsinki13.jpg'),
-      require('../assets/images/helsinki14.jpg'),
-      require('../assets/images/helsinki15.jpg'),
-      require('../assets/images/helsinki16.jpg'),
-     ]
-    };
   }
   render() {
-    let image= this.state.images[Math.floor(Math.random() * this.state.images.length)];
+    let randomNr = Math.floor(Math.random() * this.props.image.length);
     const time = moment(this.props.item.event_dates.starting_day).format('DD.MM.YYYY')
 
     return (
       <View style={styles.itemcontainer}>
         <View style={styles.imagecontainer}>
           <Image style={styles.images}
-            source={image}>
+            source={this.props.image[randomNr]}>
           </Image>
+      
         </View>
           <Text style={styles.header}>{this.props.item.name.fi}</Text>
+      
           <View style={styles.locationView}>
           <Image style={styles.locationImage} source={require('../assets/images/location.png')} />
           <Text style={styles.timeplace}>{this.props.item.location.address.street_address}</Text>
@@ -70,6 +51,7 @@ class FlatListItem extends React.Component {
           <Image style={styles.locationImage} source={require('../assets/images/calendar.png')} />
           <Text style={styles.timeplace}>{time}</Text>
           </View>
+
         <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.Button} onPress={() => {
           this.props.navigation.navigate('Info', { id: this.props.item.id })
@@ -88,8 +70,25 @@ export default class Events extends React.Component {
     this.state = {
       data: [],
       allData: [],
-      isVisible: false,
-      formatDate: ''
+      images: [
+        require('../assets/images/helsinki0.jpg'),
+        require('../assets/images/helsinki1.jpg'),
+        require('../assets/images/helsinki2.jpg'),
+        require('../assets/images/helsinki3.jpg'),
+        require('../assets/images/helsinki4.jpg'),
+        require('../assets/images/helsinki5.jpg'),
+        require('../assets/images/helsinki6.jpg'),
+        require('../assets/images/helsinki7.jpg'),
+        require('../assets/images/helsinki8.jpg'),
+        require('../assets/images/helsinki9.jpg'),
+        require('../assets/images/helsinki10.jpg'),
+        require('../assets/images/helsinki11.jpg'),
+        require('../assets/images/helsinki12.jpg'),
+        require('../assets/images/helsinki13.jpg'),
+        require('../assets/images/helsinki14.jpg'),
+        require('../assets/images/helsinki15.jpg'),
+        require('../assets/images/helsinki16.jpg'),
+      ]
     };
   };
 
@@ -110,7 +109,7 @@ export default class Events extends React.Component {
       .then(data => this.setState({
         data: data.data,
         allData: data.data
-      },))
+      }))
       .catch(error => {
         console.error(error);
       });
@@ -170,12 +169,13 @@ SearchDateFunction = text => {
           onDateChange={this.SearchDateFunction}
         />
         </View>
+
         <ActivityIndicatorExample />
         <FlatList
           data={this.state.data}
           renderItem={({ item }) =>
-            <FlatListItem item={item} {...this.props}></FlatListItem>
-          } keyExtractor={({ id }, index) => 'key'+index}
+            <FlatListItem item={item} image={this.state.images} {...this.props}></FlatListItem>
+          } keyExtractor={({ id }, index) => 'key' + index}
         />
       </ScrollView>
     );
