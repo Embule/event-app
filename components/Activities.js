@@ -35,9 +35,14 @@ class FlatListItem extends React.Component {
             source={this.props.image[randomNr]}>
           </Image>
         </View>
-        <View>
-          <Text style={styles.header}>{this.props.item.name.fi}</Text>
-          <Text style={styles.timeplace}>{this.props.item.where_when_duration.where_and_when}</Text>
+
+        <Text style={styles.header}>{this.props.item.name.fi}</Text>
+        <View style={styles.locationView}>
+          <Image style={styles.locationImage} source={require('../assets/images/location.png')} />
+          <Text style={styles.timeplace}>
+            {this.props.item.where_when_duration.where_and_when}
+          </Text>
+
         </View>
         <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.Button} onPress={() => {
@@ -93,8 +98,6 @@ export default class Activities extends React.Component {
     })
       .then(res => res.json())
       .then(data => this.setState({
-        // isLoading: false,
-        // page: 0,
         data: data.data,
         allData: data.data
       },
@@ -118,16 +121,16 @@ export default class Activities extends React.Component {
   }
 
   render() {
- 
     //Listan sorttaus
-      const data = this.state.data.sort(function compare(a, b) {
+    const data = this.state.data.sort(function compare(a, b) {
       var dateA = new Date(a.where_when_duration.where_and_when);
       var dateB = new Date(b.where_when_duration.where_and_when);
       return dateA - dateB;
     });
-    
+
     return (
       <ScrollView>
+      
         <View style={styles.logoContainer}><Image style={styles.logo} source={require('../assets/images/Meininki_blue.png')} /></View>
         <TextInput
         style={styles.textInputStyle}
@@ -141,9 +144,9 @@ export default class Activities extends React.Component {
             return (
               <FlatListItem item={item} image={this.state.images} {...this.props}></FlatListItem>
             )
-        }
-        }
-          keyExtractor={({ id }, index) => 'key'+index}
+          }
+          }
+          keyExtractor={({ id }, index) => 'key' + index}
         />
       </ScrollView>
     );
@@ -171,6 +174,16 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(63, 81, 181, 0.8)',
     borderRadius: 20,
   },
+  locationView: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  locationImage: {
+    flex: 1,
+    resizeMode: 'contain',
+    height: 30,
+    width: 20,
+  },
   images: {
     flex: 1,
     height: 140,
@@ -183,9 +196,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   timeplace: {
+    flex: 6,
     fontStyle: "italic",
-    paddingLeft: 5,
+    paddingTop: 10,
     paddingRight: 5,
+    paddingBottom: 10,
   },
   Button: {
     alignItems: 'center',
@@ -213,5 +228,6 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     alignItems: 'center',
-  }
+    borderRadius: 20,
+  },
 });
