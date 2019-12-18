@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link, Image, View, Text, StyleSheet, Button, ScrollView, Alert, FlatList, Linking } from 'react-native';
 import moment from 'moment';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { whileStatement } from '@babel/types';
 
 const baseurl = "http://open-api.myhelsinki.fi/v1";
 
@@ -22,11 +21,6 @@ export default class InfoScreen extends Component {
 
   componentDidMount() {
     this.getEvent();
-    Linking.getInitialURL(this.state.data.info_url).then((url) => {
-      if (url) {
-        console.log('Initial url is:' + this.state.data.info_url)
-      }
-    })
   }
 
   getEvent = () => {
@@ -39,6 +33,7 @@ export default class InfoScreen extends Component {
         console.error(error);
       });
   };
+
   render() {
     if (!text) text = "Haetaan..."
 
@@ -71,7 +66,6 @@ export default class InfoScreen extends Component {
         </View>
 
         <Text style={styles.enddate}>Päättymisajankohta: {endday === 'Invalid date' ? 'Lue lisää tapahtuman omilta sivulta.' : endday}</Text>
-        <Text style={styles.date}>{url}</Text>
         <TouchableOpacity style={styles.Button} title="Tapahtumalinkki">
           <Text style={{ color: 'white', fontSize:16, padding: 5 }}
             onPress={() => Linking.openURL( url )}>Tapahtuman sivulle</Text>
@@ -93,7 +87,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     margin: 10,
     fontSize: 20,
-    color: 'rgb(228, 167, 0);',
+    color: '#FFB300',
   },
   description: {
     margin: 10,

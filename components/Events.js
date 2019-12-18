@@ -18,6 +18,7 @@ import _ from 'lodash';
 import throttle from 'lodash.throttle'
 import { TouchableOpacity } from "react-native-gesture-handler";
 import DatePicker from 'react-native-datepicker';
+import DateTimePicker from 'react-native-modal-datetime-picker'
 import ActivityIndicatorExample from './ActivityIndicatorExample';
 
 const baseurl = "http://open-api.myhelsinki.fi/v1";
@@ -37,15 +38,25 @@ class FlatListItem extends React.Component {
           <Image style={styles.images}
             source={this.props.image[randomNr]}>
           </Image>
+      
         </View>
-        <View>
           <Text style={styles.header}>{this.props.item.name.fi}</Text>
+      
+          <View style={styles.locationView}>
+          <Image style={styles.locationImage} source={require('../assets/images/location.png')} />
           <Text style={styles.timeplace}>{this.props.item.location.address.street_address}</Text>
-          <Text style={{ padding: 5 }}>{time}</Text>
-        </View>
+          </View>
+
+          <View style={styles.locationView}>
+          <Image style={styles.locationImage} source={require('../assets/images/calendar.png')} />
+          <Text style={styles.timeplace}>{time}</Text>
+          </View>
+
+        <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.Button} onPress={() => {
           this.props.navigation.navigate('Info', { id: this.props.item.id })
         }}><Text style={styles.Text}>Lue lisää...</Text></TouchableOpacity>
+        </View>
       </View>
     )
   }
@@ -104,57 +115,61 @@ export default class Events extends React.Component {
       });
   };
 
-  // Hakutoiminto: vertailee tekstisyötettä dataan ja palauttaa tuloksen / data saa arvon newData
-  SearchFilterFunction = text => {
-    const newData = this.state.allData.filter(function (item) {
-      const name = item.name.fi ? item.name.fi.toUpperCase() : ''
-      const itemData = `${name}`
-      const textData = text.toUpperCase();
-      return itemData.indexOf(textData) > -1;
-    });
-    this.setState({
-      data: newData,
-      text: text
-    });
-  }
-
-  SearchDateFunction = text => {
-    const newData = this.state.allData.filter(function (item) {
-      const date = item.event_dates.starting_day ? item.event_dates.starting_day : ''
-      const itemDate = moment(date).format('DD.MM.YYYY')
-      return itemDate.indexOf(text) > -1;
-    });
-    this.setState({
-      data: newData,
-      text: text
-    })
-  }
+// Hakutoiminto: vertailee tekstisyötettä dataan ja palauttaa tuloksen / data saa arvon newData
+SearchFilterFunction = text => {
+  const newData = this.state.allData.filter(function(item) {
+    const name = item.name.fi ? item.name.fi.toUpperCase() : ''
+    const itemData = `${name}`
+    const textData = text.toUpperCase();
+    return itemData.indexOf(textData) > -1;
+  });
+  this.setState({
+    data: newData,
+    text: text
+  });
+}
+// Hakutoiminto: poimii syötetyn päivämäärän tekstikenttään ja vertailee sitä datasta tulevaan päivämäärään
+SearchDateFunction = text => {
+  const newData = this.state.allData.filter(function(item) {
+    const date = item.event_dates.starting_day ? item.event_dates.starting_day : ''
+    const itemDate = moment(date).format('DD.MM.YYYY')
+    return itemDate.indexOf(text) > -1;
+  });
+  this.setState({
+    data: newData,
+    text: text,
+  })
+}
 
   render() {
     return (
       <ScrollView>
+        <View style={styles.logoContainer}><Image style={styles.logo} source={require('../assets/images/Meininki_blue.png')} /></View>
         <View style={styles.searchContainer}>
-          <TextInput
-            style={styles.textInputStyle}
-            onChangeText={this.SearchFilterFunction}
-            value={this.state.text}
-            placeholder="Hae tapahtumaa..." />
-          <DatePicker
-            date={this.state.date}
-            mode="date"
-            format="DD.MM.YYYY"
-            placeholder="Valitse päivä"
-            customStyles={{
-              dateIcon: {
-                position: 'absolute',
-                left: 0,
-                top: 4,
-                marginLeft: 0,
-              }
-            }}
-            onDateChange={this.SearchDateFunction}
-          />
+        <TextInput
+          style={styles.textInputStyle}
+          onChangeText={this.SearchFilterFunction}
+          value={this.state.text}
+          placeholder="Hae tapahtumaa..." />
+        
+        <DatePicker
+          style={styles.datePicker}
+          date={this.state.date}
+          mode="date"
+          format="DD.MM.YYYY"
+          placeholder=" "
+          customStyles={{
+          dateIcon: {
+            position: 'absolute',
+            left: 0,
+            top: 4,
+            marginLeft: 0,
+          }
+          }}
+          onDateChange={this.SearchDateFunction}
+        />
         </View>
+
         <ActivityIndicatorExample />
         <FlatList
           data={this.state.data}
@@ -180,19 +195,24 @@ const styles = StyleSheet.create({
     width: 250,
     height: 50,
     backgroundColor: 'white',
-    color: 'rgba(63, 81, 181, 0.8)',
+    color: '#1A237E',
     marginVertical: 5,
-    marginHorizontal: 50,
+    marginHorizontal: 10,
     borderWidth: 1,
-    borderColor: 'rgba(63, 81, 181, 0.8)',
+    borderColor: '#1A237E',
     borderRadius: 30,
     textAlign: 'center',
+    flex: 1
+  },
+  datePicker: {
+    flex: 1,
+    marginHorizontal: 10,
   },
   searchContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 5,
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
   },
   tempText: {
     fontSize: 28,
@@ -214,25 +234,55 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 5,
     fontSize: 18,
+    color: '#1A237E',
+    fontWeight: 'bold',
   },
   timeplace: {
-    fontStyle: "italic",
+    fontWeight: "bold",
+    fontSize: 16,
     paddingLeft: 5,
     paddingRight: 5,
+    flex: 6,
+    marginTop: 15
   },
   Button: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(26, 35, 126, 0.8)',
+    backgroundColor: '#1A237E',
     marginVertical: 10,
-    width: 250,
+    width: 150,
     height: 50,
-    marginHorizontal: 50,
     borderRadius: 30,
-  },
+},
   Text: {
     fontSize: 16,
     color: 'white',
     textAlign: 'center',
+},
+  logoContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 10
+  },
+  logo: {
+    resizeMode: 'contain',
+    height: 50,
+    width: 120,
+},
+  locationView: {
+  flex: 1,
+  flexDirection: 'row',
+  margin: 1,
+},
+  locationImage: {
+    flex: 1,
+    height: 30,
+    width: 20,
+    margin: 5,
+    resizeMode: 'contain'
+  },
+  buttonContainer: {
+    alignItems: 'center',
   }
 });
