@@ -20,6 +20,7 @@ export default class ActivityScreen extends Component {
 
     componentDidMount() {
         this.getActivity();
+        this.hideButton();
     }
 
     getActivity = () => {
@@ -32,6 +33,7 @@ export default class ActivityScreen extends Component {
                 console.error(error);
             });
     };
+
     render() {
         if (!text) text = "Haetaan..."
         let text = this.state.data.description.body
@@ -41,7 +43,6 @@ export default class ActivityScreen extends Component {
         let where_and_when = this.state.data.where_when_duration.where_and_when
         let duration = this.state.data.where_when_duration.duration
         let url = this.state.data.info_url
-        if (!url) url = ""
 
         return (
             <ScrollView style={styles.container}>
@@ -51,22 +52,20 @@ export default class ActivityScreen extends Component {
                 <Text style={styles.name}>{name_var}</Text>
 
                 <View style={styles.locationView}>
-                <Image style={styles.locationImage} source= {require('../assets/images/location.png')} />
-                <Text style={styles.address}>{address_var}, {city}</Text>
+                    <Image style={styles.locationImage} source={require('../assets/images/location.png')} />
+                    <Text style={styles.address}>{address_var}, {city}</Text>
                 </View>
 
                 <View style={styles.locationView}>
-                <Image style={styles.locationImage} source= {require('../assets/images/calendar.png')} />
-                <Text style={styles.date}>{where_and_when}</Text>
+                    <Image style={styles.locationImage} source={require('../assets/images/calendar.png')} />
+                    <Text style={styles.date}>{where_and_when}</Text>
                 </View>
 
-                <View style={styles.containerHTML}><HTML html={text}></HTML></View>        
-                <Text style={styles.duration}>Tapahtuman kesto: {duration === null ? 'Lue lisää tapahtuman omilta sivulta.': duration}</Text>
-
-                <Text style={styles.date}>{url}</Text>
+                <View style={styles.containerHTML}><HTML html={text}></HTML></View>
+                <Text style={styles.duration}>Tapahtuman kesto: {duration === null ? 'Lue lisää tapahtuman omilta sivulta.' : duration}</Text>
                 <TouchableOpacity style={styles.Button} title="Tapahtumalinkki">
-                    <Text style={{ color: 'white', fontSize:16, padding: 5 }}
-                        onPress={() => Linking.openURL( url )}>Aktiviteetin sivulle</Text>
+                    <Text style={{ color: 'white', fontSize: 16, padding: 5 }}
+                        onPress={() => Linking.openURL(url)}>Aktiviteetin sivulle</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.Button} title="Vie omaan kalenteriin" onPress={() => Alert.alert('Tästä joskus vie omaan kalenteriin ehkä')}>
                     <Text style={styles.buttontext}>Palaa listaan</Text></TouchableOpacity>
@@ -79,7 +78,6 @@ const styles = StyleSheet.create({
     containerHTML: {
         margin: 10,
     },
-    container: {},
     name: {
         fontWeight: 'bold',
         margin: 10,
@@ -124,9 +122,9 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     locationView: {
-    flex: 1,
-    flexDirection: 'row',
-    margin: 5,
+        flex: 1,
+        flexDirection: 'row',
+        margin: 5,
     },
     locationImage: {
         flex: 1,
