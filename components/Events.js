@@ -26,43 +26,22 @@ const baseurl = "http://open-api.myhelsinki.fi/v1";
 class FlatListItem extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-     images: [
-      require('../assets/images/helsinki0.jpg'),
-      require('../assets/images/helsinki1.jpg'),
-      require('../assets/images/helsinki2.jpg'),
-      require('../assets/images/helsinki3.jpg'),
-      require('../assets/images/helsinki4.jpg'),
-      require('../assets/images/helsinki5.jpg'),
-      require('../assets/images/helsinki6.jpg'),
-      require('../assets/images/helsinki7.jpg'),
-      require('../assets/images/helsinki8.jpg'),
-      require('../assets/images/helsinki9.jpg'),
-      require('../assets/images/helsinki10.jpg'),
-      require('../assets/images/helsinki11.jpg'),
-      require('../assets/images/helsinki12.jpg'),
-      require('../assets/images/helsinki13.jpg'),
-      require('../assets/images/helsinki14.jpg'),
-      require('../assets/images/helsinki15.jpg'),
-      require('../assets/images/helsinki16.jpg'),
-     ]
-    };
   }
   render() {
-    let image= this.state.images[Math.floor(Math.random() * this.state.images.length)];
+    let randomNr = Math.floor(Math.random() * this.props.image.length);
     const time = moment(this.props.item.event_dates.starting_day).format('DD.MM.YYYY')
 
     return (
       <View style={styles.itemcontainer}>
         <View style={styles.imagecontainer}>
           <Image style={styles.images}
-            source={image}>
+            source={this.props.image[randomNr]}>
           </Image>
         </View>
         <View>
           <Text style={styles.header}>{this.props.item.name.fi}</Text>
           <Text style={styles.timeplace}>{this.props.item.location.address.street_address}</Text>
-          <Text style={{padding: 5}}>{time}</Text>
+          <Text style={{ padding: 5 }}>{time}</Text>
         </View>
         <TouchableOpacity style={styles.Button} onPress={() => {
           this.props.navigation.navigate('Info', { id: this.props.item.id })
@@ -80,6 +59,25 @@ export default class Events extends React.Component {
     this.state = {
       data: [],
       allData: [],
+      images: [
+        require('../assets/images/helsinki0.jpg'),
+        require('../assets/images/helsinki1.jpg'),
+        require('../assets/images/helsinki2.jpg'),
+        require('../assets/images/helsinki3.jpg'),
+        require('../assets/images/helsinki4.jpg'),
+        require('../assets/images/helsinki5.jpg'),
+        require('../assets/images/helsinki6.jpg'),
+        require('../assets/images/helsinki7.jpg'),
+        require('../assets/images/helsinki8.jpg'),
+        require('../assets/images/helsinki9.jpg'),
+        require('../assets/images/helsinki10.jpg'),
+        require('../assets/images/helsinki11.jpg'),
+        require('../assets/images/helsinki12.jpg'),
+        require('../assets/images/helsinki13.jpg'),
+        require('../assets/images/helsinki14.jpg'),
+        require('../assets/images/helsinki15.jpg'),
+        require('../assets/images/helsinki16.jpg'),
+      ]
     };
   };
 
@@ -100,69 +98,69 @@ export default class Events extends React.Component {
       .then(data => this.setState({
         data: data.data,
         allData: data.data
-      },))
+      }))
       .catch(error => {
         console.error(error);
       });
   };
 
-// Hakutoiminto: vertailee tekstisyötettä dataan ja palauttaa tuloksen / data saa arvon newData
-SearchFilterFunction = text => {
-  const newData = this.state.allData.filter(function(item) {
-    const name = item.name.fi ? item.name.fi.toUpperCase() : ''
-    const itemData = `${name}`
-    const textData = text.toUpperCase();
-    return itemData.indexOf(textData) > -1;
-  });
-  this.setState({
-    data: newData,
-    text: text
-  });
-}
+  // Hakutoiminto: vertailee tekstisyötettä dataan ja palauttaa tuloksen / data saa arvon newData
+  SearchFilterFunction = text => {
+    const newData = this.state.allData.filter(function (item) {
+      const name = item.name.fi ? item.name.fi.toUpperCase() : ''
+      const itemData = `${name}`
+      const textData = text.toUpperCase();
+      return itemData.indexOf(textData) > -1;
+    });
+    this.setState({
+      data: newData,
+      text: text
+    });
+  }
 
-SearchDateFunction = text => {
-  const newData = this.state.allData.filter(function(item) {
-    const date = item.event_dates.starting_day ? item.event_dates.starting_day : ''
-    const itemDate = moment(date).format('DD.MM.YYYY')
-    return itemDate.indexOf(text) > -1;
-  });
-  this.setState({
-    data: newData,
-    text: text
-  })
-}
+  SearchDateFunction = text => {
+    const newData = this.state.allData.filter(function (item) {
+      const date = item.event_dates.starting_day ? item.event_dates.starting_day : ''
+      const itemDate = moment(date).format('DD.MM.YYYY')
+      return itemDate.indexOf(text) > -1;
+    });
+    this.setState({
+      data: newData,
+      text: text
+    })
+  }
 
   render() {
     return (
       <ScrollView>
         <View style={styles.searchContainer}>
-        <TextInput
-          style={styles.textInputStyle}
-          onChangeText={this.SearchFilterFunction}
-          value={this.state.text}
-          placeholder="Hae tapahtumaa..." />
-        <DatePicker
-          date={this.state.date}
-          mode="date"
-          format="DD.MM.YYYY"
-          placeholder="Valitse päivä"
-          customStyles={{
-          dateIcon: {
-            position: 'absolute',
-            left: 0,
-            top: 4,
-            marginLeft: 0,
-          }
-          }}
-          onDateChange={this.SearchDateFunction}
-        />
+          <TextInput
+            style={styles.textInputStyle}
+            onChangeText={this.SearchFilterFunction}
+            value={this.state.text}
+            placeholder="Hae tapahtumaa..." />
+          <DatePicker
+            date={this.state.date}
+            mode="date"
+            format="DD.MM.YYYY"
+            placeholder="Valitse päivä"
+            customStyles={{
+              dateIcon: {
+                position: 'absolute',
+                left: 0,
+                top: 4,
+                marginLeft: 0,
+              }
+            }}
+            onDateChange={this.SearchDateFunction}
+          />
         </View>
         <ActivityIndicatorExample />
         <FlatList
           data={this.state.data}
           renderItem={({ item }) =>
-            <FlatListItem item={item} {...this.props}></FlatListItem>
-          } keyExtractor={({ id }, index) => 'key'+index}
+            <FlatListItem item={item} image={this.state.images} {...this.props}></FlatListItem>
+          } keyExtractor={({ id }, index) => 'key' + index}
         />
       </ScrollView>
     );
@@ -191,10 +189,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   searchContainer: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      margin: 5,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 5,
   },
   tempText: {
     fontSize: 28,
@@ -231,10 +229,10 @@ const styles = StyleSheet.create({
     height: 50,
     marginHorizontal: 50,
     borderRadius: 30,
-},
-Text: {
-  fontSize: 16,
-  color: 'white',
-  textAlign: 'center',
-}
+  },
+  Text: {
+    fontSize: 16,
+    color: 'white',
+    textAlign: 'center',
+  }
 });
