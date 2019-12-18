@@ -71,7 +71,6 @@ export default class InfoScreen extends Component {
         </View>
 
         <Text style={styles.enddate}>Päättymisajankohta: {endday === 'Invalid date' ? 'Lue lisää tapahtuman omilta sivulta.' : endday}</Text>
-        <Text style={styles.date}>{url}</Text>
         <TouchableOpacity style={styles.Button} title="Tapahtumalinkki">
           <Text style={{ color: 'white', fontSize:16, padding: 5 }}
             onPress={() => Linking.openURL( url )}>Tapahtuman sivulle</Text>
@@ -93,7 +92,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     margin: 10,
     fontSize: 20,
-    color: 'rgb(228, 167, 0);',
+    color: '#FFB300',
   },
   description: {
     margin: 10,

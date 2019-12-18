@@ -44,11 +44,11 @@ export default class HomeScreen extends React.Component {
                         <TouchableOpacity
                             style={styles.Button}
                             onPress={() => { this.props.navigation.navigate('Activities') }}
-                        ><Text style={styles.Text}>AKTIVITEETIT</Text></TouchableOpacity>
+                        ><Image style={{width: 120, height: 120}} source={require('../assets/images/Aktiviteetit.png')} /></TouchableOpacity>
                         <TouchableOpacity
                             style={styles.Button}
                             onPress={() => { this.props.navigation.navigate('Events') }}
-                        ><Text style={styles.Text}>TAPAHTUMAT</Text></TouchableOpacity>
+                        ><Image style={{width: 120, height: 120}} source={require('../assets/images/Tapahtumat.png')} /></TouchableOpacity>
                     </View>
                 </ScrollView>
             </ImageBackground>
@@ -94,8 +94,8 @@ const styles = StyleSheet.create({
         marginTop: 400,
         position: 'relative',
         marginHorizontal: 10,
-        paddingVertical: 50,
-        paddingHorizontal: 25,
+        paddingVertical: 10,
+        paddingHorizontal: 10,
         borderRadius: 20,
     },
     Text: {

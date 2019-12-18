@@ -51,11 +51,6 @@ export default class ActivityScreen extends Component {
                 <Text style={styles.name}>{name_var}</Text>
 
                 <View style={styles.locationView}>
-                <Image style={styles.locationImage} source= {require('../assets/images/location.png')} />
-                <Text style={styles.address}>{address_var}, {city}</Text>
-                </View>
-
-                <View style={styles.locationView}>
                 <Image style={styles.locationImage} source= {require('../assets/images/calendar.png')} />
                 <Text style={styles.date}>{where_and_when}</Text>
                 </View>
@@ -63,7 +58,6 @@ export default class ActivityScreen extends Component {
                 <View style={styles.containerHTML}><HTML html={text}></HTML></View>        
                 <Text style={styles.duration}>Tapahtuman kesto: {duration === null ? 'Lue lisää tapahtuman omilta sivulta.': duration}</Text>
 
-                <Text style={styles.date}>{url}</Text>
                 <TouchableOpacity style={styles.Button} title="Tapahtumalinkki">
                     <Text style={{ color: 'white', fontSize:16, padding: 5 }}
                         onPress={() => Linking.openURL( url )}>Aktiviteetin sivulle</Text>
@@ -82,9 +76,9 @@ const styles = StyleSheet.create({
     container: {},
     name: {
         fontWeight: 'bold',
-        margin: 10,
+        margin: 20,
         fontSize: 20,
-        color: 'rgb(228, 167, 0);',
+        color: '#FFB300',
     },
     description: {
         margin: 10,
@@ -124,14 +118,15 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     locationView: {
-    flex: 1,
-    flexDirection: 'row',
-    margin: 5,
+        flex: 1,
+        flexDirection: 'row',
+        marginTop: 20,
     },
     locationImage: {
         flex: 1,
         height: 30,
-        resizeMode: 'contain'
+        resizeMode: 'contain',
+        paddingLeft: 10,
     },
     image: {
         width: '100%',
