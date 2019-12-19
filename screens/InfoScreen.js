@@ -45,7 +45,10 @@ export default class InfoScreen extends Component {
     const startday = moment(startday_var).format('DD.MM.YYYY HH:mm')
     let endday_var = this.state.data.event_dates.ending_day
     const endday = moment(endday_var).format('DD.MM.YYYY HH:mm')
-    let url = this.state.data.info_url;
+    
+    let url;
+    if (this.state.data.info_url === null) url = "https://www.myhelsinki.fi/"
+    else url = this.state.data.info_url
 
     return (
       <ScrollView style={styles.container}>
@@ -70,6 +73,7 @@ export default class InfoScreen extends Component {
         </View>
 
         <Text style={styles.enddate}>Päättymisajankohta: {endday === 'Invalid date' ? 'Lue lisää tapahtuman omilta sivulta.' : endday}</Text>
+
         <TouchableOpacity style={styles.Button} title="Tapahtumalinkki">
           <Text style={styles.link}
             onPress={() => Linking.openURL(url)}>Siirry tapahtuman sivuille</Text>

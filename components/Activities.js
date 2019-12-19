@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import _ from 'lodash';
+import Spinner from './Spinner'
 
 const baseurl = "http://open-api.myhelsinki.fi/v1";
 
@@ -31,12 +32,12 @@ class FlatListItem extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.imagecontainer}>
-        <Image style={styles.images}
+          <Image style={styles.images}
             source={this.props.image[randomNr]}>
           </Image>
         </View>
 
-        <Text style={styles.header}>{this.props.item.name.fi}</Text>
+        <Text style={styles.header} onPress={() => { this.props.navigation.navigate('Activity', { id: this.props.item.id }) }}>{this.props.item.name.fi}</Text>
         <View style={styles.locationView}>
           <Image style={styles.locationImage} source={require('../assets/images/location.png')} />
           <Text style={styles.timeplace}>
@@ -45,9 +46,9 @@ class FlatListItem extends React.Component {
 
         </View>
         <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.Button} onPress={() => {
-          this.props.navigation.navigate('Activity', { id: this.props.item.id })
-        }}><Text style={styles.Text}>Lue lisää...</Text></TouchableOpacity>
+          <TouchableOpacity style={styles.Button} onPress={() => {
+            this.props.navigation.navigate('Activity', { id: this.props.item.id })
+          }}><Text style={styles.Text}>Lue lisää...</Text></TouchableOpacity>
         </View>
       </View>
     )
@@ -65,7 +66,7 @@ export default class Activities extends React.Component {
       isLoading: true,
       page: 0,
       data: [],
-      allData: [],    
+      allData: [],
       images: [
         require('../assets/images/helsinki0.jpg'),
         require('../assets/images/helsinki1.jpg'),
@@ -84,7 +85,7 @@ export default class Activities extends React.Component {
         require('../assets/images/helsinki14.jpg'),
         require('../assets/images/helsinki15.jpg'),
         require('../assets/images/helsinki16.jpg'),
-       ]
+      ]
     };
   }
 
@@ -108,7 +109,7 @@ export default class Activities extends React.Component {
   };
 
   SearchFilterFunction = text => {
-    const newData = this.state.allData.filter(function(item) {
+    const newData = this.state.allData.filter(function (item) {
       const name = item.name.fi ? item.name.fi : ''
       const itemData = `${name.toUpperCase()}`
       const textData = text.toUpperCase();
@@ -121,23 +122,16 @@ export default class Activities extends React.Component {
   }
 
   render() {
-    //Listan sorttaus
-    const data = this.state.data.sort(function compare(a, b) {
-      var dateA = new Date(a.where_when_duration.where_and_when);
-      var dateB = new Date(b.where_when_duration.where_and_when);
-      return dateA - dateB;
-    });
 
     return (
       <ScrollView>
-      
         <View style={styles.logoContainer}><Image style={styles.logo} source={require('../assets/images/Meininki_blue.png')} /></View>
         <TextInput
         style={styles.textInputStyle}
         onChangeText={this.SearchFilterFunction}
         value={this.state.text}
         placeholder="Hae aktiviteettia..." />
-
+        <Spinner />
         <FlatList
           data={this.state.data}
           renderItem={({ item }) => {
@@ -211,17 +205,17 @@ const styles = StyleSheet.create({
     width: 150,
     height: 50,
     borderRadius: 30,
-},
+  },
   Text: {
     fontSize: 16,
     padding: 5,
     color: 'white',
-},
+  },
   logoContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-},
+  },
   logo: {
     resizeMode: 'contain',
     height: 70,
