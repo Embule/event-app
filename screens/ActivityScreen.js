@@ -20,7 +20,6 @@ export default class ActivityScreen extends Component {
 
     componentDidMount() {
         this.getActivity();
-        this.hideButton();
     }
 
     getActivity = () => {
