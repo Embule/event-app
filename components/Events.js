@@ -137,34 +137,34 @@ export default class Events extends React.Component {
   }
 
   render() {
+    
     return (
       <ScrollView>
         <View style={styles.logoContainer}><Image style={styles.logo} source={require('../assets/images/Meininki_blue.png')} /></View>
         <View style={styles.searchContainer}>
-          <TextInput
-            style={styles.textInputStyle}
-            onChangeText={this.SearchFilterFunction}
-            value={this.state.text}
-            placeholder="Hae tapahtumaa..." />
-
-          <DatePicker
-            style={styles.datePicker}
-            date={this.state.date}
-            mode="date"
-            format="DD.MM.YYYY"
-            placeholder=" "
-            customStyles={{
-              dateIcon: {
-                position: 'absolute',
-                left: 0,
-                top: 4,
-                marginLeft: 0,
-              }
-            }}
-            onDateChange={this.SearchDateFunction}
-          />
+        <TextInput
+          style={styles.textInputStyle}
+          onChangeText={this.SearchFilterFunction}
+          value={this.state.text}
+          placeholder="Hae tapahtumaa..." />
+        
+        <DatePicker
+          style={styles.datePicker}
+          date={this.state.date}
+          mode="date"
+          format="DD.MM.YYYY"
+          placeholder="Valitse..."
+          customStyles={{
+          dateIcon: {
+            position: 'absolute',
+            left: 0,
+            top: 4,
+            marginLeft: 0,
+          }
+          }}
+          onDateChange={this.SearchDateFunction}
+        />
         </View>
-
         <Spinner />
         <FlatList
           data={this.state.data}
@@ -187,15 +187,14 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   textInputStyle: {
-    width: 250,
-    height: 50,
+    width: 200,
+    height: 40,
     backgroundColor: 'white',
     color: '#1A237E',
     marginVertical: 5,
     marginHorizontal: 10,
     borderWidth: 1,
     borderColor: '#1A237E',
-    borderRadius: 30,
     textAlign: 'center',
     flex: 1
   },

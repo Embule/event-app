@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import _ from 'lodash';
+import Spinner from './Spinner'
 
 const baseurl = "http://open-api.myhelsinki.fi/v1";
 
@@ -121,23 +122,16 @@ export default class Activities extends React.Component {
   }
 
   render() {
-    //Listan sorttaus
-    const data = this.state.data.sort(function compare(a, b) {
-      var dateA = new Date(a.where_when_duration.where_and_when);
-      var dateB = new Date(b.where_when_duration.where_and_when);
-      return dateA - dateB;
-    });
 
     return (
       <ScrollView>
-
         <View style={styles.logoContainer}><Image style={styles.logo} source={require('../assets/images/Meininki_blue.png')} /></View>
         <TextInput
-          style={styles.textInputStyle}
-          onChangeText={this.SearchFilterFunction}
-          value={this.state.text}
-          placeholder="Hae aktiviteettia..." />
-
+        style={styles.textInputStyle}
+        onChangeText={this.SearchFilterFunction}
+        value={this.state.text}
+        placeholder="Hae aktiviteettia..." />
+        <Spinner />
         <FlatList
           data={this.state.data}
           renderItem={({ item }) => {

@@ -19,7 +19,6 @@ export default class HomeScreen extends React.Component {
         return (
             <ImageBackground
                 style={{ flex: 1 }} source={require('../assets/images/tori.jpg')} >
-                <ScrollView>
                     <View style={styles.icons}>
                         <View style={styles.about}>
                             <TouchableOpacity onPress={() => { this.props.navigation.navigate('About') }}>
@@ -40,17 +39,17 @@ export default class HomeScreen extends React.Component {
                         </View>
                     </View>
 
+                    <View style={styles.buttonContainer}>
                     <View style={styles.container}>
                         <TouchableOpacity
                             style={styles.Button}
                             onPress={() => { this.props.navigation.navigate('Activities') }}
-                        ><Image style={{width: 120, height: 120}} source={require('../assets/images/Aktiviteetit.png')} /></TouchableOpacity>
-                        <TouchableOpacity
+                        ><Image style={{width: 120, height: 120}} source={require('../assets/images/Aktiviteetit.png')} /></TouchableOpacity></View>
+                        <View style={styles.container}><TouchableOpacity
                             style={styles.Button}
                             onPress={() => { this.props.navigation.navigate('Events') }}
-                        ><Image style={{width: 120, height: 120}} source={require('../assets/images/Tapahtumat.png')} /></TouchableOpacity>
+                        ><Image style={{width: 120, height: 120}} source={require('../assets/images/Tapahtumat.png')} /></TouchableOpacity></View>
                     </View>
-                </ScrollView>
             </ImageBackground>
         );
     }
@@ -61,11 +60,11 @@ HomeScreen.navigationOptions = {
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
+    buttonContainer: {
         flexDirection: 'row',
-        justifyContent: 'center',
-    },
+        alignItems: 'center',
+        alignItems: 'center',
+    }, 
     icons: {
         flex: 1,
         flexDirection: "row"
@@ -88,15 +87,18 @@ const styles = StyleSheet.create({
         paddingTop: 50,
         paddingLeft: 25,
     },
+    container: {
+        flex: 1,
+        alignItems: 'center'
+    },
     Button: {
         alignItems: 'center',
         backgroundColor: 'rgba(26, 35, 126, 0.8)',
-        marginTop: 400,
-        position: 'relative',
-        marginHorizontal: 10,
-        paddingVertical: 10,
+        paddingVertical: 5,
         paddingHorizontal: 10,
         borderRadius: 20,
+        position: 'absolute',
+        bottom: 50,
     },
     Text: {
         fontSize: 16,
