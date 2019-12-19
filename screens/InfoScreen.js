@@ -36,9 +36,9 @@ export default class InfoScreen extends Component {
 
   render() {
 
-    let text = this.state.data.description.intro
-    if (!text) text = "Haetaan..."
+    let text = this.state.data.description.intro 
     let name_var = this.state.data.name.fi
+    if (!name_var) name_var = "Haetaan..."
     let address_var = this.state.data.location.address.street_address
     let city = this.state.data.location.address.locality
     let startday_var = this.state.data.event_dates.starting_day
