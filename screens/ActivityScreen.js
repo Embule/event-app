@@ -34,8 +34,8 @@ export default class ActivityScreen extends Component {
     };
 
     render() {
-        if (!text) text = "Haetaan..."
         let text = this.state.data.description.body
+        if (!text) text = "Haetaan..."
         let name_var = this.state.data.name.fi
         let where_and_when = this.state.data.where_when_duration.where_and_when
         let duration = this.state.data.where_when_duration.duration
