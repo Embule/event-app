@@ -2,23 +2,16 @@ import React from "react";
 import {
   ScrollView,
   StyleSheet,
-  Button,
-  Alert,
   FlatList,
   Text,
   TextInput,
   View,
-  Dimensions,
   Image,
 } from "react-native";
 import moment from 'moment';
-import { ExpoLinksView } from "@expo/samples";
-import { NavigationEvents } from "react-navigation";
 import _ from 'lodash';
-import throttle from 'lodash.throttle'
 import { TouchableOpacity } from "react-native-gesture-handler";
 import DatePicker from 'react-native-datepicker';
-import DateTimePicker from 'react-native-modal-datetime-picker'
 import Spinner from './Spinner';
 
 const baseurl = "http://open-api.myhelsinki.fi/v1";
@@ -38,24 +31,26 @@ class FlatListItem extends React.Component {
           <Image style={styles.images}
             source={this.props.image[randomNr]}>
           </Image>
-      
+
         </View>
-          <Text style={styles.header}>{this.props.item.name.fi}</Text>
-      
-          <View style={styles.locationView}>
+        <Text style={styles.header} onPress={() => {
+          this.props.navigation.navigate('Info', { id: this.props.item.id })
+        }}>{this.props.item.name.fi}</Text>
+
+        <View style={styles.locationView}>
           <Image style={styles.locationImage} source={require('../assets/images/location.png')} />
           <Text style={styles.timeplace}>{this.props.item.location.address.street_address}</Text>
-          </View>
+        </View>
 
-          <View style={styles.locationView}>
+        <View style={styles.locationView}>
           <Image style={styles.locationImage} source={require('../assets/images/calendar.png')} />
           <Text style={styles.timeplace}>{time}</Text>
-          </View>
+        </View>
 
         <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.Button} onPress={() => {
-          this.props.navigation.navigate('Info', { id: this.props.item.id })
-        }}><Text style={styles.Text}>Lue lisää...</Text></TouchableOpacity>
+          <TouchableOpacity style={styles.Button} onPress={() => {
+            this.props.navigation.navigate('Info', { id: this.props.item.id })
+          }}><Text style={styles.Text}>Lue lisää...</Text></TouchableOpacity>
         </View>
       </View>
     )
@@ -115,31 +110,31 @@ export default class Events extends React.Component {
       });
   };
 
-// Hakutoiminto: vertailee tekstisyötettä dataan ja palauttaa tuloksen / data saa arvon newData
-SearchFilterFunction = text => {
-  const newData = this.state.allData.filter(function(item) {
-    const name = item.name.fi ? item.name.fi.toUpperCase() : ''
-    const itemData = `${name}`
-    const textData = text.toUpperCase();
-    return itemData.indexOf(textData) > -1;
-  });
-  this.setState({
-    data: newData,
-    text: text
-  });
-}
-// Hakutoiminto: poimii syötetyn päivämäärän tekstikenttään ja vertailee sitä datasta tulevaan päivämäärään
-SearchDateFunction = text => {
-  const newData = this.state.allData.filter(function(item) {
-    const date = item.event_dates.starting_day ? item.event_dates.starting_day : ''
-    const itemDate = moment(date).format('DD.MM.YYYY')
-    return itemDate.indexOf(text) > -1;
-  });
-  this.setState({
-    data: newData,
-    text: text,
-  })
-}
+  // Hakutoiminto: vertailee tekstisyötettä dataan ja palauttaa tuloksen / data saa arvon newData
+  SearchFilterFunction = text => {
+    const newData = this.state.allData.filter(function (item) {
+      const name = item.name.fi ? item.name.fi.toUpperCase() : ''
+      const itemData = `${name}`
+      const textData = text.toUpperCase();
+      return itemData.indexOf(textData) > -1;
+    });
+    this.setState({
+      data: newData,
+      text: text
+    });
+  }
+  // Hakutoiminto: poimii syötetyn päivämäärän tekstikenttään ja vertailee sitä datasta tulevaan päivämäärään
+  SearchDateFunction = text => {
+    const newData = this.state.allData.filter(function (item) {
+      const date = item.event_dates.starting_day ? item.event_dates.starting_day : ''
+      const itemDate = moment(date).format('DD.MM.YYYY')
+      return itemDate.indexOf(text) > -1;
+    });
+    this.setState({
+      data: newData,
+      text: text,
+    })
+  }
 
   render() {
     
@@ -208,10 +203,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   searchContainer: {
-      flex: 1,
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   tempText: {
     fontSize: 28,
@@ -252,12 +247,12 @@ const styles = StyleSheet.create({
     width: 150,
     height: 50,
     borderRadius: 30,
-},
+  },
   Text: {
     fontSize: 16,
     color: 'white',
     textAlign: 'center',
-},
+  },
   logoContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -268,12 +263,12 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     height: 50,
     width: 120,
-},
+  },
   locationView: {
-  flex: 1,
-  flexDirection: 'row',
-  margin: 1,
-},
+    flex: 1,
+    flexDirection: 'row',
+    margin: 1,
+  },
   locationImage: {
     flex: 1,
     height: 30,
