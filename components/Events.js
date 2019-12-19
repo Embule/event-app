@@ -137,7 +137,7 @@ export default class Events extends React.Component {
   }
 
   render() {
-    
+
     return (
       <ScrollView>
         <View style={styles.logoContainer}><Image style={styles.logo} source={require('../assets/images/Meininki_blue.png')} /></View>
@@ -163,7 +163,7 @@ export default class Events extends React.Component {
           }
           }}
           onDateChange={this.SearchDateFunction}
-        />
+        />            
         </View>
         <Spinner />
         <FlatList
