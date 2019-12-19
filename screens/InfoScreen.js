@@ -53,9 +53,13 @@ export default class InfoScreen extends Component {
     return (
       <ScrollView style={styles.container}>
         <View style={styles.containerImg}>
-          <Image style={styles.image} source={require('../assets/images/Meininki.png')}></Image>
+          <Image style={styles.logo} source={require('../assets/images/Meininki_blue.png')}></Image>
         </View>
+
+        <View style={styles.namecontainer}>
         <Text style={styles.name}>{name_var}</Text>
+        </View>
+
         <Text style={styles.description}>{text}</Text>
 
         <View style={styles.locationView}>
@@ -69,9 +73,10 @@ export default class InfoScreen extends Component {
         </View>
 
         <Text style={styles.enddate}>Päättymisajankohta: {endday === 'Invalid date' ? 'Lue lisää tapahtuman omilta sivulta.' : endday}</Text>
+
         <TouchableOpacity style={styles.Button} title="Tapahtumalinkki">
-          <Text style={{ color: 'white', fontSize: 16, padding: 5 }}
-            onPress={() => Linking.openURL(url)}>Tapahtuman sivulle</Text>
+          <Text style={styles.link}
+            onPress={() => Linking.openURL(url)}>Siirry tapahtuman sivuille</Text>
         </TouchableOpacity>
       </ScrollView>
     );
@@ -80,9 +85,13 @@ export default class InfoScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 10,
     borderBottomColor: 'lightgray',
     borderBottomWidth: 1,
+    padding: 10
+  },
+  namecontainer: {
+    borderTopWidth: 1,
+    paddingTop: 10,
   },
   name: {
     fontWeight: 'bold',
@@ -119,17 +128,17 @@ const styles = StyleSheet.create({
   },
   Button: {
     alignItems: 'center',
-    backgroundColor: 'rgba(26, 35, 126, 0.8)',
-    marginTop: 10,
+    backgroundColor: '#1A237E',
+    marginTop: 20,
     marginHorizontal: 50,
-    marginBottom: 10,
+    marginBottom: 20,
     padding: 5,
-    borderRadius: 20,
+    borderRadius: 30,
     fontWeight: 'bold'
   },
   buttontext: {
     flex: 1,
-    padding: 5,
+    paddingHorizontal: 5,
     fontSize: 16,
     color: 'white',
   },
@@ -143,10 +152,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     margin: 5,
   },
-  image: {
-    width: '100%',
-    height: 140,
-    backgroundColor: 'rgba(26, 35, 126, 0.8)',
+  logo: {
+    resizeMode: 'contain',
+    height: 50,
+    width: 120,
+    marginBottom: 15
+  },
+  link: {
+    color: 'white',
+    fontSize: 16,
+    padding: 10
   },
   containerImg: {
     justifyContent: 'center',
