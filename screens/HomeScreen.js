@@ -72,8 +72,8 @@ const styles = StyleSheet.create({
     weather: {
         flex: 1,
         alignItems: 'flex-end',
-        paddingTop: 42,
         paddingRight: 25,
+        paddingTop: 42
     },
     logo: {
         flex: 1,
