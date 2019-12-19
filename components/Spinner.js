@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-class ActivityIndicatorExample extends Component {
+class Spinner extends Component {
 state = { animating: true }
    
 closeActivityIndicator = () => setTimeout(() => this.setState({
-animating: false }), 5000)
+animating: false }), 7000)
    
 componentDidMount = () => this.closeActivityIndicator()
 render() {
@@ -21,7 +21,7 @@ render() {
     )
 }
 }
-export default ActivityIndicatorExample
+export default Spinner
 
 const styles = StyleSheet.create ({
 container: {

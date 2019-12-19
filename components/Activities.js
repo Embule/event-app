@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import _ from 'lodash';
+import Spinner from './Spinner'
 
 const baseurl = "http://open-api.myhelsinki.fi/v1";
 
@@ -130,14 +131,13 @@ export default class Activities extends React.Component {
 
     return (
       <ScrollView>
-      
         <View style={styles.logoContainer}><Image style={styles.logo} source={require('../assets/images/Meininki_blue.png')} /></View>
         <TextInput
         style={styles.textInputStyle}
         onChangeText={this.SearchFilterFunction}
         value={this.state.text}
         placeholder="Hae aktiviteettia..." />
-
+        <Spinner />
         <FlatList
           data={this.state.data}
           renderItem={({ item }) => {

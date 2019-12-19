@@ -142,6 +142,7 @@ SearchDateFunction = text => {
 }
 
   render() {
+    
     return (
       <ScrollView>
         <View style={styles.logoContainer}><Image style={styles.logo} source={require('../assets/images/Meininki_blue.png')} /></View>
@@ -157,7 +158,7 @@ SearchDateFunction = text => {
           date={this.state.date}
           mode="date"
           format="DD.MM.YYYY"
-          placeholder=" "
+          placeholder="Valitse..."
           customStyles={{
           dateIcon: {
             position: 'absolute',
@@ -169,7 +170,6 @@ SearchDateFunction = text => {
           onDateChange={this.SearchDateFunction}
         />
         </View>
-
         <Spinner />
         <FlatList
           data={this.state.data}
@@ -192,15 +192,14 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   textInputStyle: {
-    width: 250,
-    height: 50,
+    width: 200,
+    height: 40,
     backgroundColor: 'white',
     color: '#1A237E',
     marginVertical: 5,
     marginHorizontal: 10,
     borderWidth: 1,
     borderColor: '#1A237E',
-    borderRadius: 30,
     textAlign: 'center',
     flex: 1
   },
