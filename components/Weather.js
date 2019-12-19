@@ -58,9 +58,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#00000000',
     },
     weather: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
+    alignItems: 'center',
     },
     tempText: {
         fontSize: 28,
