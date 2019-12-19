@@ -1,9 +1,7 @@
 import React from 'react';
 import {
     ImageBackground,
-    ScrollView,
     StyleSheet,
-    Text,
     Image,
     TouchableOpacity,
     View,
