@@ -218,8 +218,8 @@ const styles = StyleSheet.create({
   },
   logo: {
     resizeMode: 'contain',
-    height: 50,
-    width: 120,
+    height: 70,
+    width: 150,
   },
   buttonContainer: {
     alignItems: 'center',
