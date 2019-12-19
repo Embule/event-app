@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, Button, ScrollView, Alert, View, Linking, Image } from 'react-native';
+import { Text, StyleSheet, ScrollView, View, Linking, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import HTML from 'react-native-render-html'
 
@@ -39,7 +39,7 @@ export default class ActivityScreen extends Component {
         let name_var = this.state.data.name.fi
         let where_and_when = this.state.data.where_when_duration.where_and_when
         let duration = this.state.data.where_when_duration.duration
-        
+
         let url;
         if (this.state.data.info_url === null) url = "https://www.myhelsinki.fi/"
         else url = this.state.data.info_url
@@ -52,12 +52,12 @@ export default class ActivityScreen extends Component {
                 <Text style={styles.name}>{name_var}</Text>
 
                 <View style={styles.locationView}>
-                <Image style={styles.locationImage} source= {require('../assets/images/calendar.png')} />
-                <Text style={styles.date}>{where_and_when}</Text>
+                    <Image style={styles.locationImage} source={require('../assets/images/calendar.png')} />
+                    <Text style={styles.date}>{where_and_when}</Text>
                 </View>
 
-                <View style={styles.containerHTML}><HTML html={text}></HTML></View>        
-                <Text style={styles.duration}>Tapahtuman kesto: {duration === null ? 'Lue lisää tapahtuman omilta sivulta.': duration}</Text>
+                <View style={styles.containerHTML}><HTML html={text}></HTML></View>
+                <Text style={styles.duration}>Tapahtuman kesto: {duration === null ? 'Lue lisää tapahtuman omilta sivulta.' : duration}</Text>
 
                 <TouchableOpacity style={styles.Button} title="Tapahtumalinkki">
                     <Text style={{ color: 'white', fontSize: 16, padding: 5 }}
