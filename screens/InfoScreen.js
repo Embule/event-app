@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Image, View, Text, StyleSheet, Button, ScrollView, Alert, FlatList, Linking } from 'react-native';
+import { Image, View, Text, StyleSheet, ScrollView, Linking } from 'react-native';
 import moment from 'moment';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -45,7 +45,7 @@ export default class InfoScreen extends Component {
     const startday = moment(startday_var).format('DD.MM.YYYY HH:mm')
     let endday_var = this.state.data.event_dates.ending_day
     const endday = moment(endday_var).format('DD.MM.YYYY HH:mm')
-    
+
     let url;
     if (this.state.data.info_url === null) url = "https://www.myhelsinki.fi/"
     else url = this.state.data.info_url
@@ -57,7 +57,7 @@ export default class InfoScreen extends Component {
         </View>
 
         <View style={styles.namecontainer}>
-        <Text style={styles.name}>{name_var}</Text>
+          <Text style={styles.name}>{name_var}</Text>
         </View>
 
         <Text style={styles.description}>{text}</Text>

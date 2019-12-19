@@ -4,9 +4,6 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { weatherConditions } from '../utils/WeatherIcons';
 import { API_KEY } from 'react-native-dotenv';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-
-
-
 export default class Weather extends React.Component {
 
     constructor(props) {
@@ -40,10 +37,10 @@ export default class Weather extends React.Component {
         else weatherCond = condition
 
         url = "https://ilmatieteenlaitos.fi/saa/helsinki";
-        
+
         return (
             <View style={styles.container} >
-                <TouchableOpacity style={styles.weather} onPress={()=> Linking.openURL(url)}>
+                <TouchableOpacity style={styles.weather} onPress={() => Linking.openURL(url)}>
                     <MaterialCommunityIcons size={48} name={weatherCond.icon} color={'#fff'} />
                     <Text style={styles.tempText}>{temperature}˚</Text>
                 </TouchableOpacity>

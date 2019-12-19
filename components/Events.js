@@ -137,33 +137,33 @@ export default class Events extends React.Component {
   }
 
   render() {
-    
+
     return (
       <ScrollView>
         <View style={styles.logoContainer}><Image style={styles.logo} source={require('../assets/images/Meininki_blue.png')} /></View>
         <View style={styles.searchContainer}>
-        <TextInput
-          style={styles.textInputStyle}
-          onChangeText={this.SearchFilterFunction}
-          value={this.state.text}
-          placeholder="Ladataan..." />
-        
-        <DatePicker
-          style={styles.datePicker}
-          date={this.state.date}
-          mode="date"
-          format="DD.MM.YYYY"
-          placeholder="Valitse..."
-          customStyles={{
-          dateIcon: {
-            position: 'absolute',
-            left: 0,
-            top: 4,
-            marginLeft: 0,
-          }
-          }}
-          onDateChange={this.SearchDateFunction}
-        />
+          <TextInput
+            style={styles.textInputStyle}
+            onChangeText={this.SearchFilterFunction}
+            value={this.state.text}
+            placeholder="Ladataan..." />
+
+          <DatePicker
+            style={styles.datePicker}
+            date={this.state.date}
+            mode="date"
+            format="DD.MM.YYYY"
+            placeholder="Valitse..."
+            customStyles={{
+              dateIcon: {
+                position: 'absolute',
+                left: 0,
+                top: 4,
+                marginLeft: 0,
+              }
+            }}
+            onDateChange={this.SearchDateFunction}
+          />
         </View>
         <Spinner />
         <FlatList
