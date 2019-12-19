@@ -228,7 +228,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   timeplace: {
-    // fontWeight: "bold",
     fontSize: 16,
     paddingLeft: 5,
     paddingRight: 5,
