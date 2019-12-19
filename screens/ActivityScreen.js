@@ -20,7 +20,6 @@ export default class ActivityScreen extends Component {
 
     componentDidMount() {
         this.getActivity();
-        this.hideButton();
     }
 
     getActivity = () => {
@@ -38,8 +37,6 @@ export default class ActivityScreen extends Component {
         if (!text) text = "Haetaan..."
         let text = this.state.data.description.body
         let name_var = this.state.data.name.fi
-        let address_var = this.state.data.location.address.street_address
-        let city = this.state.data.location.address.locality
         let where_and_when = this.state.data.where_when_duration.where_and_when
         let duration = this.state.data.where_when_duration.duration
         
@@ -66,8 +63,6 @@ export default class ActivityScreen extends Component {
                     <Text style={{ color: 'white', fontSize: 16, padding: 5 }}
                         onPress={() => Linking.openURL(url)}>Aktiviteetin sivulle</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.Button} title="Vie omaan kalenteriin" onPress={() => Alert.alert('Tästä joskus vie omaan kalenteriin ehkä')}>
-                    <Text style={styles.buttontext}>Palaa listaan</Text></TouchableOpacity>
             </ScrollView>
         );
     }
@@ -92,6 +87,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         flex: 6,
         fontSize: 16,
+    },
+    duration: {
+        margin: 10,
+        flex: 1,
+        fontStyle: 'italic'
     },
     date: {
         margin: 10,

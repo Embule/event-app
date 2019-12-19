@@ -19,7 +19,7 @@ import throttle from 'lodash.throttle'
 import { TouchableOpacity } from "react-native-gesture-handler";
 import DatePicker from 'react-native-datepicker';
 import DateTimePicker from 'react-native-modal-datetime-picker'
-import ActivityIndicatorExample from './ActivityIndicatorExample';
+import Spinner from './Spinner';
 
 const baseurl = "http://open-api.myhelsinki.fi/v1";
 
@@ -170,7 +170,7 @@ SearchDateFunction = text => {
         />
         </View>
 
-        <ActivityIndicatorExample />
+        <Spinner />
         <FlatList
           data={this.state.data}
           renderItem={({ item }) =>
@@ -233,16 +233,16 @@ const styles = StyleSheet.create({
   header: {
     flex: 1,
     padding: 5,
-    fontSize: 18,
+    fontSize: 20,
     color: '#1A237E',
     fontWeight: 'bold',
   },
   timeplace: {
-    fontWeight: "bold",
+    // fontWeight: "bold",
     fontSize: 16,
     paddingLeft: 5,
     paddingRight: 5,
-    flex: 6,
+    flex: 8,
     marginTop: 15
   },
   Button: {

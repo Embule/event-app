@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { ActivityIndicator, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 class ActivityIndicatorExample extends Component {
-state = { animating: true, isVisible: true }
+state = { animating: true }
    
 closeActivityIndicator = () => setTimeout(() => this.setState({
-animating: false, isVisible: false }), 5000)
+animating: false }), 5000)
    
 componentDidMount = () => this.closeActivityIndicator()
 render() {
