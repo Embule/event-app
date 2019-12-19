@@ -33,7 +33,6 @@ class FlatListItem extends React.Component {
           </Image>
 
         </View>
-        <View style={styles.textContainer}>
         <Text style={styles.header} onPress={() => {
           this.props.navigation.navigate('Info', { id: this.props.item.id })
         }}>{this.props.item.name.fi}</Text>
@@ -53,7 +52,6 @@ class FlatListItem extends React.Component {
             this.props.navigation.navigate('Info', { id: this.props.item.id })
           }}><Text style={styles.Text}>Lue lisää...</Text></TouchableOpacity>
         </View>
-      </View>
       </View>
     )
   }
@@ -213,7 +211,6 @@ const styles = StyleSheet.create({
   itemcontainer: {
     borderBottomColor: '#1A237E',
     borderBottomWidth: 1,
-    margin: 5
   },
   imagecontainer: {
     justifyContent: 'center',
@@ -222,7 +219,6 @@ const styles = StyleSheet.create({
   images: {
     flex: 1,
     height: 140,
-    width: '90%'
   },
   header: {
     flex: 1,
@@ -279,7 +275,4 @@ const styles = StyleSheet.create({
   buttonContainer: {
     alignItems: 'center',
   },
-  textContainer: {
-    width: '90%'
-  }
 });
