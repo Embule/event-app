@@ -146,7 +146,7 @@ export default class Events extends React.Component {
           style={styles.textInputStyle}
           onChangeText={this.SearchFilterFunction}
           value={this.state.text}
-          placeholder="Ladataan..." />
+          placeholder="Hae tapahtumaa..." />
         
         <DatePicker
           style={styles.datePicker}
