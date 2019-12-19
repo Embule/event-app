@@ -148,7 +148,7 @@ export default class Events extends React.Component {
           style={styles.textInputStyle}
           onChangeText={this.SearchFilterFunction}
           value={this.state.text}
-          placeholder="Hae tapahtumaa..." />
+          placeholder="Ladataan..." />
         
         <DatePicker
           style={styles.datePicker}
@@ -180,10 +180,6 @@ export default class Events extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#00000000',
-  },
   events: {
     flex: 1,
     color: 'black',
@@ -215,7 +211,7 @@ const styles = StyleSheet.create({
     color: '#fff'
   },
   itemcontainer: {
-    borderBottomColor: 'lightgray',
+    borderBottomColor: '#1A237E',
     borderBottomWidth: 1,
     margin: 5
   },

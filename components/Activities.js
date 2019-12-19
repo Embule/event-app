@@ -14,13 +14,6 @@ import Spinner from './Spinner'
 
 const baseurl = "http://open-api.myhelsinki.fi/v1";
 
-//muuttuja sille, kun scrollataan sivun loppuun ja halutaan ladata lisää aktiviteetteja
-const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
-  const paddingToBottom = 40;
-  return layoutMeasurement.height + contentOffset.y >=
-    contentSize.height - paddingToBottom;
-};
-
 //Yksittäinen itemi aktiviteettilistassa
 class FlatListItem extends React.Component {
   constructor(props) {
@@ -149,7 +142,7 @@ export default class Activities extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    borderBottomColor: 'lightgray',
+    borderBottomColor: '#1A237E',
     borderBottomWidth: 1,
   },
   imagecontainer: {
