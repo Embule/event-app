@@ -17,37 +17,37 @@ export default class HomeScreen extends React.Component {
         return (
             <ImageBackground
                 style={{ flex: 1 }} source={require('../assets/images/tori.jpg')} >
-                    <View style={styles.icons}>
-                        <View style={styles.about}>
-                            <TouchableOpacity onPress={() => { this.props.navigation.navigate('About') }}>
-                                <About />
-                            </TouchableOpacity>
-                        </View>
-
-                        <View style={styles.logo}>
-                            <Image style={{ width: 100, height: 100 }} source={require('../assets/images/Meininki.png')} />
-                        </View>
-
-                        <View style={styles.weather}>
-                            {isLoading ? null : (
-                                <View>
-                                    <Weather />
-                                </View>
-                            )}
-                        </View>
+                <View style={styles.icons}>
+                    <View style={styles.about}>
+                        <TouchableOpacity onPress={() => { this.props.navigation.navigate('About') }}>
+                            <About />
+                        </TouchableOpacity>
                     </View>
 
-                    <View style={styles.buttonContainer}>
+                    <View style={styles.logo}>
+                        <Image style={{ width: 100, height: 100 }} source={require('../assets/images/Meininki.png')} />
+                    </View>
+
+                    <View style={styles.weather}>
+                        {isLoading ? null : (
+                            <View>
+                                <Weather />
+                            </View>
+                        )}
+                    </View>
+                </View>
+
+                <View style={styles.buttonContainer}>
                     <View style={styles.container}>
                         <TouchableOpacity
                             style={styles.Button}
                             onPress={() => { this.props.navigation.navigate('Activities') }}
-                        ><Image style={{width: 120, height: 120}} source={require('../assets/images/Aktiviteetit.png')} /></TouchableOpacity></View>
-                        <View style={styles.container}><TouchableOpacity
-                            style={styles.Button}
-                            onPress={() => { this.props.navigation.navigate('Events') }}
-                        ><Image style={{width: 120, height: 120}} source={require('../assets/images/Tapahtumat.png')} /></TouchableOpacity></View>
-                    </View>
+                        ><Image style={{ width: 120, height: 120 }} source={require('../assets/images/Aktiviteetit.png')} /></TouchableOpacity></View>
+                    <View style={styles.container}><TouchableOpacity
+                        style={styles.Button}
+                        onPress={() => { this.props.navigation.navigate('Events') }}
+                    ><Image style={{ width: 120, height: 120 }} source={require('../assets/images/Tapahtumat.png')} /></TouchableOpacity></View>
+                </View>
             </ImageBackground>
         );
     }
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         alignItems: 'center',
-    }, 
+    },
     icons: {
         flex: 1,
         flexDirection: "row"

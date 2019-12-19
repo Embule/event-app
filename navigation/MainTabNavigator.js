@@ -132,7 +132,7 @@ AboutStack.navigationOptions = {
 AboutStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
-  Home: {screen: HomeStack, navigationOptions: {tabBarVisible: false}}
+  Home: { screen: HomeStack, navigationOptions: { tabBarVisible: false } }
 });
 
 tabNavigator.path = '';
