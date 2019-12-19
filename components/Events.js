@@ -233,16 +233,16 @@ const styles = StyleSheet.create({
   header: {
     flex: 1,
     padding: 5,
-    fontSize: 18,
+    fontSize: 20,
     color: '#1A237E',
     fontWeight: 'bold',
   },
   timeplace: {
-    fontWeight: "bold",
+    // fontWeight: "bold",
     fontSize: 16,
     paddingLeft: 5,
     paddingRight: 5,
-    flex: 6,
+    flex: 8,
     marginTop: 15
   },
   Button: {

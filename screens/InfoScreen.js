@@ -70,8 +70,6 @@ export default class InfoScreen extends Component {
           <Text style={{ color: 'white', fontSize:16, padding: 5 }}
             onPress={() => Linking.openURL( url )}>Tapahtuman sivulle</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.Button} title="Vie omaan kalenteriin" onPress={() => Alert.alert('Tästä joskus vie omaan kalenteriin ehkä')}>
-          <Text style={styles.buttontext}>Palaa listaan</Text></TouchableOpacity>
       </ScrollView>
     );
   }
